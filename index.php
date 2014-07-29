@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+include('config/mysql.config.php');
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -88,6 +95,7 @@
           </form>
       </div>
     </div>
+    <div style="clear: both;"></div>
 </div>
 
 <div class="content-wrapper">
