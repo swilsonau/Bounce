@@ -40,7 +40,7 @@
 
 <div class="header">
     <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="">Bounce</a>
+        <a class="pure-menu-heading" href=""><img src="img/bounce-logo-white.png" width="150px"/></a>
 
         <ul>
             <li class="pure-menu-selected"><a href="#">Home</a></li>
@@ -54,7 +54,7 @@
 
 <div class="splash-container">
     <div class="splash pure-g">
-        <div class="pure-u-1-2">
+        <div class="pure-u-1 pure-u-md-1-2">
           <h1 class="splash-head">New Users</h1>
           <p class="splash-subhead">
               Connect with your personal trainer better than ever before.
@@ -63,7 +63,7 @@
               <a href="#" class="pure-button pure-button-primary">Search Trainers</a>
           </p>
       </div>
-      <div class="pure-u-1-2">
+      <div class="pure-u-1 pure-u-md-1-2">
         <h1 class="splash-head">Existing</h1>
         <p class="splash-subhead">
             Login to your account to connect with your trainer now.
