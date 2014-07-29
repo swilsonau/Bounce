@@ -40,7 +40,7 @@
 
 <div class="header">
     <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href=""><img src="img/bounce-logo-white.png" width="150px"/></a>
+        <a class="pure-menu-heading" href=""><img src="img/bounce-logo-white.png" width="100px"/></a>
 
         <ul>
             <li class="pure-menu-selected"><a href="#">Home</a></li>
@@ -62,13 +62,16 @@
           <p>
               <a href="#" class="pure-button pure-button-primary">Search Trainers</a>
           </p>
+          <p>
+            <small>* Note, we are only trailing Bounce in Wollongong, NSW.</small>
+          </p>
       </div>
       <div class="pure-u-1 pure-u-md-1-2">
         <h1 class="splash-head">Existing</h1>
         <p class="splash-subhead">
             Login to your account to connect with your trainer now.
         </p>
-          <form class="pure-form pure-form-stacked">
+          <form class="pure-form pure-form-stacked splash-form">
             <fieldset>
                 <label for="email">Email</label>
                 <input id="email" type="email" placeholder="Email">
