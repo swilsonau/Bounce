@@ -59,6 +59,7 @@ include('config/mysql.config.php');
         </ul>
     </div>
 </div>
+<div style="clear: both;"></div>
 
 <?php
 
