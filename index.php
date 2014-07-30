@@ -38,6 +38,8 @@ include('config/mysql.config.php');
         <link rel="stylesheet" href="<?php echo $siteurl; ?>css/layouts/marketing.css">
     <!--<![endif]-->
 
+  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
+
 </head>
 <body>
 
