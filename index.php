@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+include('config/site.config.php');
 include('config/mysql.config.php');
 
 ?>
@@ -12,7 +13,7 @@ include('config/mysql.config.php');
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="A layout example that shows off a responsive product landing page.">
 
-    <title>Bounce</title>
+    <title><?php echo $sitename; ?></title>
 
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
 
@@ -78,7 +79,7 @@ include('config/mysql.config.php');
         <p class="splash-subhead">
             Login to your account to connect with your trainer now.
         </p>
-          <form class="pure-form pure-form-stacked splash-form">
+          <form class="pure-form pure-form-stacked splash-form" action="actions/processlogin.php" method="post">
             <fieldset>
                 <label for="email">Email</label>
                 <input id="email" type="email" placeholder="Email">
