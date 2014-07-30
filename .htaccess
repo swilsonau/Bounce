@@ -1,0 +1,15 @@
+RewriteEngine On
+
+## If the request is for a valid directory
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+## If the request is for a valid file
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+## If the request is for a valid link
+RewriteCond %{REQUEST_FILENAME} -l
+## don't do anything
+RewriteRule ^ - [L]
+
+
+RewriteRule ^([^/]+)/([^/]+)/?$ index.php?page=$1&action=$2 [L,QSA]
+
+RewriteRule ^([^/]+)/?$ index.php?page=$1 [L,QSA]

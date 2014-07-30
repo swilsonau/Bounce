@@ -35,7 +35,7 @@ include('config/mysql.config.php');
         <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="css/layouts/marketing.css">
+        <link rel="stylesheet" href="<?php echo $siteurl; ?>css/layouts/marketing.css">
     <!--<![endif]-->
 
 
@@ -48,7 +48,7 @@ include('config/mysql.config.php');
 
 <div class="header">
     <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href=""><img src="img/bounce-logo-white.png" width="100px"/></a>
+        <a class="pure-menu-heading" href=""><img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="100px"/></a>
 
         <ul>
             <li class="pure-menu-selected"><a href="#">Home</a></li>
@@ -79,16 +79,16 @@ include('config/mysql.config.php');
         <p class="splash-subhead">
             Login to your account to connect with your trainer now.
         </p>
-          <form class="pure-form pure-form-stacked splash-form" action="actions/processlogin.php" method="post">
+          <form class="pure-form pure-form-stacked splash-form" action="<?php echo $siteurl; ?>account/login" method="post">
             <fieldset>
                 <label for="email">Email</label>
-                <input id="email" type="email" placeholder="Email">
+                <input id="email" type="email" placeholder="Email" required>
 
                 <label for="password">Password</label>
-                <input id="password" type="password" placeholder="Password">
+                <input id="password" type="password" placeholder="Password" required>
 
                 <label for="remember" class="pure-checkbox">
-                    <input id="remember" type="checkbox"> Remember me
+                    <input id="remember" type="checkbox" disabled="disabled"> Remember me
                 </label>
 
                 <button type="submit" class="pure-button pure-button-primary">Sign in</button>
@@ -204,7 +204,8 @@ include('config/mysql.config.php');
     </div>
 
     <div class="footer l-box is-center">
-        &copy; 2014 Bounce. All Rights Reserved.
+        &copy; 2014 Bounce. All Rights Reserved.<br />
+        <strong>Connected to:</strong> <?php echo gethostname(); ?>
     </div>
 
 </div>

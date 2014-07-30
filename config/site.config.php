@@ -8,7 +8,7 @@
 
 
 // SITE URL
-// Sets the current site URL. Used in any AJAX calls, redirects or links that require definite URLs
+// Sets the current site URL. Used in any AJAX calls, redirects or links that require absolute URLs
 $siteurl = "http://bouncelocal.net/";
 
 // SITE NAME
