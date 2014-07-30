@@ -43,10 +43,10 @@ include('config/mysql.config.php');
 
 <div class="header">
     <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href=""><img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="100px"/></a>
+        <a class="pure-menu-heading" href="<?php echo $siteurl; ?>"><img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="100px"/></a>
 
         <ul>
-            <li class="pure-menu-selected"><a href="#">Home</a></li>
+            <li class="pure-menu-selected"><a href="<?php echo $siteurl; ?>">Home</a></li>
             <li><a href="#">Features</a></li>
             <li><a href="#">Pricing</a></li>
             <li><a href="#">Account</a></li>
