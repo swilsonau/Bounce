@@ -9,10 +9,15 @@
 
 // SITE URL
 // Sets the current site URL. Used in any AJAX calls, redirects or links that require absolute URLs
-$siteurl = "http://bouncelocal.net/";
-
 // SITE NAME
 // Sets the current site name or branding
-$sitename = "Bounce";
+
+if(gethostname() == "eden.sp.cleverapp.net") {
+  $siteurl = "https://bounceapp.net/";
+  $sitename = "Bounce";
+} else {
+  $siteurl = "http://bouncelocal.net/";
+  $sitename = "Bounce DEV";
+}
 
 ?>
