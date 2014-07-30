@@ -11,11 +11,11 @@ include('config/mysql.config.php');
 <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="A layout example that shows off a responsive product landing page.">
+<meta name="description" content="">
 
     <title><?php echo $sitename; ?></title>
 
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="<?php echo $siteurl; ?>css/pure-min.css">
 
 <!--[if lte IE 8]>
 
@@ -24,7 +24,7 @@ include('config/mysql.config.php');
 <![endif]-->
 <!--[if gt IE 8]><!-->
 
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>css/grids-responsive-min.css">
 
 <!--<![endif]-->
 
@@ -37,11 +37,6 @@ include('config/mysql.config.php');
     <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="<?php echo $siteurl; ?>css/layouts/marketing.css">
     <!--<![endif]-->
-
-
-
-
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
 </head>
 <body>
