@@ -9,6 +9,11 @@
 include('config/site.config.php');
 include('config/mysql.config.php');
 
+if(isset($_SESSION['bouncesession'])) {
+  echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'account/" />';
+  die();
+}
+
 // Get inputs
 $emailaddress = mysqli_real_escape_string($sql, $_POST['email']);
 $password = mysqli_real_escape_string($sql, $_POST['password']);

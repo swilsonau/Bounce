@@ -270,6 +270,12 @@ a.pure-button-primary {
     background: #111;
 }
 
+.accountgrid {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /*
  * -- MOBILE MEDIA QUERIES --
  * On mobiles, we want to customize some
@@ -281,6 +287,10 @@ and (min-device-width : 320px)
 and (max-device-width : 480px) {
     .page-header {
       margin-top: 50px;
+    }
+
+    .accountgrid {
+      width: 100%;
     }
  }
 
