@@ -1,3 +1,18 @@
+<?php
+if(isset($_SESSION['bouncesession'])) {
+$userdetails = fetchuserdetail($_SESSION['bounceuser']);
+?>
+
+<div class="page-header">
+  <div class="content">
+    <h1>Welcome <?php echo $userdetails['firstname']; ?>!</h1>
+  </div>
+</div>
+
+<?php
+} else {
+?>
+
 <div class="page-header">
   <div class="content">
     <h1>Your Account</h1>
@@ -9,13 +24,18 @@
       <div class="pure-u-1 pure-u-md-1-2 login">
         <h2>Already a user</h2>
         <p class="text-subhead">Login to your account to connect with your trainer or check your stats.</p>
+        <?php
+          if(isset($_GET['incorrect'])) {
+            echo "<p><strong>Sorry, the details you entered were incorrect.</strong></p>";
+          }
+        ?>
         <form class="pure-form pure-form-stacked" action="<?php echo $siteurl; ?>account/login" method="post">
           <fieldset>
               <label for="email">Email</label>
-              <input id="email" type="email" placeholder="Email" required>
+              <input name="email" type="email" placeholder="Email" required>
 
               <label for="password">Password</label>
-              <input id="password" type="password" placeholder="Password" required>
+              <input name="password" type="password" placeholder="Password" required>
 
               <label for="remember" class="pure-checkbox">
                   <input id="remember" type="checkbox" disabled="disabled"> Remember me
@@ -59,3 +79,6 @@
       </div>
     </div>
 </div>
+<?php
+}
+?>

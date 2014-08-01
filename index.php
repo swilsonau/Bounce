@@ -3,7 +3,7 @@ session_start();
 
 include('config/site.config.php');
 include('config/mysql.config.php');
-
+include('config/functions.config.php');
 ?>
 
 <!doctype html>
