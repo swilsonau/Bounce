@@ -16,7 +16,7 @@ if(!checklogin()) {
 $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
 // Check if the user already has fitbit connected
-$checkuser = mysqli_query($sql, "SELECT `id`, `app`, `u_id` FROM `connectedapps` WHERE `app` = 'runkeeper' AND `u_id` = '$userdetails[id]' LIMIT 1") or die(mysql_error());
+$checkuser = mysqli_query($sql, "SELECT `id`, `app`, `u_id` FROM `connectedapps` WHERE `app` = 'fitbit' AND `u_id` = '$userdetails[id]' LIMIT 1") or die(mysql_error());
 
 if(mysqli_num_rows($checkuser) != 0) {
   echo 'You\'ve already connected this application';
@@ -52,6 +52,8 @@ if(mysqli_num_rows($checkuser) != 0) {
 
       if($insertsql) {
         // App is connected
+
+        sendemail($userdetails['emailaddress'], "You've connected Fitbit", "Hello!<br />Thanks for using $sitename.<br /><br />Just letting you know, either you (or someone else) has connected Fitbit to $sitename. If this wasn't you, we suggest changing your password and revoking access.<br /><br />Cheers,<br />$sitename");
 
         echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'account/apps" />';
       } else {
