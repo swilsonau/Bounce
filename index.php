@@ -48,11 +48,11 @@ include('config/functions.config.php');
         <a class="pure-menu-heading" href="<?php echo $siteurl; ?>"><img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="100px"/></a>
 
         <ul>
-            <li class="pure-menu-selected"><a href="<?php echo $siteurl; ?>">Home</a></li>
-            <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Account</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li<?php if(!isset($_GET['page'])) { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>">Home</a></li>
+            <li<?php if(isset($_GET['page']) && $_GET['page'] == "features") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>features">Features</a></li>
+            <li<?php if(isset($_GET['page']) && $_GET['page'] == "pricing") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>pricing">Pricing</a></li>
+            <li<?php if(isset($_GET['page']) && $_GET['page'] == "account") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>account">Account</a></li>
+            <li<?php if(isset($_GET['page']) && $_GET['page'] == "contact") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>contact">Contact Us</a></li>
         </ul>
     </div>
 </div>
@@ -83,8 +83,9 @@ if(!isset($_GET['page'])) {
 ?>
 
     <div class="footer l-box is-center">
-        &copy; 2014 Bounce. All Rights Reserved.<br />
-        <strong>Connected to:</strong> <?php echo gethostname(); ?>
+        &copy; 2014 <?php echo $sitename; ?>. All Rights Reserved.<br />
+        <strong>Connected to:</strong> <?php echo gethostname(); ?><br />
+        <strong>Version:</strong> <?php echo $siteversion; ?>
     </div>
 
 </div>

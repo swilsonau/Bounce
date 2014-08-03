@@ -20,4 +20,8 @@ if(gethostname() == "eden.sp.cleverapp.net") {
   $sitename = "Bounce DEV";
 }
 
+// SITE VERSION
+// Sets the site version
+$siteversion = "0.0.2";
+
 ?>
