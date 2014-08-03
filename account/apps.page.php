@@ -60,8 +60,8 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                         } else {
                           $fitbitconnected = true;
                           $fitbitinfo = mysqli_fetch_array($checksql);
-                          echo '<p>You\'ve connected Fitbit to '.$sitename.'!</p>';
-                          echo '<p>Date Connected: '.pardate($fitbitinfo['dateadded']).'</p>';
+                          echo '<p>You\'ve connected Fitbit to '.$sitename.'!<br />';
+                          echo 'Date Connected: '.pardate($fitbitinfo['dateadded']).'</p>';
                         }
                       } else {
                         echo '<p>There was an issue fetching details about your Fitbit connection.</p>';
@@ -72,9 +72,51 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                     <div class="pure-u-1 pure-u-md-1-3">
                       <?php
                       if($fitbitconnected) {
-                        echo '<strong>To disconnect Fitbit from '.$sitename.', you\'ll need to "Revoke Access" from your Fitbit account page</strong>';
+                        echo '<strong>To disconnect Fitbit from '.$sitename.', you\'ll need to "Revoke Access" from your Fitbit account page</strong><br />';
+                        echo '<a class="pure-button pure-button-primary" href="#">Delete Data</a>';
                       } else {
                         echo '<a class="pure-button pure-button-primary" href="'.$siteurl.'connect/fitbit">Connect with Fitbit</a>';
+                      }
+                      ?>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="pure-g">
+                    <div class="pure-u-1 pure-u-md-1-5">
+                      <img src="<?php echo $siteurl; ?>img/apps/runkeeper.png" class="app-img" />
+                    </div>
+
+                    <div class="pure-u-1 pure-u-md-1-3">
+                      <h3>RunKeeper</h3>
+
+                      <?php
+                      // Check if the user has connected runkeeper
+
+                      $checksql = mysqli_query($sql, "SELECT `id`, `app`, `u_id`, `dateadded` FROM `connectedapps` WHERE `app` = 'runkeeper' AND `u_id` = '$userdetails[id]'");
+                      if($checksql) {
+                        if(mysqli_num_rows($checksql) == 0) {
+                          echo '<p>RunKeeper allows users to track fitness activities and to see detailed statistics. Once connected, '.$sitename.' will be able to share these details with your personal trainer.</p>';
+                        } else {
+                          $runconnected = true;
+                          $fitbitinfo = mysqli_fetch_array($checksql);
+                          echo '<p>You\'ve connected RunKeeper to '.$sitename.'!<br />';
+                          echo 'Date Connected: '.pardate($fitbitinfo['dateadded']).'</p>';
+                        }
+                      } else {
+                        echo '<p>There was an issue fetching details about your RunKeeper connection.</p>';
+                      }
+                      ?>
+                    </div>
+
+                    <div class="pure-u-1 pure-u-md-1-3">
+                      <?php
+                      if(isset($runconnected)) {
+                        echo '<strong>To disconnect Runkeeper from '.$sitename.', you\'ll need to "Revoke Access" from your RunKeeper account page</strong><br />';
+                        echo '<a class="pure-button pure-button-primary" href="#">Delete Data</a>';
+                      } else {
+                        echo '<a class="pure-button pure-button-primary" href="'.$siteurl.'connect/runkeeper">Connect with RunKeeper</a>';
                       }
                       ?>
                     </div>
