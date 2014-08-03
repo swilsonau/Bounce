@@ -1,5 +1,5 @@
 <?php
-if(isset($_SESSION['bouncesession'])) {
+if(checklogin()) {
 $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 ?>
 

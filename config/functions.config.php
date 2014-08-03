@@ -14,5 +14,13 @@ function fetchuserdetail($id) {
   return mysqli_fetch_array($fetch);
 }
 
+function checklogin() {
+  if(isset($_SESSION['bouncesession'])) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 ?>
