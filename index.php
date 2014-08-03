@@ -4,6 +4,9 @@ session_start();
 include('config/site.config.php');
 include('config/mysql.config.php');
 include('config/functions.config.php');
+
+// Temboo API
+include('libs/temboo/temboo.php');
 ?>
 
 <!doctype html>
