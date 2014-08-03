@@ -22,5 +22,9 @@ function checklogin() {
   }
 }
 
+function pardate($date) {
+  return date('d/m/y h:i A', $date);
+}
+
 
 ?>

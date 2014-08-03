@@ -11,6 +11,8 @@ if(!checklogin()) {
   echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'account/" />';
   die();
 }
+
+$userdetails = fetchuserdetail($_SESSION['bounceuser']);
 ?>
 
 <div class="page-header">
@@ -47,11 +49,34 @@ if(!checklogin()) {
 
                     <div class="pure-u-1 pure-u-md-1-3">
                       <h3>Fitbit</h3>
-                      <p>Something about fitbit</p>
+
+                      <?php
+                      // Check if the user has connected fitbit
+
+                      $checksql = mysqli_query($sql, "SELECT `id`, `app`, `u_id`, `dateadded` FROM `connectedapps` WHERE `app` = 'fitbit' AND `u_id` = '$userdetails[id]'");
+                      if($checksql) {
+                        if(mysqli_num_rows($checksql) == 0) {
+                          echo '<p>Fitbit is a physical tracker and activity monitoring device. Easy keep track of your steps, sleep and activities with the Fitbit tracker. Once connected, '.$sitename.' can access your step counter, sleep statistics and activity information.</p>';
+                        } else {
+                          $fitbitconnected = true;
+                          $fitbitinfo = mysqli_fetch_array($checksql);
+                          echo '<p>You\'ve connected Fitbit to '.$sitename.'!</p>';
+                          echo '<p>Date Connected: '.pardate($fitbitinfo['dateadded']).'</p>';
+                        }
+                      } else {
+                        echo '<p>There was an issue fetching details about your Fitbit connection.</p>';
+                      }
+                      ?>
                     </div>
 
                     <div class="pure-u-1 pure-u-md-1-3">
-                      <a class="pure-button pure-button-primary" href="<?php echo $siteurl; ?>connect/fitbit">Connect with Fitbit</a>
+                      <?php
+                      if($fitbitconnected) {
+                        echo '<strong>To disconnect Fitbit from '.$sitename.', you\'ll need to "Revoke Access" from your Fitbit account page</strong>';
+                      } else {
+                        echo '<a class="pure-button pure-button-primary" href="'.$siteurl.'connect/fitbit">Connect with Fitbit</a>';
+                      }
+                      ?>
                     </div>
                   </div>
                 </li>

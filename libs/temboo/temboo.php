@@ -133,7 +133,7 @@ class Temboo_Session
      *
      * @param Temboo_URI A URI fragment corresponding to a method call in the REST API.
      * @return string The paramter value
-     */  
+     */
     protected function getSourceId($uri)
     {
         $jsClientVersion = $uri->getJSClientVersion();
@@ -225,6 +225,7 @@ class Temboo_Session
             throw new Temboo_Exception('Curl initialization failed', array('uri' => $this->fullRESTUri($uri)));
         }
 
+        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1) ;
         curl_setopt($curlHandle, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curlHandle, CURLOPT_USERPWD, $this->name . ":" . $this->key);
@@ -326,7 +327,7 @@ class Temboo_Choreography extends Temboo_Resource
     {
         return new Temboo_Inputs($inputs);
     }
-    
+
 }
 
 
@@ -404,7 +405,7 @@ class Temboo_Choreography_Execution extends Temboo_Resource
     public function __construct(Temboo_Session $session, Temboo_Choreography $choreo, $inputs = array(), $async = false, $store_results = true)
     {
         parent::__construct($session, $choreo->getUri());
-        
+
         if(!($inputs instanceof Temboo_Inputs)) {
             $inputs = $choreo->newInputs($inputs);
         }
@@ -1585,7 +1586,7 @@ class Temboo_Proxied_Choreography
         foreach($outputFilters as $name => $props){
             $fullInputs->addOutputFilter($name, $props->path, $props->variable);
         }
-        
+
         $this->_choreo->setJSClientVersion($clientVersion);
 
         return $this->_choreo->execute($fullInputs);
