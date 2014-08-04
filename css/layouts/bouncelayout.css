@@ -52,7 +52,7 @@ label {
 /*
  * -- PURE FORM STYLES --
  * Style the form inputs and labels
- */
+
 .pure-form label {
     margin: 1em 0 0;
     font-weight: bold;
@@ -66,7 +66,7 @@ label {
     width: 100%;
     margin-bottom: 1em;
 }
-
+*/
 /*
  * -- PURE BUTTON STYLES --
  * I want my pure-button elements to look a little different
@@ -188,6 +188,15 @@ a.pure-button-primary {
 .page-header h1 {
   color: white;
   margin: 40px 30px 30px 30px;
+}
+
+.signup-header {
+  width: 100%;
+  min-height: 30%;
+}
+
+.signup-header h1 {
+
 }
 
 .register {
@@ -365,7 +374,6 @@ and (max-device-width : 480px) {
     }
 
     .nav-right {
-      // Don't Show Nav Right on Mobiles.
       display: none;
     }
  }

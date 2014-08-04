@@ -88,14 +88,13 @@
         </div>
         <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
 
-            <h2 class="content-head content-head-ribbon">Laboris nisi ut aliquip.</h2>
+            <h2 class="content-head content-head-ribbon">Are you a trainer or gym?</h2>
 
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor.
+                Discover how <?php echo $sitename; ?> can improve communication with your clients! Sign up today to start offering <?php echo $sitename; ?> to your clients.
             </p>
+
+            <p><a href="<?php echo $siteurl; ?>signup/part1?type=gym" class="pure-button">Sign Up</a></p>
         </div>
     </div>
 

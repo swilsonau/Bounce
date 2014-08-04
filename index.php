@@ -62,7 +62,7 @@ if(checklogin()) {
             <li<?php if(isset($_GET['page']) && $_GET['page'] == "contact") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>contact">Contact Us</a></li>
         </ul>
 
-        <div class="nav-right">
+        <!---<div class="nav-right">
           <?php
           if(!checklogin()) {
             echo 'Please <a href="'.$siteurl.'account">Login</a> to continue.';
@@ -70,7 +70,7 @@ if(checklogin()) {
             echo '<button class="pure-button pure-button-primary" onclick="window.location = \''.$siteurl.'account/logout\'"><i class="fa fa-power-off"></i> Logout</button>';
           }
           ?>
-        </div>
+        </div>-->
     </div>
 </div>
 <div style="clear: both;"></div>
