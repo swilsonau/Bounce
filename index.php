@@ -7,18 +7,22 @@ include('config/functions.config.php');
 
 // Temboo API
 include('libs/temboo/temboo.php');
+
+if(checklogin()) {
+  $userdetails = fetchuserdetail($_SESSION['bounceuser']);
+}
 ?>
 
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
 
     <title><?php echo $sitename; ?></title>
 
-<link rel="stylesheet" href="<?php echo $siteurl; ?>css/pure-min.css">
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>css/pure-min.css">
 
 <!--[if lte IE 8]>
 
@@ -31,14 +35,14 @@ include('libs/temboo/temboo.php');
 
 <!--<![endif]-->
 
-
+    <script src="<?php echo $siteurl; ?>/libs/yui-min.js"></script>
 
 
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="<?php echo $siteurl; ?>css/layouts/marketing.css">
+        <link rel="stylesheet" href="<?php echo $siteurl; ?>css/layouts/bouncelayout.css">
     <!--<![endif]-->
 
   <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
@@ -57,6 +61,16 @@ include('libs/temboo/temboo.php');
             <li<?php if(isset($_GET['page']) && $_GET['page'] == "account") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>account">Account</a></li>
             <li<?php if(isset($_GET['page']) && $_GET['page'] == "contact") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>contact">Contact Us</a></li>
         </ul>
+
+        <div class="nav-right">
+          <?php
+          if(!checklogin()) {
+            echo 'Please <a href="'.$siteurl.'account">Login</a> to continue.';
+          } else {
+            echo '<i class="fa fa-user"></i> '.$userdetails['firstname'].' '.$userdetails['lastname'].' <button class="pure-button pure-button-primary" onclick="window.location = \''.$siteurl.'account/logout\'"><i class="fa fa-power-off"></i> Logout</button>';
+          }
+          ?>
+        </div>
     </div>
 </div>
 <div style="clear: both;"></div>
