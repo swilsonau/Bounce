@@ -39,5 +39,50 @@ function sendemail($to, $subject, $body) {
   $sendMailResults = $sendMail->execute($sendMailInputs)->getResults();
 }
 
+function dashnav($selected, $userdetails) {
+  global $siteurl;
+
+  $select = ' class="pure-menu-selected"';
+  $grav = get_gravatar($userdetails['emailaddress']);
+  $nav = '
+  <div class="userinfo">
+  <img src="'.$grav.'" />
+  <p>'.$userdetails['firstname'].'<br />
+  Bounce Fitness
+  </p>
+  </div>
+  <div class="pure-menu pure-menu-open">
+    <ul>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-home"></i> Dashboard Home</a></li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-calendar"></i> My Planner</a></li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-bar-chart-o"></i> My Progress</a></li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-child"></i> My Trainers</a></li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-rss"></i> My Programs</a></li>
+        <li class="pure-menu-heading">Find Trainers</li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Trainers</a></li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Programs</a></li>
+        <li class="pure-menu-heading">Settings</li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-user"></i> My Profile</a></li>
+        <li'; if($selected == 'apps') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/apps"><i class="fa fa-exchange"></i> Connected Apps</a></li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+    </ul>
+  </div>';
+
+  return $nav;
+}
+
+function get_gravatar( $email, $s = 70, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
+    $url = 'http://www.gravatar.com/avatar/';
+    $url .= md5( strtolower( trim( $email ) ) );
+    $url .= "?s=$s&d=$d&r=$r";
+    if ( $img ) {
+        $url = '<img src="' . $url . '"';
+        foreach ( $atts as $key => $val )
+            $url .= ' ' . $key . '="' . $val . '"';
+        $url .= ' />';
+    }
+    return $url;
+}
+
 
 ?>

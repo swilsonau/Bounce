@@ -17,18 +17,17 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
 <div class="page-header">
   <div class="content">
-    <h1>Apps</h1>
+    <h1>Dashboard / Connected Apps</h1>
   </div>
 </div>
 
 <div class="content-wrapper accountgrid">
   <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-5 settings-nav">
-            <div class="pure-menu pure-menu-open">
-              <ul>
-                  <li><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-arrow-left"></i> Return to Account</a></li>
-              </ul>
-          </div>
+            <?php
+                echo dashnav($_GET['action'], $userdetails);
+
+              ?>
         </div>
 
         <div class="pure-u-1 pure-u-md-3-4 settings-content">

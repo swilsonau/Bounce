@@ -58,7 +58,7 @@ if(checklogin()) {
             <li<?php if(!isset($_GET['page'])) { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>">Home</a></li>
             <li<?php if(isset($_GET['page']) && $_GET['page'] == "features") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>features">Features</a></li>
             <li<?php if(isset($_GET['page']) && $_GET['page'] == "pricing") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>pricing">Pricing</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "account") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>account">Account</a></li>
+            <li<?php if(isset($_GET['page']) && $_GET['page'] == "account") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>account">Dashboard</a></li>
             <li<?php if(isset($_GET['page']) && $_GET['page'] == "contact") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>contact">Contact Us</a></li>
         </ul>
 
@@ -67,7 +67,7 @@ if(checklogin()) {
           if(!checklogin()) {
             echo 'Please <a href="'.$siteurl.'account">Login</a> to continue.';
           } else {
-            echo '<i class="fa fa-user"></i> '.$userdetails['firstname'].' '.$userdetails['lastname'].' <button class="pure-button pure-button-primary" onclick="window.location = \''.$siteurl.'account/logout\'"><i class="fa fa-power-off"></i> Logout</button>';
+            echo '<button class="pure-button pure-button-primary" onclick="window.location = \''.$siteurl.'account/logout\'"><i class="fa fa-power-off"></i> Logout</button>';
           }
           ?>
         </div>
