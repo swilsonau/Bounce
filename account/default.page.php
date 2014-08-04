@@ -11,7 +11,24 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
 <div class="content-wrapper accountgrid">
   <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-1-5">1</div>
+      <div class="pure-u-1 pure-u-md-1-5">
+        <div class="pure-menu pure-menu-open">
+          <ul>
+              <li class="pure-menu-selected"><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-home"></i> Account Home</a></li>
+              <li><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-calendar"></i> My Planner</a></li>
+              <li><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-bar-chart-o"></i> My Progress</a></li>
+              <li><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-child"></i> My Trainers</a></li>
+              <li><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-rss"></i> My Programs</a></li>
+              <li class="pure-menu-heading">Find Trainers</li>
+              <li><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-search"></i> Find Trainers</a></li>
+              <li><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-search"></i> Find Programs</a></li>
+              <li class="pure-menu-heading">Settings</li>
+              <li><a href="<?php echo $siteurl; ?>account/"><i class="fa fa-user"></i> My Profile</a></li>
+              <li><a href="<?php echo $siteurl; ?>account/apps"><i class="fa fa-exchange"></i> Connected Apps</a></li>
+              <li><a href="<?php echo $siteurl; ?>account/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="pure-u-1 pure-u-md-1-5">2</div>
       <div class="pure-u-1 pure-u-md-1-5">3</div>
       <div class="pure-u-1 pure-u-md-1-5">4</div>

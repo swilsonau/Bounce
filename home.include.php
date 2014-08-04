@@ -20,10 +20,10 @@
           <form class="pure-form pure-form-stacked splash-form" action="<?php echo $siteurl; ?>account/login" method="post">
             <fieldset>
                 <label for="email">Email</label>
-                <input id="email" type="email" placeholder="Email" required>
+                <input name="email" type="email" placeholder="Email" required>
 
                 <label for="password">Password</label>
-                <input id="password" type="password" placeholder="Password" required>
+                <input name="password" type="password" placeholder="Password" required>
 
                 <label for="remember" class="pure-checkbox">
                     <input id="remember" type="checkbox" disabled="disabled"> Remember me
