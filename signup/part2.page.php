@@ -15,6 +15,8 @@ if(!isset($_SESSION['bouncenewid'])) {
   $newuserinfo = fetchuserdetail($_SESSION['bouncenewid']);
 }
 
+
+
 ?>
 
 <div class="signup-header">
@@ -26,6 +28,26 @@ if(!isset($_SESSION['bouncenewid'])) {
   <div class="pure-g">
     <h1>What kind of user are you?</h1>
   </div>
+
+  <?php
+  if(isset($_GET['process'])) {
+    // Generate an activation code and store it
+    $token = bin2hex(openssl_random_pseudo_bytes(32));
+    $ipaddress = $_SERVER['REMOTE_ADDR'];
+
+    $actsql = mysqli_query($sql, "UPDATE `users` SET `activationhash` = '$token' AND `ip` = '$ipaddress' WHERE `id` = '$newuserinfo[id]'");
+
+    if(!$actsql) {
+      echo "There was an error finishing your account setup.";
+    } else {
+      // All good, send the email
+      $actlink = $siteurl."activate/".$token;
+      sendemail($newuserinfo['emailaddress'], $sitename." activation email", "Hello $newuserinfo[firstname],<br />Thanks for signing up for $sitename!<br /><br />Please click on the link below to activate your account.<br /><br /><a href=\"$actlink\">$actlink</a><br /><br />Thank you,<br />$sitename");
+
+      echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'signup/finish" />';
+    }
+  }
+  ?>
 
   <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-2">
