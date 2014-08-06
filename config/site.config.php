@@ -22,6 +22,6 @@ if(gethostname() == "eden.sp.cleverapp.net") {
 
 // SITE VERSION
 // Sets the site version
-$siteversion = "0.1.3";
+$siteversion = "0.1.4";
 
 ?>
