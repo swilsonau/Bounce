@@ -6,7 +6,7 @@
               Connect with your personal trainer better than ever before.
           </p>
           <p>
-              <a href="#" class="pure-button pure-button-primary">Search Trainers</a>
+              <a href="<?php echo $siteurl; ?>signup/part1" class="pure-button pure-button-primary">Sign Up</a>
           </p>
           <p>
             <small>* Note, we are only trailing Bounce in Wollongong, NSW.</small>
@@ -94,7 +94,7 @@
                 Discover how <?php echo $sitename; ?> can improve communication with your clients! Sign up today to start offering <?php echo $sitename; ?> to your clients.
             </p>
 
-            <p><a href="<?php echo $siteurl; ?>signup/part1?type=gym" class="pure-button">Sign Up</a></p>
+            <p><a href="<?php echo $siteurl; ?>signup/part1" class="pure-button">Sign Up</a></p>
         </div>
     </div>
 
