@@ -42,7 +42,7 @@ if(!isset($_SESSION['bouncenewid'])) {
       echo "There was an error finishing your account setup.";
     } else {
       // All good, send the email
-      $actlink = $siteurl."activate/".$token;
+      $actlink = $siteurl."signup/activate/".$token;
       sendemail($newuserinfo['emailaddress'], $sitename." activation email", "Hello $newuserinfo[firstname],<br />Thanks for signing up for $sitename!<br /><br />Please click on the link below to activate your account.<br /><br /><a href=\"$actlink\">$actlink</a><br /><br />Thank you,<br />$sitename");
 
       echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'signup/finish" />';

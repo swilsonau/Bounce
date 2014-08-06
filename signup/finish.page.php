@@ -14,6 +14,10 @@ if(!isset($_SESSION['bouncenewid'])) {
 } else {
   $newuserinfo = fetchuserdetail($_SESSION['bouncenewid']);
 }
+
+// unset seesions
+session_unset();
+session_destroy();
 ?>
 
 <div class="signup-header">
@@ -27,6 +31,11 @@ if(!isset($_SESSION['bouncenewid'])) {
       <aside>
         <p>We've emailed you an activation link. You'll need to click on this link to activate your account.</p>
       </aside>
+
+      <div style="text-align: center;">
+        <br />
+        <a class="pure-button pure-button-primary" href="<?php echo $siteurl; ?>account">My Account</a>
+      </div>
     </div>
   </div>
 </div>

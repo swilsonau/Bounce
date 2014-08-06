@@ -23,7 +23,7 @@ $ipaddress = $_SERVER["REMOTE_ADDR"];
 $useragent = $_SERVER['HTTP_USER_AGENT'];
 
 // Check the database
-$checkuser = mysqli_query($sql, "SELECT `id`, `emailaddress`, `password` FROM `users` WHERE `emailaddress` = '$emailaddress'") or die(mysql_error());
+$checkuser = mysqli_query($sql, "SELECT `id`, `emailaddress`, `password` FROM `users` WHERE `emailaddress` = '$emailaddress' AND `status` = '1'") or die(mysql_error());
 
 if(mysqli_num_rows($checkuser) != 0) {
   $userdetails = mysqli_fetch_array($checkuser);
@@ -36,10 +36,10 @@ if(mysqli_num_rows($checkuser) != 0) {
 
     echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'account/" />';
   } else {
-    echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'account/?incorrect=pass" />';
+    echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'account/?incorrect=true" />';
   }
 } else {
-  echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'account/?incorrect=nousr" />';
+  echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'account/?incorrect=true" />';
 }
 
 ?>
