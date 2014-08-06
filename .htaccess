@@ -7,6 +7,7 @@ RewriteCond %{REQUEST_FILENAME} -l
 ## don't do anything
 RewriteRule ^ - [L]
 
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ index.php?page=$1&action=$2&process=$3 [L,QSA]
 
 RewriteRule ^([^/]+)/([^/]+)/?$ index.php?page=$1&action=$2 [L,QSA]
 

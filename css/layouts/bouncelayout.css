@@ -236,6 +236,10 @@ aside {
     color: #fff;
 }
 
+.error {
+  background: #BD330D;
+}
+
 .settings-nav {
   padding: 5px;
 }
