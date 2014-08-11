@@ -54,13 +54,16 @@ if(checklogin()) {
     <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
         <a class="pure-menu-heading" href="<?php echo $siteurl; ?>"><img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="100px"/></a>
 
-        <ul>
-            <li<?php if(!isset($_GET['page'])) { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>">Home</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "features") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>features">Features</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "pricing") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>pricing">Pricing</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "account") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>account">Dashboard</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "contact") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>contact">Contact Us</a></li>
-        </ul>
+        <a href="">Menu</a>
+
+          <ul>
+              <li<?php if(!isset($_GET['page'])) { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>">Home</a></li>
+              <li<?php if(isset($_GET['page']) && $_GET['page'] == "features") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>features">Features</a></li>
+              <li<?php if(isset($_GET['page']) && $_GET['page'] == "pricing") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>pricing">Pricing</a></li>
+              <li<?php if(isset($_GET['page']) && $_GET['page'] == "account") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>account">Dashboard</a></li>
+              <li<?php if(isset($_GET['page']) && $_GET['page'] == "contact") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>contact">Contact Us</a></li>
+          </ul>
+
 
         <!---<div class="nav-right">
           <?php

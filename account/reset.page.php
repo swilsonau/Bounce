@@ -114,6 +114,7 @@
 
                       if($updsql) {
                         // SQL query ran
+                        sendemail($resetemail, $sitename." Password Reset Success", "Hello,<br />Thanks for using $sitename!<br /><br />As per your request, your password has been reset. You can now login to $sitename with your new password.<br /><br />If you did not request this, please contact us ASAP.<br /><br />Thank you,<br />$sitename");
 
                         echo '<aside class="success">
                         <p>Your password has been reset. You can now <a href="'.$siteurl.'account">login</a> with your new password.</p>

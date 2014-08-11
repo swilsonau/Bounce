@@ -182,7 +182,7 @@ a.pure-button-primary {
 .page-header {
   background: #701E08;
   width: 100%;
-  height: 30%;
+  height: 130px;
 }
 
 .page-header h1 {
@@ -371,11 +371,9 @@ aside {
  * of the mobile styles.
  */
 
-@media only screen
-and (min-device-width : 320px)
-and (max-device-width : 480px) {
+@media (max-width: 360px) {
     .page-header {
-      margin-top: 100px;
+      margin-top: 0px;
     }
 
     .accountgrid {
@@ -383,6 +381,10 @@ and (max-device-width : 480px) {
     }
 
     .nav-right {
+      display: none;
+    }
+
+    .home-menu li {
       display: none;
     }
  }
@@ -408,11 +410,6 @@ and (max-device-width : 480px) {
     .home-menu {
         text-align: left;
     }
-
-    /* We increase the height of the splash-container */
-/*    .splash-container {
-        height: 500px;
-    }*/
 
     /* We decrease the width of the .splash, since we have more width
     to work with */
