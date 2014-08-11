@@ -240,6 +240,10 @@ aside {
   background: #BD330D;
 }
 
+.success {
+  background: #70AD4B;
+}
+
 .settings-nav {
   padding: 5px;
 }

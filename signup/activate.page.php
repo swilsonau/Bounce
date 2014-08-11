@@ -25,27 +25,35 @@
               // Check the activation code exists
               $code = mysqli_real_escape_string($sql, $_GET['process']);
 
-              $actsql = mysqli_query($sql, "SELECT `id`, `activationhash`, `firstname`, `emailaddress` FROM `users` WHERE `activationhash` = '$code'");
+              $actsql = mysqli_query($sql, "SELECT `id`, `activationhash`, `firstname`, `emailaddress` FROM `users` WHERE `activationhash` = '$code' AND `status` = '0'");
 
               if($actsql) {
                 // All good
 
-                $acc = mysqli_fetch_array($actsql);
-
-                // Activate the user
-                $activsql = mysqli_query($sql, "UPDATE `users` SET `status` = '1', `activationhash` = NULL WHERE `id` = '$acc[id]'");
-
-                if($activsql) {
-                  // All good
-
-                  sendemail($acc['emailaddress'], $sitename." Account Activated", "Hello $acc[firstname],<br />Thanks for signing up for $sitename!<br /><br />Your account has been activated. You can now login to $sitename with the email address and password you specified at sign up.<br /><br />Thank you,<br />$sitename");
-
-                  echo '<aside>
-                  <p>Thanks. Your account was activated.</p>
+                if(!mysqli_num_rows($actsql)) {
+                  echo '<aside class="error">
+                  <p>Account already activated or activation hash invalid.</p>
                   </aside>';
                 } else {
-                  echo 'There was an error.';
+
+                  $acc = mysqli_fetch_array($actsql);
+
+                  // Activate the user
+                  $activsql = mysqli_query($sql, "UPDATE `users` SET `status` = '1', `activationhash` = NULL WHERE `id` = '$acc[id]'");
+
+                  if($activsql) {
+                    // All good
+
+                    sendemail($acc['emailaddress'], $sitename." Account Activated", "Hello $acc[firstname],<br />Thanks for signing up for $sitename!<br /><br />Your account has been activated. You can now login to $sitename with the email address and password you specified at sign up.<br /><br />Thank you,<br />$sitename");
+
+                    echo '<aside>
+                    <p>Thanks. Your account was activated.</p>
+                    </aside>';
+                  } else {
+                    echo 'There was an error.';
+                  }
                 }
+
               } else {
                 // MySQL error
 
