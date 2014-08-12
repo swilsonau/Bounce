@@ -5,7 +5,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
 <div class="page-header">
   <div class="content">
-    <h1>Dashboard</h1>
+    <h1><?php echo getusertype($userdetails, true); ?> Dashboard</h1>
   </div>
 </div>
 

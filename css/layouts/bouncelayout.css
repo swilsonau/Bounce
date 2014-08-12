@@ -404,6 +404,7 @@ aside {
 
     .home-menu {
         text-align: left;
+        float: left;
     }
  }
 

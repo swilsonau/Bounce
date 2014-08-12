@@ -14,6 +14,36 @@ function fetchuserdetail($id) {
   return mysqli_fetch_array($fetch);
 }
 
+function checkusertype($find, $userdetails) {
+  $user = $userdetails['type'];
+
+  if($find == $user) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function getusertype($userdetails, $string = false) {
+  if(!$string) {
+    return $userdetials['type'];
+  } else {
+    switch($userdetails['type']) {
+      default:
+        return "";
+      break;
+
+      case "2":
+        return "Organisational";
+      break;
+
+      case "3":
+        return "Administrator";
+      break;
+    }
+  }
+}
+
 function checklogin() {
   if(isset($_SESSION['bouncesession'])) {
     return true;
