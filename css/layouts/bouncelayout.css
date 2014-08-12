@@ -365,6 +365,16 @@ aside {
   margin-bottom: 10px;
 }
 
+#mobile-menu {
+  display: none!important;
+  float: right;
+  padding: 10px 10px;
+}
+
+#mobile-menu a {
+  color: white;
+}
+
 /*
  * -- MOBILE MEDIA QUERIES --
  * On mobiles, we want to customize some
@@ -386,6 +396,14 @@ aside {
 
     .home-menu li {
       display: none;
+    }
+
+    #mobile-menu {
+      display: inline!important;
+    }
+
+    .home-menu {
+        text-align: left;
     }
  }
 

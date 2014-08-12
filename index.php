@@ -35,7 +35,7 @@ if(checklogin()) {
 
 <!--<![endif]-->
 
-    <script src="<?php echo $siteurl; ?>/libs/yui-min.js"></script>
+    <script src="<?php echo $siteurl; ?>/libs/jquery-1.11.1.min.js"></script>
 
 
     <!--[if lte IE 8]>
@@ -47,6 +47,12 @@ if(checklogin()) {
 
   <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
 
+  <script type="text/javascript">
+    function togglemenu() {
+      $('.pure-menu').find('li').toggle();
+    }
+  </script>
+
 </head>
 <body>
 
@@ -54,7 +60,9 @@ if(checklogin()) {
     <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
         <a class="pure-menu-heading" href="<?php echo $siteurl; ?>"><img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="100px"/></a>
 
-        <a href="">Menu</a>
+        <div id="mobile-menu">
+          <a href="#" onclick="togglemenu()"><i class="fa fa-bars fa-2x"></i></a>
+        </div>
 
           <ul>
               <li<?php if(!isset($_GET['page'])) { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>">Home</a></li>
