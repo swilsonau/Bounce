@@ -95,7 +95,7 @@ a.pure-button-primary {
     padding: 0.5em;
     text-align: center;
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
-    background: url('../../img/nav-bg.png') no-repeat #ea2828!important;
+    background: url('../../img/nav-bg.png') repeat-x #ea2828!important;
 }
 .home-menu.pure-menu-open {
     background: #2d3e50;
@@ -126,7 +126,7 @@ a.pure-button-primary {
  */
 
 .splash-container {
-    background: #701E08;
+    background: url('../../img/homebg.png');
     width: 100%;
     height: 88%;
 }
@@ -387,7 +387,7 @@ aside {
     }
 
     .accountgrid {
-      width: 100%;
+      width: 95%;
     }
 
     .nav-right {
