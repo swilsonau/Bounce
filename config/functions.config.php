@@ -14,6 +14,36 @@ function fetchuserdetail($id) {
   return mysqli_fetch_array($fetch);
 }
 
+function checkusertype($find, $userdetails) {
+  $user = $userdetails['type'];
+
+  if($find == $user) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function getusertype($userdetails, $string = false) {
+  if(!$string) {
+    return $userdetials['type'];
+  } else {
+    switch($userdetails['type']) {
+      default:
+        return "";
+      break;
+
+      case "2":
+        return "Organisational";
+      break;
+
+      case "3":
+        return "Administrator";
+      break;
+    }
+  }
+}
+
 function checklogin() {
   if(isset($_SESSION['bouncesession'])) {
     return true;
@@ -44,11 +74,18 @@ function dashnav($selected, $userdetails) {
 
   $select = ' class="pure-menu-selected"';
   $grav = get_gravatar($userdetails['emailaddress']);
+
+  if(checkorgownership($userdetails['id'])) {
+    $org = "Organisation Account";
+  } else {
+    $org = "";
+  }
+
   $nav = '
   <div class="userinfo">
   <img src="'.$grav.'" />
   <p>'.$userdetails['firstname'].'<br />
-  Bounce Fitness
+'.$org.'
   </p>
   </div>
   <div class="pure-menu pure-menu-open">
@@ -82,6 +119,27 @@ function get_gravatar( $email, $s = 70, $d = 'mm', $r = 'g', $img = false, $atts
         $url .= ' />';
     }
     return $url;
+}
+
+
+// #########################################
+// # ORGANISATION RELATED FUNCTIONS        #
+// #########################################
+
+function checkorgownership($userid) {
+  global $sql;
+
+  $fetch = mysqli_query($sql, "SELECT `users`.`id` AS `userid`, `organise_assign`.`organ_id` AS `orgid`, `organise_assign`.`perms` FROM `users` RIGHT JOIN `organise_assign` ON `users`.`id` = `organise_assign`.`user_id` WHERE `users`.`id` = '$userid'");
+
+  if(!$fetch) {
+    return false;
+  } else {
+    if(mysqli_num_rows($fetch) == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
 
 

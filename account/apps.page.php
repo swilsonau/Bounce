@@ -70,7 +70,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                     <div class="pure-u-1 pure-u-md-1-3">
                       <?php
-                      if($fitbitconnected) {
+                      if(isset($fitbitconnected)) {
                         echo '<strong>To disconnect Fitbit from '.$sitename.', you\'ll need to "Revoke Access" from your Fitbit account page</strong><br />';
                         echo '<a class="pure-button pure-button-primary" href="#">Delete Data</a>';
                       } else {

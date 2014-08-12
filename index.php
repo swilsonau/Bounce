@@ -35,7 +35,7 @@ if(checklogin()) {
 
 <!--<![endif]-->
 
-    <script src="<?php echo $siteurl; ?>/libs/yui-min.js"></script>
+    <script src="<?php echo $siteurl; ?>/libs/jquery-1.11.1.min.js"></script>
 
 
     <!--[if lte IE 8]>
@@ -47,6 +47,12 @@ if(checklogin()) {
 
   <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
 
+  <script type="text/javascript">
+    function togglemenu() {
+      $('.pure-menu').find('li').toggle();
+    }
+  </script>
+
 </head>
 <body>
 
@@ -54,13 +60,18 @@ if(checklogin()) {
     <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
         <a class="pure-menu-heading" href="<?php echo $siteurl; ?>"><img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="100px"/></a>
 
-        <ul>
-            <li<?php if(!isset($_GET['page'])) { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>">Home</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "features") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>features">Features</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "pricing") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>pricing">Pricing</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "account") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>account">Dashboard</a></li>
-            <li<?php if(isset($_GET['page']) && $_GET['page'] == "contact") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>contact">Contact Us</a></li>
-        </ul>
+        <div id="mobile-menu">
+          <a href="#" onclick="togglemenu()"><i class="fa fa-bars fa-2x"></i></a>
+        </div>
+
+          <ul>
+              <li<?php if(!isset($_GET['page'])) { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>">Home</a></li>
+              <li<?php if(isset($_GET['page']) && $_GET['page'] == "features") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>features">Features</a></li>
+              <li<?php if(isset($_GET['page']) && $_GET['page'] == "pricing") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>pricing">Pricing</a></li>
+              <li<?php if(isset($_GET['page']) && $_GET['page'] == "account") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>account">Dashboard</a></li>
+              <li<?php if(isset($_GET['page']) && $_GET['page'] == "contact") { echo ' class="pure-menu-selected"'; }?>><a href="<?php echo $siteurl; ?>contact">Contact Us</a></li>
+          </ul>
+
 
         <!---<div class="nav-right">
           <?php
