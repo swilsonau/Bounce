@@ -77,12 +77,13 @@ function dashnav($selected, $userdetails) {
 
   if(checkorgownership($userdetails['id'])) {
     $org = "Organisation Account";
+    $isorg = true;
   } else {
     $org = "";
   }
 
   $nav = '
-  <div class="userinfo">
+  <div class="userinfo is-center">
   <img src="'.$grav.'" />
   <p>'.$userdetails['firstname'].'<br />
 '.$org.'
@@ -94,11 +95,19 @@ function dashnav($selected, $userdetails) {
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-calendar"></i> My Planner</a></li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-bar-chart-o"></i> My Progress</a></li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-child"></i> My Trainers</a></li>
-        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-rss"></i> My Programs</a></li>
-        <li class="pure-menu-heading">Find Trainers</li>
-        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Trainers</a></li>
-        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Programs</a></li>
-        <li class="pure-menu-heading">Settings</li>
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-rss"></i> My Programs</a></li>';
+        if(isset($isorg)) {
+          $nav .= '<li class="pure-menu-heading">Organisation Settings</li>
+          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/profile"><i class="fa fa-sitemap"></i> Organisation Profile</a></li>
+          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/users"><i class="fa fa-users"></i> Organisation Users</a></li>
+          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/programs"><i class="fa fa-location-arrow"></i> Organisation Programs</a></li>
+          ';
+        } else {
+          $nav .='<li class="pure-menu-heading">Find Trainers</li>
+          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Trainers</a></li>
+          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Programs</a></li>';
+      }
+        $nav .= '<li class="pure-menu-heading">Settings</li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-user"></i> My Profile</a></li>
         <li'; if($selected == 'apps') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/apps"><i class="fa fa-exchange"></i> Connected Apps</a></li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/logout"><i class="fa fa-power-off"></i> Logout</a></li>
@@ -142,5 +151,40 @@ function checkorgownership($userid) {
   }
 }
 
+function stringorgperms($perm, $long = false) {
+  switch($perm) {
+    default:
+      if($long) {
+        return "No Permission";
+      } else {
+        return "N/A";
+      }
+    break;
+
+    case "1":
+      if($long) {
+        return "Read Only";
+      } else {
+        return "R";
+      }
+    break;
+
+    case "2":
+      if($long) {
+        return "Read/Write";
+      } else {
+        return "RW";
+      }
+    break;
+
+    case "3":
+      if($long) {
+        return "Full Permission";
+      } else {
+        return "F/P";
+      }
+    break;
+  }
+}
 
 ?>

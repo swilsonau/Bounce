@@ -127,6 +127,7 @@ a.pure-button-primary {
 
 .splash-container {
     background: url('../../img/homebg.png');
+    background-size: cover;
     width: 100%;
     height: 88%;
 }
@@ -375,13 +376,31 @@ aside {
   color: white;
 }
 
+.orgselector {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px 15px 5px 15px;
+  margin-top: 10px;
+}
+
+.orgselector p {
+  float: left;
+  padding: 0;
+  margin: 0;
+}
+
+.orgselector select {
+  float: right;
+}
+
 /*
  * -- MOBILE MEDIA QUERIES --
  * On mobiles, we want to customize some
  * of the mobile styles.
  */
 
-@media (max-width: 360px) {
+@media (max-width: 460px) {
     .page-header {
       margin-top: 0px;
     }

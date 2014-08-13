@@ -49,7 +49,11 @@ if(checklogin()) {
 
   <script type="text/javascript">
     function togglemenu() {
-      $('.pure-menu').find('li').toggle();
+      $('.home-menu').find('li').toggle();
+    }
+
+    function changeorg(value){
+      window.location='<?php echo $siteurl; ?>org/profile/' + value;
     }
   </script>
 
