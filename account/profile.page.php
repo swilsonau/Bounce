@@ -74,7 +74,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                 <legend>Facebook Account</legend>
 
                 <div class="pure-controls">
-                    <button class="pure-button pure-button-primary">Connect to Facebook</button>
+                    <a class="pure-button pure-button-primary" href="<?php echo $siteurl; ?>connect/facebook">Connect Facebook Account</a>
                 </div>
 
               </fieldset>

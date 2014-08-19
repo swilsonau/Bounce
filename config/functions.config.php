@@ -108,7 +108,7 @@ function dashnav($selected, $userdetails) {
           <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Programs</a></li>';
       }
         $nav .= '<li class="pure-menu-heading">Settings</li>
-        <li'; if($selected == 'profile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-user"></i> My Profile</a></li>
+        <li'; if($selected == 'profile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/profile"><i class="fa fa-user"></i> My Profile</a></li>
         <li'; if($selected == 'apps') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/apps"><i class="fa fa-exchange"></i> Connected Apps</a></li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/logout"><i class="fa fa-power-off"></i> Logout</a></li>
     </ul>
