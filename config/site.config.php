@@ -16,8 +16,8 @@ if(gethostname() == "eden.sp.cleverapp.net") {
   $siteurl = "https://bounceapp.net/";
   $sitename = "Bounce";
 } else {
-  if($_SERVER['SERVER_ADDR'] == "10.64.19.106") {
-    $siteurl = "http://10.64.19.106/";
+  if($_SERVER['SERVER_ADDR'] == "130.130.174.89") {
+    $siteurl = "http://130.130.174.89/";
     $sitename = "Bounce Dev";
   } else {
     $siteurl = "http://bouncelocal.net/";
@@ -27,6 +27,6 @@ if(gethostname() == "eden.sp.cleverapp.net") {
 
 // SITE VERSION
 // Sets the site version
-$siteversion = "0.1.4 master";
+$siteversion = "0.1.5 master";
 
 ?>
