@@ -40,27 +40,27 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                 <div class="pure-control-group">
                     <label for="email">Email Address</label>
-                    <input name="email" type="email" placeholder="Email Address" value="<?php echo (isset($email) ? $email : null) ?>">
+                    <input name="email" type="email" placeholder="Email Address" value="<?php echo $userdetails['emailaddress']; ?>">
                 </div>
 
                 <div class="pure-control-group">
                     <label for="firstname">First Name</label>
-                    <input name="firstname" type="text" placeholder="First Name" value="<?php echo (isset($firstname) ? $firstname : null) ?>">
+                    <input name="firstname" type="text" placeholder="First Name" value="<?php echo $userdetails['firstname']; ?>">
                 </div>
 
                 <div class="pure-control-group">
                     <label for="lastname">Last Name</label>
-                    <input name="lastname" type="text" placeholder="Last Name" value="<?php echo (isset($lastname) ? $lastname : null) ?>">
+                    <input name="lastname" type="text" placeholder="Last Name" value="<?php echo $userdetails['lastname']; ?>">
                 </div>
 
                 <div class="pure-control-group">
                     <label for="mobile">Mobile Number</label>
-                    <input name="mobile" type="text" placeholder="0400000000" value="<?php echo (isset($mobile) ? $mobile : null) ?>">
+                    <input name="mobile" type="text" placeholder="0400000000" value="<?php echo $userdetails['phonenumber']; ?>">
                 </div>
 
                 <div class="pure-control-group">
                     <label for="postcode">Postcode</label>
-                    <input name="postcode" type="text" placeholder="2500" class="pure-u-1-8" value="<?php echo (isset($postcode) ? $postcode : null) ?>">
+                    <input name="postcode" type="text" placeholder="2500" class="pure-u-1-8" value="">
                 </div>
 
               </fieldset>
