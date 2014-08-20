@@ -46,15 +46,22 @@ if(mysqli_num_rows($checkuser) != 0) {
       $date = time();
 
       // Right, so that worked. Let's also get the user's ID and store that.
-      $user = new Facebook_Reading_User($session);
-      $userInputs = $user->newInputs();
-      $userInputs->setAccessToken($accesstoken);
-      $userResults = $user->execute($userInputs)->getResponse();
+      $batch = new Facebook_BatchRequests_Batch($session);
+      $batchInputs = $batch->newInputs();
+      $batchInputs->setBatch("[{\"method\":\"GET\", \"relative_url\":\"me\"},{\"method\":\"GET\", \"relative_url\":\"me/picture?width=70\"}]")->setAccessToken($accesstoken);
+      $batchResults = $batch->execute($batchInputs)->getResults();
 
-      $fbid = $userResults['id'];
+      $jsonresults = json_decode($batchResults->getResponse(), true);
+
+      $user_json = json_decode($jsonresults[0]['body'], true);
+
+      $fb_fullname = $user_json['name'];
+      $fb_userid = $user_json['id'];
+      $fb_profileimgurl = $jsonresults[1]['headers'][1]['value'];
+
 
       // Update the DB
-      $insertsql = mysqli_query($sql, "UPDATE `users` SET `fb_secret` = '$fbid', `fb_secret` = '$accesstoken' WHERE `id` = '$userdetails[id]'");
+      $insertsql = mysqli_query($sql, "UPDATE `users` SET `fb_userid` = '$fb_userid', `fb_secret` = '$accesstoken', `fb_fullname` = '$fb_fullname', `fb_profileimageurl` = '$fb_profileimgurl' WHERE `id` = '$userdetails[id]'");
 
       if($insertsql) {
         // App is connected
@@ -65,6 +72,7 @@ if(mysqli_num_rows($checkuser) != 0) {
       } else {
         echo 'There was an issue connecting the app.';
       }
+
     }
 
   } else {

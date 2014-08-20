@@ -52,6 +52,15 @@ function checklogin() {
   }
 }
 
+function checkfbconnect($userdetails) {
+  // Check if a user has facebook configured
+  if(!empty($userdetails['fb_userid']) && !empty($userdetails['fb_secret'])) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function pardate($date) {
   return date('d/m/y h:i A', $date);
 }

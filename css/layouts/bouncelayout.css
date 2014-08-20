@@ -394,6 +394,20 @@ aside {
   float: right;
 }
 
+.fb-view {
+  width: 400px;
+  border: 1px solid;
+}
+
+.fb-view img {
+  float: left;
+  padding-right: 5px;
+}
+
+.fb-view p {
+  margin: 7px 0px 0px 0px;
+}
+
 /*
  * -- MOBILE MEDIA QUERIES --
  * On mobiles, we want to customize some

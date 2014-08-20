@@ -287,9 +287,24 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                 <legend>Facebook Account</legend>
                   <p>Click the button below to connect your Facebook account. Once you have connected the account, you can enable notifications and even post stats to your Facebook account.</p>
 
-                <div class="pure-controls">
-                    <a class="pure-button" href="<?php echo $siteurl; ?>connect/facebook">Connect Facebook Account</a>
-                </div>
+                  <?php
+                  if(checkfbconnect($userdetails)) {
+                    echo '<div class="fb-view">
+                            <img src="'.$userdetails['fb_profileimageurl'].'" />
+                            <p><strong>Facebook Connected As:</strong><br />
+                            '.$userdetails['fb_fullname'].'</p>
+                            <div style="clear: both;"></div>
+                        </div>';
+
+                    echo '<div class="pure-controls">
+                            <a class="pure-button" href="'.$siteurl.'connect/facebook">Disconnect Facebook Account</a>
+                        </div>';
+                  } else {
+                    echo '<div class="pure-controls">
+                            <a class="pure-button" href="'.$siteurl.'connect/facebook">Connect Facebook Account</a>
+                        </div>';
+                  }
+                  ?>
 
               </fieldset>
 
