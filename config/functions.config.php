@@ -130,6 +130,14 @@ function get_gravatar( $email, $s = 70, $d = 'mm', $r = 'g', $img = false, $atts
     return $url;
 }
 
+function valid_pass($candidate) {
+    // valid conditions are: > 8 char, one uppercase, one lower case, one number
+
+    if (!preg_match_all('$\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$', $candidate))
+        return FALSE;
+    return TRUE;
+}
+
 
 // #########################################
 // # ORGANISATION RELATED FUNCTIONS        #

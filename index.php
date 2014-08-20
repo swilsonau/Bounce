@@ -55,6 +55,20 @@ if(checklogin()) {
     function changeorg(value){
       window.location='<?php echo $siteurl; ?>org/profile/' + value;
     }
+
+    function showpasswordfields() {
+      $('.newpassword-group').slideDown();
+      $('.confirmpassword-group').slideDown();
+    }
+
+    function hidepasswordfields() {
+        var currentpassword = $('#currentpassword').val();
+
+        if(currentpassword == "") {
+            $('.newpassword-group').slideUp();
+            $('.confirmpassword-group').slideUp();
+        }
+    }
   </script>
 
 </head>
