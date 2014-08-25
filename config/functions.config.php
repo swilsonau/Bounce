@@ -107,7 +107,7 @@ function dashnav($selected, $userdetails) {
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-rss"></i> My Programs</a></li>';
         if(isset($isorg)) {
           $nav .= '<li class="pure-menu-heading">Organisation Settings</li>
-          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/profile"><i class="fa fa-sitemap"></i> Organisation Profile</a></li>
+          <li'; if($selected == 'oprofile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/oprofile"><i class="fa fa-sitemap"></i> Organisation Profile</a></li>
           <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/users"><i class="fa fa-users"></i> Organisation Users</a></li>
           <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/programs"><i class="fa fa-location-arrow"></i> Organisation Programs</a></li>
           ';
@@ -180,25 +180,25 @@ function stringorgperms($perm, $long = false) {
 
     case "1":
       if($long) {
-        return "Read Only";
+        return "Trainer";
       } else {
-        return "R";
+        return "T";
       }
     break;
 
     case "2":
       if($long) {
-        return "Read/Write";
+        return "Administration";
       } else {
-        return "RW";
+        return "A";
       }
     break;
 
     case "3":
       if($long) {
-        return "Full Permission";
+        return "Administration";
       } else {
-        return "F/P";
+        return "A";
       }
     break;
   }

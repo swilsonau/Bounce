@@ -53,7 +53,7 @@ if(checklogin()) {
     }
 
     function changeorg(value){
-      window.location='<?php echo $siteurl; ?>org/profile/' + value;
+      window.location='<?php echo $siteurl; ?>org/oprofile/' + value;
     }
 
     function showpasswordfields() {
@@ -69,6 +69,10 @@ if(checklogin()) {
             $('.confirmpassword-group').slideUp();
         }
     }
+  </script>
+
+  <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKh4oR9Q39yvLf3xTxG1ViXWF-UjA0iw0">
   </script>
 
 </head>

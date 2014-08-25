@@ -408,6 +408,10 @@ aside {
   margin: 7px 0px 0px 0px;
 }
 
+.button-small {
+            font-size: 85%;
+        }
+
 /*
  * -- MOBILE MEDIA QUERIES --
  * On mobiles, we want to customize some
