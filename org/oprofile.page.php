@@ -179,34 +179,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                     <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
                       <script type="text/javascript">
-                        function initialize() {
-                          var local = new google.maps.LatLng('.$orgdetails['cord_lat'].', '.$orgdetails['cord_long'].');
-
-                          var mapOptions = {
-                            center: local,
-                            zoom: 16
-                          };
-                          var map = new google.maps.Map(document.getElementById("map-canvas"),
-                              mapOptions);
-
-                              var marker = new google.maps.Marker({
-                                  position: local,
-                                  map: map,
-                                  draggable:true
-                              });
-
-                              google.maps.event.addListener(marker, \'dragend\', function() {
-                                // When the user moves the marker, enable the save location button
-                                $(\'.bounce-savelocal\').removeClass(\'pure-button-disabled\');
-
-                                // Store these vars in hidden inputs....
-                                var change = marker.getPosition();
-
-                                $(\'#latchng\').val(change.lat());
-                                $(\'#lngchng\').val(change.lng());
-                              });
-                        }
-                        google.maps.event.addDomListener(window, \'load\', initialize);
+                        google.maps.event.addDomListener(window, \'load\', gmaps_ini('.$orgdetails['cord_lat'].', '.$orgdetails['cord_lng'].'));
                       </script>
 
                       <div id="map-canvas" style="width: 100%; height: 300px;"></div>

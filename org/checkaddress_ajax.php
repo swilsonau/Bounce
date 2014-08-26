@@ -23,6 +23,10 @@ $geoxml = new SimpleXMLElement($geocodeByAddressResults->getResponse());
 
 $geo = $geoxml->xpath('/GeocodeResponse/result/geometry');
 
-print_r($geo[0]);
+$lat = (string) $geo[0]->location->lat;
+$lng = (string) $geo[0]->location->lng;
 
+$array = array('lat' => $lat, 'lng' => $lng);
+
+echo json_encode($array);
 ?>
