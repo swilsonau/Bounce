@@ -235,6 +235,8 @@ aside {
     padding: 0.1em 1em;
     border-radius: 3px;
     color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .error {

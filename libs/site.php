@@ -58,12 +58,17 @@ function confirmaddress() {
   var state = $('#state').val();
   var postcode = $('#postcode').val();
 
+  $('.address-loading').slideDown();
+
   $.post(
     "<?php echo $siteurl; ?>/org/checkaddress_ajax.php",
     { address: address, suburb: suburb, state: state, postcode: postcode },
     function(data) {
       var parsedata = JSON.parse(data);
       google.maps.event.addDomListener(window, 'load', gmaps_ini(parsedata.lat, parsedata.lng));
+      $('.address-loading').slideUp();
+
+      $('.address-message').slideDown().delay(5000).slideUp();
     }
 
   );

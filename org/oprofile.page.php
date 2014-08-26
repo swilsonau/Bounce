@@ -32,7 +32,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
         </div>
 
         <div class="pure-u-1 pure-u-md-3-4 settings-content">
-            <aside>
+            <aside style="margin-top: 0;">
               <p><i class="fa fa-info-circle"></i> You can edit the profile of your organisation here. This includes the name, address, contact details and settings. You can upload a logo here to show on your sessions and any emails sent out. If you are a member of multiple organisations, you can change organisations with the dropdown menu.</p>
             </aside>
 
@@ -105,21 +105,120 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                     $orgdetails = mysqli_fetch_array($getorgdetsql);
 
+                    if(isset($_POST['formsubmit'])) {
+                      // Do the process for part 1, clean the inputs
+                      $name = mysqli_real_escape_string($sql, (isset($_POST['name']) ? $_POST['name'] : null));
+                      $email = mysqli_real_escape_string($sql, (isset($_POST['contactemail']) ? $_POST['contactemail'] : null));
+                      $cemail = mysqli_real_escape_string($sql, (isset($_POST['ccontactemail']) ? $_POST['ccontactemail'] : null));
+                      $phone = mysqli_real_escape_string($sql, (isset($_POST['phonenumber']) ? $_POST['phonenumber'] : null));
+                      $street = mysqli_real_escape_string($sql, (isset($_POST['street']) ? $_POST['street'] : null));
+                      $suburb = mysqli_real_escape_string($sql, (isset($_POST['suburb']) ? $_POST['suburb'] : null));
+                      $state = mysqli_real_escape_string($sql, (isset($_POST['astate']) ? $_POST['astate'] : null));
+                      $postcode = mysqli_real_escape_string($sql, (isset($_POST['postcode']) ? $_POST['postcode'] : null));
+
+                      $latchng = mysqli_real_escape_string($sql, (isset($_POST['latchng']) ? $_POST['latchng'] : null));
+                      $lngchng = mysqli_real_escape_string($sql, (isset($_POST['lngchng']) ? $_POST['lngchng'] : null));
+
+                      // Error validation
+                      // Doing it server side because ajax/js takes too long
+                      $errors = 0;
+                      $errorarray = array();
+
+                      if($email == '') {
+                        $errors++;
+                        $errorarray[] = "You must enter a Contact email address.";
+                      }
+
+                      if(!filter_var($email, FILTER_VALIDATE_EMAIL) && $email != '') {
+                        $errors++;
+                        $errorarray[] = "You must enter a valid Contact email address.";
+                      }
+
+                      if($cemail == '') {
+                        $errors++;
+                        $errorarray[] = "You must enter a Public Contact email address.";
+                      }
+
+                      if(!filter_var($cemail, FILTER_VALIDATE_EMAIL) && $cemail != '') {
+                        $errors++;
+                        $errorarray[] = "You must enter a valid Public Contact email address.";
+                      }
+
+                      if($phone == '') {
+                        $errors++;
+                        $errorarray[] = "Telephone Number is a required field.";
+                      }
+
+                      if((!is_numeric($phone) || strlen($phone) != 10) && $phone != '') {
+                        $errors++;
+                        $errorarray[] = "Telephone Number is incorrectly formatted. Eg. 0200000000";
+                      }
+
+                      if($street == '') {
+                        $errors++;
+                        $errorarray[] = "Street is a required field.";
+                      }
+
+                      if($suburb == '') {
+                        $errors++;
+                        $errorarray[] = "Suburb is a required field.";
+                      }
+
+                      if($state == '') {
+                        $errors++;
+                        $errorarray[] = "State is a required field.";
+                      }
+
+                      if($postcode == '') {
+                        $errors++;
+                        $errorarray[] = "Postcode is a required field.";
+                      }
+
+                      if((!is_numeric($postcode) || strlen($postcode) != 4) && $postcode != '') {
+                        $errors++;
+                        $errorarray[] = "Postcode is incorrectly formatted. Eg. 2500";
+                      }
+
+                      // Show errors if needed
+                      if($errors > 0) {
+                        echo '<aside class="error"><strong>Please fix the following errors:</strong><br /><ul>';
+                        foreach($errorarray as $error) {
+                          echo '<li>'.$error.'</li>';
+                        }
+                        echo '</ul></aside>';
+                      } else {
+                        // Do update SQL statement
+                        if(isset($latchng) || isset($lngchng)) {
+                          $xychange = ', `cord_lat` = \''.$latchng.'\', `cord_long` = \''.$lngchng.'\'';
+                        }
+
+                        $sql2 = mysqli_query($sql, "UPDATE `organisation` SET `name` = '$name', `contact_email` = '$email', `ccontact_email` = '$cemail', `contact_phone` = '$phone', `address_street` = '$street', `address_suburb` = '$suburb', `address_state` = '$state', `address_postcode` = '$postcode'$xychange WHERE `id` = '$orgid'");
+
+                        if(!$sql2) {
+                          echo 'Sorry, there was an issue saving those details.';
+                          echo mysqli_error($sql);
+                        } else {
+                          echo '<aside class="success"><p>Changes Saved</p></aside>';
+                        }
+                      }
+
+                    }
+
                     echo '
                     <div class="pure-g">
                     <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
-                      <form class="pure-form pure-form-aligned" method="post" action="'.$siteurl.'org/profile">
+                      <form class="pure-form pure-form-aligned" method="post" action="'.$siteurl.'org/oprofile/'.$orgdetails['id'].'">
                       <fieldset>
                           <legend>Organisation Details</legend>
 
                           <div class="pure-control-group">
                               <label for="name">Name</label>
-                              <input name="name" type="text" size="30" value="'.$orgdetails['name'].'">
+                              <input name="name" type="text" size="30" value="'.(isset($_POST['name']) ? $_POST['name'] : $orgdetails['name']).'">
                           </div>
 
                           <div class="pure-control-group">
                               <label for="contactemail">Contact Email</label>
-                              <input name="contactemail" type="text" size="30" value="'.$orgdetails['contact_email'].'"><br />
+                              <input name="contactemail" type="text" size="30" value="'.(isset($_POST['contactemail']) ? $_POST['contactemail'] : $orgdetails['contact_email']).'"><br />
                               <small>This contact email is used by '.$sitename.' to contact you in relation to your organisation. This email will not be displayed to your clients.</small>
                           </div>
 
@@ -128,12 +227,12 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                           <div class="pure-control-group">
                               <label for="ccontactemail">Email</label>
-                              <input name="ccontactemail" type="text" placeholder="" value="'.$orgdetails['ccontact_email'].'">
+                              <input name="ccontactemail" type="text" placeholder="" value="'.(isset($_POST['ccontactemail']) ? $_POST['ccontactemail'] : $orgdetails['ccontact_email']).'">
                           </div>
 
                           <div class="pure-control-group">
                               <label for="phonenumber">Telephone Number</label>
-                              <input name="phonenumber" type="text" placeholder="Phone Number" value="'.$orgdetails['contact_phone'].'">
+                              <input name="phonenumber" type="text" placeholder="Phone Number" value="'.(isset($_POST['phonenumber']) ? $_POST['phonenumber'] : $orgdetails['contact_phone']).'">
                           </div>
 
                           <div class="pure-control-group">
@@ -143,43 +242,54 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                           <legend>Address Details</legend>
 
+                          <aside class="address-message" style="display: none;">
+                            <p>Please now confirm the location of your organisation using the Google Map. Move the marker and push Save Location once it\'s correct. If the map is already correct, you can push the Save Profile button below.</p>
+                          </aside>
+
                           <div class="pure-control-group">
                               <label for="street">Street</label>
-                              <input name="street" id="street" type="text" placeholder="" value="'.$orgdetails['address_street'].'">
+                              <input name="street" id="street" type="text" placeholder="" value="'.(isset($_POST['street']) ? $_POST['street'] : $orgdetails['address_street']).'">
                           </div>
 
                           <div class="pure-control-group">
                               <label for="suburb">Suburb</label>
-                              <input name="suburb" id="suburb" type="text" placeholder="" value="'.$orgdetails['address_suburb'].'">
+                              <input name="suburb" id="suburb" type="text" placeholder="" value="'.(isset($_POST['suburb']) ? $_POST['suburb'] : $orgdetails['address_suburb']).'">
                           </div>
 
                           <div class="pure-control-group">
                               <label for="state">State</label>
-                              <input name="state" id="state" type="text" placeholder="" value="NSW" disabled>
+                              <input name="astate" id="state" type="text" placeholder="" value="'.(isset($_POST['astate']) ? $_POST['astate'] : 'NSW').'" readonly>
                           </div>
 
                           <div class="pure-control-group">
                               <label for="postcode">Postcode</label>
-                              <input name="postcode" id="postcode" type="text" placeholder="" value="'.$orgdetails['address_postcode'].'" size="5">
+                              <input name="postcode" id="postcode" type="text" placeholder="" value="'.(isset($_POST['postcode']) ? $_POST['postcode'] : $orgdetails['address_postcode']).'" size="5">
                           </div>
 
                           <div class="pure-controls">
-                          <button type="button" onclick="confirmaddress()" class="pure-button">Confirm Address</button>
+                            <button type="button" onclick="confirmaddress()" class="pure-button">Confirm Address</button>
+
+                            <div class="address-loading" style="display: none;">
+                              <i class="fa fa-refresh fa-spin"></i> Please wait. Loading map......
+                            </div>
                           </div>
 
-                          <!---<div class="pure-controls">
-                              <button type="submit" class="pure-button pure-button-primary">Submit</button>
-                          </div>-->
+                          <div class="pure-controls bounce-controls">
+                              <button type="submit" name="formsubmit" class="pure-button pure-button-primary">Save Profile</button>
+                          </div>
                       </fieldset>
 
-                      <input type="hidden" id="latchng" />
-                      <input type="hidden" id="lngchng" />
+                      <input type="hidden" name="latchng" id="latchng" />
+                      <input type="hidden" name="lngchng" id="lngchng" />
+
                   </form>
                     </div>
 
                     <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
                       <script type="text/javascript">
-                        google.maps.event.addDomListener(window, \'load\', gmaps_ini('.$orgdetails['cord_lat'].', '.$orgdetails['cord_lng'].'));
+                        window.onload = function () {
+                          google.maps.event.addDomListener(window, \'load\', gmaps_ini('.$orgdetails['cord_lat'].', '.$orgdetails['cord_long'].'));
+                        }
                       </script>
 
                       <div id="map-canvas" style="width: 100%; height: 300px;"></div>
