@@ -164,7 +164,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                           </div>
 
                           <div class="pure-controls">
-                              <a href="#" onclick="confirmaddress()" class="pure-button">Confirm Address</a>
+                          <button type="button" onclick="confirmaddress()" class="pure-button">Confirm Address</button>
                           </div>
 
                           <!---<div class="pure-controls">
