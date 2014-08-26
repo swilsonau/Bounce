@@ -57,7 +57,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
               } else {
                 echo '<div class="orgselector">
                 <p><i class="fa fa-university"></i> Select Organisation:</p>
-                <select name="orgselect" onchange="changeorg(this.value);">';
+                <select name="orgselect" onchange="changeorg(this.value, \'oprofile\');">';
                 $loopx = 0;
                 $firstorg = NULL;
 
@@ -198,6 +198,11 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                           echo 'Sorry, there was an issue saving those details.';
                           echo mysqli_error($sql);
                         } else {
+                          // Send an email to the organisation administrator notifying the changes
+                          $user = $userdetails['firstname'].' '.$userdetails['lastname'];
+
+                          sendemail($email, "Organisation Changes", "<strong>Attention $name administrations</strong><br /><br />The user, $user, has made changes to your organisational profile on $sitename. If this is in error, please revert the changes.<br /><br />Cheers,<br />$sitename");
+
                           echo '<aside class="success"><p>Changes Saved</p></aside>';
                         }
                       }

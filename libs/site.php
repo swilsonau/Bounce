@@ -6,8 +6,8 @@ function togglemenu() {
   $('.home-menu').find('li').toggle();
 }
 
-function changeorg(value){
-  window.location='<?php echo $siteurl; ?>org/oprofile/' + value;
+function changeorg(value, site){
+  window.location='<?php echo $siteurl; ?>org/' + site +'/' + value;
 }
 
 function showpasswordfields() {

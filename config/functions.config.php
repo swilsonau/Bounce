@@ -108,7 +108,7 @@ function dashnav($selected, $userdetails) {
         if(isset($isorg)) {
           $nav .= '<li class="pure-menu-heading">Organisation Settings</li>
           <li'; if($selected == 'oprofile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/oprofile"><i class="fa fa-sitemap"></i> Organisation Profile</a></li>
-          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/users"><i class="fa fa-users"></i> Organisation Users</a></li>
+          <li'; if($selected == 'ousers') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/ousers"><i class="fa fa-users"></i> Organisation Users</a></li>
           <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/programs"><i class="fa fa-location-arrow"></i> Organisation Programs</a></li>
           ';
         } else {
