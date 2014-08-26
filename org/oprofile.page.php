@@ -90,7 +90,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                 $onlyorgid2 = (isset($onlyorgid) ? $onlyorgid : null);
                 $orgid = mysqli_real_escape_string($sql, (isset($_GET['process']) ? $_GET['process'] : $onlyorgid2));
 
-                $getorgdetsql = mysqli_query($sql, "SELECT `organisation`.*, `organise_assign`.`organ_id`, `organise_assign`.`user_id`, `organise_assign`.`perms` FROM  `organisation` RIGHT JOIN `organise_assign` ON `organisation`.`id` = `organise_assign`.`organ_id` WHERE `organisation`.`id` = '$orgid' AND `organise_assign`.`user_id` = '$userdetails[id]'");
+                $getorgdetsql = mysqli_query($sql, "SELECT `organisation`.*, `organise_assign`.`organ_id`, `organise_assign`.`user_id`, `organise_assign`.`perms` AS `orgperms` FROM  `organisation` RIGHT JOIN `organise_assign` ON `organisation`.`id` = `organise_assign`.`organ_id` WHERE `organisation`.`id` = '$orgid' AND `organise_assign`.`user_id` = '$userdetails[id]'");
 
                 if(!$getorgdetsql) {
                   echo '<aside class="error">
@@ -145,26 +145,26 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                           <div class="pure-control-group">
                               <label for="street">Street</label>
-                              <input name="street" type="text" placeholder="" value="'.$orgdetails['address_street'].'">
+                              <input name="street" id="street" type="text" placeholder="" value="'.$orgdetails['address_street'].'">
                           </div>
 
                           <div class="pure-control-group">
                               <label for="suburb">Suburb</label>
-                              <input name="suburb" type="text" placeholder="" value="'.$orgdetails['address_suburb'].'">
+                              <input name="suburb" id="suburb" type="text" placeholder="" value="'.$orgdetails['address_suburb'].'">
                           </div>
 
                           <div class="pure-control-group">
                               <label for="state">State</label>
-                              <input name="state" type="text" placeholder="" value="NSW" disabled>
+                              <input name="state" id="state" type="text" placeholder="" value="NSW" disabled>
                           </div>
 
                           <div class="pure-control-group">
                               <label for="postcode">Postcode</label>
-                              <input name="postcode" type="text" placeholder="" value="'.$orgdetails['address_postcode'].'" size="5">
+                              <input name="postcode" id="postcode" type="text" placeholder="" value="'.$orgdetails['address_postcode'].'" size="5">
                           </div>
 
                           <div class="pure-controls">
-                              <a href="#" class="pure-button">Confirm Address</a>
+                              <a href="#" onclick="confirmaddress()" class="pure-button">Confirm Address</a>
                           </div>
 
                           <!---<div class="pure-controls">
@@ -218,8 +218,16 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                         <p><i class="fa fa-star-o"></i> Moving the marker will only update the precise location of your address and not modify the actual address details.</p>
                       </aside>
                     </div>
-                    </div>
-                    ';
+                    </div>';
+                    if($orgdetails['orgperms'] == 1) {
+                      echo '<div class="pure-g">
+                      <div class="pure-u-1 pure-u-md-1-1" style="padding: 5px;">
+                        <aside class="error">
+                          <p>Sorry, but as a trainer, you cannot edit this organisations details. Please contact the administrator for your organisation to change any details.</p>
+                        </aside>
+                      </div>
+                      </div>';
+                    }
                   }
                 }
 

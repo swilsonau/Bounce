@@ -47,28 +47,8 @@ if(checklogin()) {
 
   <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
 
-  <script type="text/javascript">
-    function togglemenu() {
-      $('.home-menu').find('li').toggle();
-    }
-
-    function changeorg(value){
-      window.location='<?php echo $siteurl; ?>org/oprofile/' + value;
-    }
-
-    function showpasswordfields() {
-      $('.newpassword-group').slideDown();
-      $('.confirmpassword-group').slideDown();
-    }
-
-    function hidepasswordfields() {
-        var currentpassword = $('#currentpassword').val();
-
-        if(currentpassword == "") {
-            $('.newpassword-group').slideUp();
-            $('.confirmpassword-group').slideUp();
-        }
-    }
+  <script type="text/javascript"
+    src="<?php echo $siteurl; ?>libs/site.php">
   </script>
 
   <script type="text/javascript"
