@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2014 at 02:21 AM
+-- Generation Time: Aug 27, 2014 at 01:24 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `bounceapp`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assign_request`
+--
+
+CREATE TABLE IF NOT EXISTS `assign_request` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `user_id` int(5) NOT NULL,
+  `org_id` int(5) NOT NULL,
+  `perms` int(1) NOT NULL DEFAULT '1',
+  `authkey` varchar(250) NOT NULL,
+  `timerequested` varchar(250) NOT NULL,
+  `expiry` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `assign_request`
+--
+
+INSERT INTO `assign_request` (`id`, `user_id`, `org_id`, `perms`, `authkey`, `timerequested`, `expiry`) VALUES
+(2, 7, 3, 1, '4eef1e8e77e3f7457c5c700b3b4a3c7a9b82ef3f6ece1beda0a8c0f0103494e0', '1409124665', '1409729465'),
+(3, 1, 2, 1, 'a51b2cacf3a03f4554a6c6ea53e1a0673dc31fa4d919c008845fc639e0ed5be9', '1409125348', '1409730148');
 
 -- --------------------------------------------------------
 
@@ -72,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `organisation` (
 INSERT INTO `organisation` (`id`, `name`, `contact_email`, `cord_lat`, `cord_long`, `ccontact_email`, `contact_phone`, `address_street`, `address_suburb`, `address_state`, `address_postcode`) VALUES
 (1, 'Wollongong Runners Association', 'sw730@uowmail.edu.au', '-34.4103220', '150.8994663', '', '', '', '', '', ''),
 (2, 'Savvy Fitness Fairy Meadow', 'sw730@uowmail.edu.au', '-34.40369098158406', '150.89029823925216', 'notarealemail@savvy.com.au', '0242841100', 'Unit 5/135-143 Princes Hwy', 'Fairy Meadow', 'NSW', '2519'),
-(3, 'Internetrix', 'internetrix+org@stewartwilson.id.au', '', '', 'notarealemail@internetrix.com.au', '0242286464', '4/85-87 Smith St', 'Wollongong', 'NSW', '2500');
+(3, 'Internetrix', 'internetrix+org@stewartwilson.id.au', '-34.4215072511693', '150.89162554232792', 'notarealemail@internetrix.com.au', '0242286464', '4/85-87 Smith St', 'Wollongong', 'NSW', '2500');
 
 -- --------------------------------------------------------
 
@@ -88,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `organise_assign` (
   `date_unassigned` varchar(250) NOT NULL,
   `perms` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `organise_assign`
@@ -96,9 +121,35 @@ CREATE TABLE IF NOT EXISTS `organise_assign` (
 
 INSERT INTO `organise_assign` (`id`, `user_id`, `organ_id`, `date_assigned`, `date_unassigned`, `perms`) VALUES
 (1, 5, 1, '1407843007', '', 1),
-(2, 5, 2, '1407843007', '', 3),
 (3, 6, 2, '1407843007', '', 2),
-(4, 6, 3, '', '', 1);
+(7, 6, 3, '', '', 3),
+(9, 5, 2, '1409118057', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pending_user`
+--
+
+CREATE TABLE IF NOT EXISTS `pending_user` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(250) NOT NULL,
+  `emailaddress` varchar(250) NOT NULL,
+  `phonenumber` varchar(250) NOT NULL,
+  `orgid` int(5) NOT NULL,
+  `token` varchar(250) NOT NULL,
+  `perm` int(1) NOT NULL,
+  `daterequest` varchar(250) NOT NULL,
+  `expiry` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `pending_user`
+--
+
+INSERT INTO `pending_user` (`id`, `firstname`, `emailaddress`, `phonenumber`, `orgid`, `token`, `perm`, `daterequest`, `expiry`) VALUES
+(2, 'Test', 'client_test@stewartwilson.id.au', '0433971993', 2, 'f812f0cfd28ab573137744271185f7f27ebe30528dda5315e2eca6f714cae53e', 1, '1409128961', '1409733761');
 
 -- --------------------------------------------------------
 

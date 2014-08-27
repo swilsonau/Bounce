@@ -27,7 +27,7 @@ if(gethostname() == "eden.sp.cleverapp.net") {
 
 // SITE VERSION
 // Sets the site version
-$siteversion = "0.1.5 master";
+$siteversion = "0.1.6 master";
 
 date_default_timezone_set('Australia/Sydney');
 

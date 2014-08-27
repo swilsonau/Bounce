@@ -94,14 +94,40 @@ function searchforuser() {
 
         if(parsedata.error == 1) {
           alert(parsedata.errortext);
+          $('.existinguser-loading').slideUp();
         } else {
-
+          $('.existinguser-loading').slideUp();
+          $('.existing-confirmed').slideDown().delay(5000).slideUp();
         }
-
-        $('.existinguser-loading').slideUp();
-        $('.existing-confirmed').slideDown().delay(5000).slideUp();
       }
 
     );
   }
+}
+
+function createnewuser() {
+  var firstname = $('#new-firstname').val();
+  var email = $('#new-emailaddress').val();
+  var mobile = $('#new-mobilenumber').val();
+  var orgid = $('#orgid').val();
+  var usertype = $('#new-usertype').val();
+
+    $('.newuser-loading').slideDown();
+
+    $.post(
+      "<?php echo $siteurl; ?>org/newuser_ajax.php",
+      { orgid: orgid, firstname: firstname, email: email, mobile: mobile, usertype: usertype },
+      function(data) {
+        var parsedata = JSON.parse(data);
+
+        if(parsedata.error == 1) {
+          alert(parsedata.errortext);
+          $('.newuser-loading').slideUp();
+        } else {
+          $('.newuser-loading').slideUp();
+          $('.newuser-confirmed').slideDown().delay(5000).slideUp();
+        }
+      }
+
+    );
 }

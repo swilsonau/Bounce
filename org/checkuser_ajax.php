@@ -29,68 +29,75 @@ if(!$checkpermssql) {
     $array['errortext'] = "You don't have permission.";
   } else {
     // Now search for the user
-    if($email) {
-      $selectvar = "emailaddress";
-      $where = "WHERE `$selectvar` = '$email'";
-    }elseif($mobile) {
-      $selectvar = "phonenumber";
-      $where = "WHERE `$selectvar` = '$mobile'";
-    }
-    $findsql = mysqli_query($sql, "SELECT `id`, `firstname`, `lastname`, `emailaddress`, `phonenumber` FROM `users` $where");
+    $assnpermsql = mysqli_fetch_array($checkpermssql);
 
-    if(!$findsql) {
+    if($usertype >= $assnpermsql['perms']) {
       $array['error'] = 1;
-      $array['errortext'] = "Sorry but we are experiencing an issue. Please try again later.";
+      $array['errortext'] = "Sorry but your account type doesn't allow you to make this type of account.";
     } else {
-      if(mysqli_num_rows($findsql) == 0) {
+      if($email) {
+        $selectvar = "emailaddress";
+        $where = "WHERE `$selectvar` = '$email'";
+      }elseif($mobile) {
+        $selectvar = "phonenumber";
+        $where = "WHERE `$selectvar` = '$mobile'";
+      }
+      $findsql = mysqli_query($sql, "SELECT `id`, `firstname`, `lastname`, `emailaddress`, `phonenumber` FROM `users` $where");
+
+      if(!$findsql) {
         $array['error'] = 1;
-        $array['errortext'] = "Sorry, we can't find a user with that information.";
+        $array['errortext'] = "Sorry but we are experiencing an issue. Please try again later.";
       } else {
-        $userdetails = mysqli_fetch_array($findsql);
-        $userid = $userdetails['id'];
-
-        // Check if the user is already assigned to the particular group
-        $checkpermssql2 = mysqli_query($sql, "SELECT `user_id`, `organ_id` FROM `organise_assign` WHERE `user_id` = '$userid' AND `organ_id` = '$orgid'");
-
-        if(!$checkpermssql2) {
+        if(mysqli_num_rows($findsql) == 0) {
           $array['error'] = 1;
-          $array['errortext'] = "Sorry but we are experiencing an issue. Please try again later.";
+          $array['errortext'] = "Sorry, we can't find a user with that information.";
         } else {
-          if(mysqli_num_rows($checkpermssql2) != 0) {
+          $userdetails = mysqli_fetch_array($findsql);
+          $userid = $userdetails['id'];
+
+          // Check if the user is already assigned to the particular group
+          $checkpermssql2 = mysqli_query($sql, "SELECT `user_id`, `organ_id` FROM `organise_assign` WHERE `user_id` = '$userid' AND `organ_id` = '$orgid'");
+
+          if(!$checkpermssql2) {
             $array['error'] = 1;
-            $array['errortext'] = "This user has already been assigned to this organisation.";
+            $array['errortext'] = "Sorry but we are experiencing an issue. Please try again later.";
           } else {
-            // So we can send the request to the user now, the user must accept to be added to the organisation
-            $currtime = time();
-            $expiry = strtotime('+1 week', $currtime);
-            $token = bin2hex(openssl_random_pseudo_bytes(32));
-
-            $reqsql = mysqli_query($sql, "INSERT INTO `assign_request`(`user_id`, `org_id`, `perms`, `authkey`, `timerequested`, `expiry`)VALUES('$userid', '$orgid', '$usertype', '$token', '$currtime', '$expiry')");
-
-            if(!$reqsql) {
+            if(mysqli_num_rows($checkpermssql2) != 0) {
               $array['error'] = 1;
-              $array['errortext'] = "Sorry but we are experiencing an issue. Please try again later.";
+              $array['errortext'] = "This user has already been assigned to this organisation.";
             } else {
-              $type = stringorgperms($usertype, true);
-              $requestlink = $siteurl."org/acceptrequest/".$token;
-              $userfirstname = $userdetails['firstname'];
+              // So we can send the request to the user now, the user must accept to be added to the organisation
+              $currtime = time();
+              $expiry = strtotime('+1 week', $currtime);
+              $token = bin2hex(openssl_random_pseudo_bytes(32));
 
-              // Org information
-              $orgdetail = fetchorgdetail($orgid);
-              $orgname = $orgdetail['name'];
+              $reqsql = mysqli_query($sql, "INSERT INTO `assign_request`(`user_id`, `org_id`, `perms`, `authkey`, `timerequested`, `expiry`)VALUES('$userid', '$orgid', '$usertype', '$token', '$currtime', '$expiry')");
 
-              // All good, send an email
-              sendemail($userdetails['emailaddress'], $orgname.": Assign Request", "Hello $userfirstname,<br /><br />The organisation, $orgname has requested your permission to add you as a $type. If you are expecting this, you can push the link below to accept the request. The request will expire in 1 week.<br /><br /><a href=\"$requestlink\">Accept This Request</a><br /><br />Cheers,<br />$sitename");
+              if(!$reqsql) {
+                $array['error'] = 1;
+                $array['errortext'] = "Sorry but we are experiencing an issue. Please try again later.";
+              } else {
+                $type = stringorgperms($usertype, true);
+                $requestlink = $siteurl."org/acceptrequest/".$token;
+                $userfirstname = $userdetails['firstname'];
 
-              $array['error'] = 0;
+                // Org information
+                $orgdetail = fetchorgdetail($orgid);
+                $orgname = $orgdetail['name'];
+
+                // All good, send an email
+                //sendemail($userdetails['emailaddress'], $orgname.": Assign Request", "Hello $userfirstname,<br /><br />The organisation, $orgname has requested your permission to add you as a $type. If you are expecting this, you can push the link below to accept the request. The request will expire in 1 week.<br /><br /><a href=\"$requestlink\">Accept This Request</a><br /><br />Cheers,<br />$sitename");
+
+                $array['error'] = 0;
+              }
+
+
             }
-
-
           }
         }
       }
-    }
   }
+}
 }
 
 /*$lat = (string) $geo[0]->location->lat;

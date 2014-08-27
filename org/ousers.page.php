@@ -197,7 +197,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                           </div>
 
                           <div class="existinguser-loading" style="display: none;">
-                            <i class="fa fa-refresh fa-spin"></i> Please wait. Searching for a user....
+                            <i class="fa fa-refresh fa-spin"></i> Please wait. Requesting information....
                           </div>
                       </fieldset>
                     </form>
@@ -207,27 +207,43 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                       <fieldset>
                         <legend>Add New User</legend>
 
+                        <aside class="newuser-confirmed" style="display: none;">
+                          <p>A user has been created and they have been emailed information. The user will need to create the account within one week. You can revoke the request by pushing Pending Users below and revoking the selected user.</p>
+                        </aside>
+
                         <div class="pure-control-group">
                           <label for="firstname">First Name</label>
-                          <input name="firstname" type="text">
+                          <input name="firstname" id="new-firstname" type="text">
                         </div>
 
                         <div class="pure-control-group">
-                          <label for="emailaddress">Email Address</label>
-                          <input name="emailaddress" type="text">
+                          <label for="new-emailaddress">Email Address</label>
+                          <input name="new-emailaddress" id="new-emailaddress" type="text">
                         </div>
 
                         <div class="pure-control-group">
-                          <label for="mobilenumber">Mobile Number</label>
-                          <input name="mobilenumber" type="text">
+                          <label for="new-mobilenumber">Mobile Number</label>
+                          <input name="new-mobilenumber" id="new-mobilenumber" type="text">
+                        </div>
+
+                        <div class="pure-control-group" style="margin-top: 40px;">
+                          <label for="usertype">User Type</label>
+                          <select name="new-usertype" id="new-usertype">
+                            <option value="1">Client</option>
+                            <option value="2">Trainer</option>
+                            <option value="3">Administrator</option>
+                          </select>
                         </div>
                       </fieldset>
 
                       <fieldset>
                           <div class="pure-controls">
-                              <button type="button" class="pure-button pure-button-primary">Create User</a>
+                              <button type="button" class="pure-button pure-button-primary" onclick="createnewuser()">Create User</a>
                           </div>
 
+                          <div class="newuser-loading" style="display: none;">
+                            <i class="fa fa-refresh fa-spin"></i> Please wait. Creating user....
+                          </div>
                       </fieldset>
                     </form>
                   </div>
