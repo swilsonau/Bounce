@@ -62,7 +62,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
               } else {
                 echo '<div class="orgselector">
                 <p><i class="fa fa-university"></i> Select Organisation:</p>
-                <select name="orgselect" onchange="changeorg(this.value, \'ousers\');">';
+                <select name="orgselect" onchange="changeorg(this.value, \'showpending\');">';
                 $loopx = 0;
                 $firstorg = NULL;
 
@@ -118,8 +118,8 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                       <tr>
                           <th>ID</th>
                           <th>Name</th>
-                          <th>Mobile Number</th>
-                          <th>Email Address</th>
+                          <th>Date Requested</th>
+                          <th>Expiry</th>
                           <th>Type</th>
                           <th></th>
                       </tr>
@@ -129,7 +129,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                       // Pull all the users from the DB
                       $thisorgid = $orgdetails['id'];
 
-                      $getusersorgsql = mysqli_query($sql, "SELECT `organise_assign`.`user_id`, `organise_assign`.`organ_id`, `organise_assign`.`date_assigned`, `organise_assign`.`perms`, `users`.`id`, `users`.`id`, `users`.`firstname`, `users`.`lastname`, `users`.`phonenumber`, `users`.`emailaddress` FROM `organise_assign` RIGHT JOIN `users` ON `organise_assign`.`user_id` = `users`.`id` WHERE `organ_id`= '$thisorgid' AND  `organise_assign`.`perms` <> 0");
+                      $getusersorgsql = mysqli_query($sql, "SELECT `assign_request`.`user_id`, `assign_request`.`org_id`, `assign_request`.`timerequested`, `assign_request`.`expiry`, `assign_request`.`perms`, `users`.`id`, `users`.`id`, `users`.`firstname`, `users`.`lastname` FROM `assign_request` RIGHT JOIN `users` ON `assign_request`.`user_id` = `users`.`id` WHERE `org_id`= '$thisorgid'");
 
                       if(!$getusersorgsql) {
                         echo '<aside class="error">
@@ -140,8 +140,8 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                           echo '<tr>
                           <td>'.$userorg['id'].'</td>
                           <td>'.$userorg['firstname'].' '.$userorg['lastname'].'</td>
-                          <td>'.$userorg['phonenumber'].'</td>
-                          <td>'.$userorg['emailaddress'].'</td>
+                          <td>'.pardate($userorg['timerequested']).'</td>
+                          <td>'.pardate($userorg['expiry']).'</td>
                           <td>'.stringorgperms($userorg['perms'], true).'</td>
                           <td></td>
                       </tr>';
@@ -149,92 +149,6 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                       }
                   echo '</tbody>
               </table>
-              <h3>Assign a user</h3>
-              <aside class="warning">
-                <p><i class="fa fa-user"></i> You can assign a user to your organisation below. Once you assign a user, they will be notified via email or other notification methods they have specified. You can add a user either via their email address or mobile number. Alternatively, you can create an account for a user and they will be emailed the details.</p><p><strong>Important:</strong> It is possible to assign users with administrator or trainer privileges in this section. Please ensure you double check what permission you are assigning.</p>
-              </aside>
-                </div>
-                </div>
-
-                <div class="pure-g">
-                  <input type="hidden" id="orgid" value="'.$orgdetails['id'].'">
-                  <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
-                    <form class="pure-form pure-form-aligned">
-                      <fieldset>
-                        <legend>Add Existing User</legend>
-
-                        <aside class="existing-confirmed" style="display: none;">
-                          <p>The user was found and a request was sent. The user will need to accept the request within one week. You can revoke the request by pushing Pending Users below and revoking the selected user.</p>
-                        </aside>
-
-                        <div class="pure-control-group">
-                          <label for="emailaddress">Email Address</label>
-                          <input name="emailaddress" id="emailaddress" type="text">
-                        </div>
-
-                        <div class="pure-control-group">
-                          <label for="none"><strong>OR</strong></label>
-                        </div>
-
-                        <div class="pure-control-group">
-                          <label for="mobilenumber">Mobile Number</label>
-                          <input name="mobilenumber" id="mobilenumber" type="text">
-                        </div>
-
-                        <div class="pure-control-group" style="margin-top: 40px;">
-                          <label for="usertype">User Type</label>
-                          <select name="usertype" id="usertype">
-                            <option value="1">Client</option>
-                            <option value="2">Trainer</option>
-                            <option value="3">Administrator</option>
-                          </select>
-                        </div>
-                      </fieldset>
-
-                      <fieldset>
-                          <div class="pure-controls">
-                              <button type="button" class="pure-button pure-button-primary" onclick="searchforuser()">Add User</a>
-                          </div>
-
-                          <div class="existinguser-loading" style="display: none;">
-                            <i class="fa fa-refresh fa-spin"></i> Please wait. Searching for a user....
-                          </div>
-                      </fieldset>
-                    </form>
-                  </div>
-                  <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
-                    <form class="pure-form pure-form-aligned" method="post" action="<?php echo $siteurl; ?>">
-                      <fieldset>
-                        <legend>Add New User</legend>
-
-                        <div class="pure-control-group">
-                          <label for="firstname">First Name</label>
-                          <input name="firstname" type="text">
-                        </div>
-
-                        <div class="pure-control-group">
-                          <label for="emailaddress">Email Address</label>
-                          <input name="emailaddress" type="text">
-                        </div>
-
-                        <div class="pure-control-group">
-                          <label for="mobilenumber">Mobile Number</label>
-                          <input name="mobilenumber" type="text">
-                        </div>
-                      </fieldset>
-
-                      <fieldset>
-                          <div class="pure-controls">
-                              <button type="button" class="pure-button pure-button-primary">Create User</a>
-                          </div>
-
-                      </fieldset>
-                    </form>
-                  </div>
-                </div>
-                <div class="pure-g">
-                  <div class="pure-u-1 pure-u-md-1-1" style="padding: 5px;">
-                    Show: <a href="'.$siteurl.'org/showpending" class="pure-button button-small">Pending Users</a> <a class="pure-button button-small">Removed Users</a>
                   </div>
                 </div>
                 ';

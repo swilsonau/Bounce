@@ -247,6 +247,10 @@ aside {
   background: #70AD4B;
 }
 
+.warning {
+  background: rgb(223, 117, 20);
+}
+
 .settings-nav {
   padding: 5px;
 }
@@ -275,6 +279,10 @@ aside {
 .userinfo img {
   float: left;
   margin-right: 5px;
+}
+
+.mobilewarning {
+  display: none;
 }
 
 /*
@@ -444,6 +452,10 @@ aside {
     .home-menu {
         text-align: left;
         float: left;
+    }
+
+    .mobilewarning {
+      display: block!important;
     }
  }
 

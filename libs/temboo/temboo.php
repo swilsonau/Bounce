@@ -228,8 +228,8 @@ class Temboo_Session
         $proxypassword = base64_decode('VTB3UzNtJCM=');
 
         curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-        //curl_setopt($curlHandle, CURLOPT_PROXY, 'proxy.uow.edu.au:8080');
-        //curl_setopt($curlHandle, CURLOPT_PROXYUSERPWD, 'sw730:'.$proxypassword);
+        curl_setopt($curlHandle, CURLOPT_PROXY, 'proxy.uow.edu.au:8080');
+        curl_setopt($curlHandle, CURLOPT_PROXYUSERPWD, 'sw730:'.$proxypassword);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1) ;
         curl_setopt($curlHandle, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($curlHandle, CURLOPT_USERPWD, $this->name . ":" . $this->key);

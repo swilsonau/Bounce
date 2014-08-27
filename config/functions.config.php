@@ -155,7 +155,7 @@ function valid_pass($candidate) {
 function checkorgownership($userid) {
   global $sql;
 
-  $fetch = mysqli_query($sql, "SELECT `users`.`id` AS `userid`, `organise_assign`.`organ_id` AS `orgid`, `organise_assign`.`perms` FROM `users` RIGHT JOIN `organise_assign` ON `users`.`id` = `organise_assign`.`user_id` WHERE `users`.`id` = '$userid'");
+  $fetch = mysqli_query($sql, "SELECT `users`.`id` AS `userid`, `organise_assign`.`organ_id` AS `orgid`, `organise_assign`.`perms` FROM `users` RIGHT JOIN `organise_assign` ON `users`.`id` = `organise_assign`.`user_id` WHERE `users`.`id` = '$userid' AND `organise_assign`.`perms` > '1'");
 
   if(!$fetch) {
     return false;
@@ -168,29 +168,37 @@ function checkorgownership($userid) {
   }
 }
 
+function fetchorgdetail($id) {
+  global $sql;
+
+  $fetch = mysqli_query($sql, "SELECT * FROM `organisation` WHERE `id` = '$id'") or die();
+
+  return mysqli_fetch_array($fetch);
+}
+
 function stringorgperms($perm, $long = false) {
   switch($perm) {
     default:
       if($long) {
-        return "No Permission";
+        return "NO PERMISSION";
       } else {
-        return "N/A";
+        return "N";
       }
     break;
 
     case "1":
       if($long) {
-        return "Trainer";
+        return "Client";
       } else {
-        return "T";
+        return "C";
       }
     break;
 
     case "2":
       if($long) {
-        return "Administration";
+        return "Trainer";
       } else {
-        return "A";
+        return "T";
       }
     break;
 

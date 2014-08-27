@@ -61,7 +61,7 @@ function confirmaddress() {
   $('.address-loading').slideDown();
 
   $.post(
-    "<?php echo $siteurl; ?>/org/checkaddress_ajax.php",
+    "<?php echo $siteurl; ?>org/checkaddress_ajax.php",
     { address: address, suburb: suburb, state: state, postcode: postcode },
     function(data) {
       var parsedata = JSON.parse(data);
@@ -72,4 +72,36 @@ function confirmaddress() {
     }
 
   );
+}
+
+function searchforuser() {
+  var email = $('#emailaddress').val();
+  var mobile = $('#mobilenumber').val();
+  var orgid = $('#orgid').val();
+  var usertype = $('#usertype').val();
+
+  if(email && mobile) {
+    alert('Please input only an email address OR mobile number.');
+  } else {
+
+    $('.existinguser-loading').slideDown();
+
+    $.post(
+      "<?php echo $siteurl; ?>org/checkuser_ajax.php",
+      { orgid: orgid, email: email, mobile: mobile, usertype: usertype },
+      function(data) {
+        var parsedata = JSON.parse(data);
+
+        if(parsedata.error == 1) {
+          alert(parsedata.errortext);
+        } else {
+
+        }
+
+        $('.existinguser-loading').slideUp();
+        $('.existing-confirmed').slideDown().delay(5000).slideUp();
+      }
+
+    );
+  }
 }

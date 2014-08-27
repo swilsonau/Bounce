@@ -40,7 +40,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
             // Check if the user is a member of multiple organisations
             $userid = $userdetails['id'];
 
-            $wherecl = "WHERE `organise_assign`.`user_id` = '$userid' AND `organise_assign`.`perms` <> '0'";
+            $wherecl = "WHERE `organise_assign`.`user_id` = '$userid' AND `organise_assign`.`perms` > '1'";
 
             $checkorgsql = mysqli_query($sql, "SELECT `organise_assign`.`perms`, `organisation`.`id` AS `orgid`, `organisation`.`name` AS `orgname` FROM `organise_assign` RIGHT JOIN `organisation` ON `organise_assign`.`organ_id` = `organisation`.`id` $wherecl");
 
