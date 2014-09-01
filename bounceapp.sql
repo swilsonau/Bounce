@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2014 at 01:24 PM
+-- Generation Time: Sep 01, 2014 at 08:44 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `organisation` (
 INSERT INTO `organisation` (`id`, `name`, `contact_email`, `cord_lat`, `cord_long`, `ccontact_email`, `contact_phone`, `address_street`, `address_suburb`, `address_state`, `address_postcode`) VALUES
 (1, 'Wollongong Runners Association', 'sw730@uowmail.edu.au', '-34.4103220', '150.8994663', '', '', '', '', '', ''),
 (2, 'Savvy Fitness Fairy Meadow', 'sw730@uowmail.edu.au', '-34.40369098158406', '150.89029823925216', 'notarealemail@savvy.com.au', '0242841100', 'Unit 5/135-143 Princes Hwy', 'Fairy Meadow', 'NSW', '2519'),
-(3, 'Internetrix', 'internetrix+org@stewartwilson.id.au', '-34.4215072511693', '150.89162554232792', 'notarealemail@internetrix.com.au', '0242286464', '4/85-87 Smith St', 'Wollongong', 'NSW', '2500');
+(3, 'Internetrix', 'internetrix+org@stewartwilson.id.au', '-34.42129705790611', '150.89168186871723', 'notarealemail@internetrix.com.au', '0242286464', '4/85-87 Smith St', 'Wollongong', 'NSW', '2500');
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `organise_assign` (
   `date_unassigned` varchar(250) NOT NULL,
   `perms` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `organise_assign`
@@ -123,7 +123,9 @@ INSERT INTO `organise_assign` (`id`, `user_id`, `organ_id`, `date_assigned`, `da
 (1, 5, 1, '1407843007', '', 1),
 (3, 6, 2, '1407843007', '', 2),
 (7, 6, 3, '', '', 3),
-(9, 5, 2, '1409118057', '', 1);
+(9, 5, 2, '1409118057', '', 1),
+(12, 10, 2, '1409544419', '', 1),
+(13, 11, 3, '1409544810', '', 2);
 
 -- --------------------------------------------------------
 
@@ -142,14 +144,30 @@ CREATE TABLE IF NOT EXISTS `pending_user` (
   `daterequest` varchar(250) NOT NULL,
   `expiry` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `pending_user`
+-- Table structure for table `programs`
 --
 
-INSERT INTO `pending_user` (`id`, `firstname`, `emailaddress`, `phonenumber`, `orgid`, `token`, `perm`, `daterequest`, `expiry`) VALUES
-(2, 'Test', 'client_test@stewartwilson.id.au', '0433971993', 2, 'f812f0cfd28ab573137744271185f7f27ebe30528dda5315e2eca6f714cae53e', 1, '1409128961', '1409733761');
+CREATE TABLE IF NOT EXISTS `programs` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `datestart` varchar(250) NOT NULL,
+  `timestring` varchar(250) NOT NULL,
+  `type` int(1) NOT NULL DEFAULT '0',
+  `datecreated` varchar(250) NOT NULL,
+  `createdbyid` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `programs`
+--
+
+INSERT INTO `programs` (`id`, `datestart`, `timestring`, `type`, `datecreated`, `createdbyid`) VALUES
+(1, '1409556600', '5:30PM', 1, '1409553190', '6');
 
 -- --------------------------------------------------------
 
@@ -173,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `fb_fullname` varchar(250) NOT NULL,
   `fb_profileimageurl` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `users`
@@ -184,7 +202,9 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `emailaddress`, `password`, 
 (4, 'Stewart', 'W', 'sw730@uowmail.edu.au', '$2y$10$o8xRW5d4XCsAyfCSrH7mQ.j2CaXW0/E2erOVdtk0/YX/KJQ8uAqV6', '0411111111', 0, 1, '', '86312f1882fc284272d416d19a105856878c30ad95233bb8ead09ff3d0e1d14a', '0', '', '', ''),
 (5, 'Stewart', 'Trainer', 'trainer@stewartwilson.id.au', '$2y$10$UpXJ5SSgHf6DVZ1XIPw.IOqCxgDqx/xJykPBNt4qBpxpLnW8cYni6', '0400000000', 1, 2, '127.0.0.1', '', '0', '', '', ''),
 (6, 'Stewart 2', 'Trainer 2', 'trainer2@stewartwilson.id.au', '$2y$10$DWA.020gpFYVWmWme8PI0ehwRf0Lw.gSbMND51mPeBE6QWDJe2GbO', '0400000001', 1, 0, '127.0.0.1', '', '10152614563742969', 'CAAD7yZCW0VZBMBAAvPkMAEysbnO6FCyFZBYK2by6kVsxrWqpSHXHYmeJ2CEH3dx1EQECk4invqlD9LItvZChQN3vTTPOx29lF8A0PduQsphnFZANJk95NZCZAEDKO8ZCQF4ZB3H2WZBicSJygBCAqFCmXXGzvd0LrZAVgVgLRtGuSZCPUp4BNQuRUjHtXMI2SwsO4VVqyzenawH3kmLeLoSKQA0w', 'Stewart Wilson', 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p74x74/10500499_10152521874937969_8601961230157440385_n.jpg?oh=b98d0bf579b1dcfaa7b43af3f07e7244&oe=546FDC39&__gda__=1417265631_00e968429e837d455adc2d6b6e6704fe'),
-(7, 'James', 'W', 'jw192@uowmail.edu.au', '$2y$10$adkV0EA/d1v/gnhmslJe3.bDSySJMkHhcw4m6X4kDm8E9.2rwaDXy', '0430017348', 1, 0, '10.64.20.182', '', '10203441127966472', 'CAAD7yZCW0VZBMBAMLK4ofPZCnS3GDrppJaZA0qUDHus2MzZCZASc6loUlbDsPSQZAJHLeZAki58h3wcBoqFFcdxyHh0e5saPIDzIkrZCIgyHUNQH4fq5XA4ZCtHh5ZBRTR4jZBqGIBSZCO11ttIra6Xg2ehCn7sp5RNZANgak58gBdQ8DGfLqEqZAhKDBkpLbNny2VKkmKplRpbpgMvyZBmbmgCbc3Kj', '', '');
+(7, 'James', 'W', 'jw192@uowmail.edu.au', '$2y$10$adkV0EA/d1v/gnhmslJe3.bDSySJMkHhcw4m6X4kDm8E9.2rwaDXy', '0430017348', 1, 0, '10.64.20.182', '', '10203441127966472', 'CAAD7yZCW0VZBMBAMLK4ofPZCnS3GDrppJaZA0qUDHus2MzZCZASc6loUlbDsPSQZAJHLeZAki58h3wcBoqFFcdxyHh0e5saPIDzIkrZCIgyHUNQH4fq5XA4ZCtHh5ZBRTR4jZBqGIBSZCO11ttIra6Xg2ehCn7sp5RNZANgak58gBdQ8DGfLqEqZAhKDBkpLbNny2VKkmKplRpbpgMvyZBmbmgCbc3Kj', '', ''),
+(10, 'Stewart', 'Wilson', 'client_test@stewartwilson.id.au', '$2y$10$eJIwVucTymiv7q9ouGQkWOv1Twc.6FXwieuityZRoKW4Nlh4HZtuu', '0400000002', 1, 0, '127.0.0.1', '', '', '', '', ''),
+(11, 'Trainer', 'Trainer', 'trainer_test@stewartwilson.id.au', '$2y$10$C31FAhRALgVGgJzsPSuDeeLbkk7rMjGYEi8/d0DZuL04voJ1R0GTe', '0400000003', 1, 0, '127.0.0.1', '', '', '', '', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

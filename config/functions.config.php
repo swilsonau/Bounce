@@ -25,21 +25,15 @@ function checkusertype($find, $userdetails) {
 }
 
 function getusertype($userdetails, $string = false) {
+  $org = checkorgownership($userdetails['id']);
+
   if(!$string) {
     return $userdetials['type'];
   } else {
-    switch($userdetails['type']) {
-      default:
-        return "";
-      break;
-
-      case "2":
-        return "Organisational";
-      break;
-
-      case "3":
-        return "Administrator";
-      break;
+    if($org) {
+      return "Organisational";
+    } else {
+      return "";
     }
   }
 }
@@ -109,7 +103,7 @@ function dashnav($selected, $userdetails) {
           $nav .= '<li class="pure-menu-heading">Organisation Settings</li>
           <li'; if($selected == 'oprofile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/oprofile"><i class="fa fa-sitemap"></i> Organisation Profile</a></li>
           <li'; if($selected == 'ousers') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/ousers"><i class="fa fa-users"></i> Organisation Users</a></li>
-          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/programs"><i class="fa fa-location-arrow"></i> Organisation Programs</a></li>
+          <li'; if($selected == 'oprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/oprograms"><i class="fa fa-location-arrow"></i> Organisation Programs</a></li>
           ';
         } else {
           $nav .='<li class="pure-menu-heading">Find Trainers</li>
@@ -155,7 +149,7 @@ function valid_pass($candidate) {
 function checkorgownership($userid) {
   global $sql;
 
-  $fetch = mysqli_query($sql, "SELECT `users`.`id` AS `userid`, `organise_assign`.`organ_id` AS `orgid`, `organise_assign`.`perms` FROM `users` RIGHT JOIN `organise_assign` ON `users`.`id` = `organise_assign`.`user_id` WHERE `users`.`id` = '$userid' AND `organise_assign`.`perms` > '1'");
+  $fetch = mysqli_query($sql, "SELECT `users`.`id` AS `userid`, `organise_assign`.`organ_id` AS `orgid`, `organise_assign`.`perms` FROM `users` RIGHT JOIN `organise_assign` ON `users`.`id` = `organise_assign`.`user_id` WHERE `users`.`id` = '$userid' AND `organise_assign`.`perms` >= '1'");
 
   if(!$fetch) {
     return false;
