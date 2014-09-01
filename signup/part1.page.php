@@ -8,21 +8,50 @@
 
 // Part 1 focuses on the actual creation of the user, grabbing data such as email address, password etc
 
+// Check for forced signup
+if(isset($_SESSION['forcedsignup'])) {
+  // Yes, this is a forced signup.
+  $id = mysqli_real_escape_string($sql, $_SESSION['forcedsignup']);
+
+  $actsql = mysqli_query($sql, "SELECT * FROM `pending_user` RIGHT JOIN `organisation` ON `pending_user`.`orgid` = `organisation`.`id` WHERE `pending_user`.`id` = '$id' LIMIT 1");
+
+  if($actsql) {
+    // All good
+    $forcedarray = mysqli_fetch_array($actsql);
+
+    $forced_firstname = $forcedarray['firstname'];
+    $forced_emailaddress = $forcedarray['emailaddress'];
+    $forced_phonenumber = $forcedarray['phonenumber'];
+    $forced_orgid = $forcedarray['orgid'];
+    $forced_perm = $forcedarray['perm'];
+    $forced_orgname = $forcedarray['name'];
+
+  }
+}
+
 ?>
 
 <div class="signup-header">
-  <h1>Hey! Welcome to <?php echo $sitename; ?>.</h1>
+  <h1>Hey<?php echo (isset($forced_firstname) ? " ".ucfirst($forced_firstname) : null) ?>! Welcome to <?php echo $sitename; ?>.</h1>
   <p>You're on your way to communicating with your Personal Trainer. Before we start, we just need to get some information from you. Don't worry, it won't take long.</p>
 </div>
 
 <div class="content-wrapper accountgrid">
   <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-1-2">
-
+      <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px">
+        <?php
+          if(isset($_SESSION['forcedsignup'])) {
+              echo '<aside class="warning">
+              <p><strong>Hi There! Welcome to '.$sitename.'!</strong></p>
+              <p>'.$forcedarray['name'].' has invited you to join '.$sitename.'. Please fill out the form to continue your registration, modifying the pre-filled items if needed. Don\'t worry, it won\'t take long. Once you have completed the registration, you\'ll have access to your trainer.</p>
+              </aside>';
+          }
+        ?>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-2">
         <?php
+
         if(isset($_GET['process'])) {
           // Do the process for part 1, clean the inputs
           $email = mysqli_real_escape_string($sql, (isset($_POST['email']) ? $_POST['email'] : null));
@@ -142,8 +171,16 @@
               $id = mysqli_insert_id($sql);
               $_SESSION['bouncenewid'] = $id;
 
-              // Now direct the user to step 2
-              echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'signup/part2" />';
+              // Now direct the user to step 2 (or the end process of step 2)
+
+              if(isset($_SESSION['forcedsignup'])) {
+                // Quickly set some session vars
+                $_SESSION['forcedsignupinfo'] = array("id" => $_SESSION['forcedsignup'], "orgid" => $forced_orgid, "perms" => $forced_perm, "orgname" => $forced_orgname);
+
+                echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'signup/part2/process" />';
+              } else {
+                echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'signup/part2/" />';
+              }
             }
           }
         }
@@ -155,7 +192,7 @@
 
               <div class="pure-control-group">
                   <label for="email">Email Address</label>
-                  <input name="email" type="email" placeholder="Email Address" value="<?php echo (isset($email) ? $email : null) ?>">
+                  <input name="email" type="email" placeholder="Email Address" value="<?php echo (isset($email) ? $email : (isset($forced_emailaddress) ? $forced_emailaddress : null)) ?>">
               </div>
 
               <div class="pure-control-group">
@@ -172,7 +209,7 @@
 
               <div class="pure-control-group">
                   <label for="firstname">First Name</label>
-                  <input name="firstname" type="text" placeholder="First Name" value="<?php echo (isset($firstname) ? $firstname : null) ?>">
+                  <input name="firstname" type="text" placeholder="First Name" value="<?php echo (isset($firstname) ? $firstname : (isset($forced_firstname) ? ucfirst($forced_firstname) : null)) ?>">
               </div>
 
               <div class="pure-control-group">
@@ -182,7 +219,7 @@
 
               <div class="pure-control-group">
                   <label for="mobile">Mobile Number</label>
-                  <input name="mobile" type="text" placeholder="0400000000" value="<?php echo (isset($mobile) ? $mobile : null) ?>">
+                  <input name="mobile" type="text" placeholder="0400000000" value="<?php echo (isset($mobile) ? $mobile : (isset($forced_phonenumber) ? $forced_phonenumber : null)) ?>">
               </div>
 
               <div class="pure-control-group">

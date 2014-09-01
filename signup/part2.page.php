@@ -41,9 +41,28 @@ if(!isset($_SESSION['bouncenewid'])) {
     if(!$actsql) {
       echo "There was an error finishing your account setup.";
     } else {
+      // Add the appropriate info into db
+      if(isset($_SESSION['forcedsignupinfo'])) {
+        $signuparray = $_SESSION['forcedsignupinfo'];
+        $assid = $signuparray['id'];
+        $orgid = $signuparray['orgid'];
+        $perms = $signuparray['perms'];
+        $orgname = $signuparray['orgname'];
+
+        $time = time();
+
+        $asssql = mysqli_query($sql, "INSERT INTO `organise_assign`(`user_id`, `organ_id`, `date_assigned`, `perms`)VALUES('$userid', '$orgid', '$time', '$perms')");
+
+        // Delete the request
+        $delsql = mysqli_query($sql, "DELETE FROM `pending_user` WHERE `id` = '$assid'");
+
+        // Modify the email text
+        $forcedinfo = " You've also automatically been assigned to $orgname. Once you've activated your account, you can start communicating with your trainer immediately.";
+      }
+
       // All good, send the email
       $actlink = $siteurl."signup/activate/".$token;
-      sendemail($newuserinfo['emailaddress'], $sitename." activation email", "Hello $newuserinfo[firstname],<br />Thanks for signing up for $sitename!<br /><br />Please click on the link below to activate your account.<br /><br /><a href=\"$actlink\">$actlink</a><br /><br />Thank you,<br />$sitename");
+      sendemail($newuserinfo['emailaddress'], $sitename." activation email", "Hello $newuserinfo[firstname],<br />Thanks for signing up for $sitename!<br /><br />Please click on the link below to activate your account.$forcedinfo<br /><br /><a href=\"$actlink\">$actlink</a><br /><br />Thank you,<br />$sitename");
 
       echo '<meta http-equiv="refresh" content="0; url='.$siteurl.'signup/finish" />';
 

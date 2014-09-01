@@ -38,9 +38,13 @@
                   $orgid = $acc['orgid'];
                   $currtime = time();
 
+                  $_SESSION['forcedsignup'] = $id;
+
                   echo '<aside>
                     <p><i class="fa fa-cog fa-spin"></i> Please wait.... sending to signup page.</p>
                   </aside>';
+
+                  echo '<meta http-equiv="refresh" content="3; url='.$siteurl.'signup/part1" />';
 
                 }
 

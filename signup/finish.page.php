@@ -17,7 +17,7 @@ if(!isset($_SESSION['bouncenewid'])) {
 
 // unset seesions
 session_unset();
-session_destroy();
+@session_destroy();
 ?>
 
 <div class="signup-header">
