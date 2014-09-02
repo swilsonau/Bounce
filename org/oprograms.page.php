@@ -32,6 +32,11 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
         </div>
 
         <div class="pure-u-1 pure-u-md-3-4 settings-content">
+            <aside class="error mobilewarning">
+              <p style="font-weight: bold;"><i class="fa fa-mobile"></i> Mobile Warning</p>
+              <p>We notice you're using a mobile device. Please note, this page works best on a desktop computer or tablet.</p>
+            </aside>
+
             <aside style="margin-top: 0;">
               <p><i class="fa fa-info-circle"></i> In this section, you are able to create, modify or remove programs for your clients. You can also assign your clients to a program.</p>
             </aside>
@@ -219,24 +224,94 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                                   <th width="20%">Program Date</th>
                                   <th width="20%">Program Time</th>
                                   <th width="10%">Program Type</th>
+                                  <th width="10%">Program Trainer</th>
                                   <th width="10%">Program Attendees</th>
-                                  <th width="15%"></th>
+                                  <th width="10%"></th>
                               </tr>
                           </thead>
 
                           <tbody>';
 
-                          echo '<tr>
-                            <td colspan="6"><i class="fa fa-times-circle"></i> There are no programs.</td>
-                          </tr>';
+                          $thisorgid = $orgdetails['id'];
+
+                          $getprogcountsql = mysqli_query($sql, "SELECT `id` FROM `programs` WHERE `orgid` = '$thisorgid'");
+
+                          $num_rows = mysqli_num_rows($getprogcountsql);
+
+                          $items = 10;
+
+                          $nrpage_amount = $num_rows/$items;
+                          $page_amount = ceil($num_rows/$items);
+                          $page_amount = $page_amount-1;
+                          $page = mysqli_real_escape_string($sql, (isset($_GET['p']) ? $_GET['p'] : null));
+                          if($page < "1"){
+                            $page = "0";
+                          }
+                          $p_num = $items*$page;
+
+                          // Get programs
+                          $progsql = mysqli_query($sql, "SELECT * FROM `programs` WHERE `orgid` = '$thisorgid' LIMIT $p_num , $items");
+
+                          if(!$progsql) {
+                            echo '<tr>
+                              <td colspan="7"><i class="fa fa-times-circle"></i> There was an error retrieving the programs. Please try again later.</td>
+                            </tr>';
+                          } else {
+                            if(mysqli_num_rows($progsql) == 0) {
+                              echo '<tr>
+                                <td colspan="7"><i class="fa fa-times-circle"></i> There are no programs.</td>
+                              </tr>';
+                            } else {
+                              while($prog = mysqli_fetch_array($progsql)) {
+                                echo '<tr>
+                                <td>'.$prog['id'].'</td>
+                                <td>';
+                                if($prog['type'] == 1) {
+                                  echo "Every ".date('l', $prog['datestart']);
+                                } else {
+                                  echo date('l d/m/y', $prog['datestart']);
+                                }
+                                echo '</td>
+                                <td>'.$prog['timestring'].'</td>
+                                <td>'.progtype($prog['type']) .'</td>
+                                <td>'.$prog['id'].'</td>
+                                <td>'.$prog['id'].'</td>
+                                <td><a href="#" class="pure-button"><i class="fa fa-pencil"></i> Edit</a> <a href="#" class="pure-button"><i class="fa fa-trash"></i> Delete</a></td>
+                                </tr>';
+                              }
+                            }
+                          }
+
 
                           echo '</tbody>
                         </table>
-                      </div>
-                    </div>
-                    <div class="pure-g">
-                      <div class="pure-u-1 pure-u-md-1-1" style="padding: 5px;">
-                        Options: <a href="'.$siteurl.'org/showpending" class="pure-button button-small">Add Program</a>
+                        <!---Options: <a href="'.$siteurl.'org/showpending" class="pure-button button-small">Add Program</a>-->
+                        ';
+
+                        if($page_amount != "0"){
+                          echo '<ul class="pure-paginator">';
+
+                                  echo '<li'; if($page == "0"){ $prev = 0; } else { $prev = $page-1; } echo '><a class="pure-button prev" href="'.$siteurl.'org/oprograms/'.$thisorgid.'/?p='.$prev.'">&#171;</a></li>';
+
+                            for ( $counter = 0; $counter <= $page_amount; $counter += 1) {
+                              echo '<li><a href="'.$siteurl.'org/oprograms/'.$thisorgid.'/?p='.$counter.'" class="pure-button'; if($counter == $page) { echo ' pure-button-active'; } echo '">'.($counter + 1).'</a></li>';
+                            }
+
+                                  echo '<li'; if($page >= $page_amount){ echo ' onclick="return false;"'; $next = 0; } else { $next = $page+1; } echo '><a class="pure-button next" href="'.$siteurl.'org/oprograms/'.$thisorgid.'/?p='.$next.'">&#187;</a></li>';
+
+                          echo '</ul>';
+                        }
+
+                        echo '
+
+                        <h3>Create A Program</h3>
+                        <aside class="warning">
+                          <p><i class="fa fa-futbol-o"></i> You are able to create new programs below. There are two types of programs available, Recurring and One Off. A recurring program will run at a specific time each week while a One Off program will only run once on a specific date. Recurring programs are useful for those daily workout sessions and the One Off programs are useful for one-on-ones with clients.</p>
+
+                          <p>Once a program has finished (the recurring program\'s end date has been reached or a one off program has passed) it will be removed and only show in the archived programs sections. By default, clients cannot see archived programs/</p>
+                        </aside>
+
+                        nice
                       </div>
                     </div>
                     ';

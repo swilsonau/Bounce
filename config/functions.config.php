@@ -206,4 +206,16 @@ function stringorgperms($perm, $long = false) {
   }
 }
 
+function progtype($progtype) {
+  switch($progtype) {
+    case 1:
+      return "<i class='fa fa-refresh'></i> Recurring";
+      break;
+
+    case 2:
+      return "<i class='fa fa-share'></i> One Off";
+      break;
+  }
+}
+
 ?>
