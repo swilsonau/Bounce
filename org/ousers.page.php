@@ -129,7 +129,23 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                       // Pull all the users from the DB
                       $thisorgid = $orgdetails['id'];
 
-                      $getusersorgsql = mysqli_query($sql, "SELECT `organise_assign`.`user_id`, `organise_assign`.`organ_id`, `organise_assign`.`date_assigned`, `organise_assign`.`perms`, `users`.`id`, `users`.`id`, `users`.`firstname`, `users`.`lastname`, `users`.`phonenumber`, `users`.`emailaddress` FROM `organise_assign` RIGHT JOIN `users` ON `organise_assign`.`user_id` = `users`.`id` WHERE `organ_id`= '$thisorgid' AND  `organise_assign`.`perms` <> 0");
+                      $getuserscountsql = mysqli_query($sql, "SELECT `organise_assign`.`user_id`, `organise_assign`.`organ_id`, `organise_assign`.`date_assigned`, `organise_assign`.`perms`, `users`.`id`, `users`.`id`, `users`.`firstname`, `users`.`lastname`, `users`.`phonenumber`, `users`.`emailaddress` FROM `organise_assign` RIGHT JOIN `users` ON `organise_assign`.`user_id` = `users`.`id` WHERE `organ_id`= '$thisorgid' AND  `organise_assign`.`perms` <> 0");
+
+
+                      $num_rows = mysqli_num_rows($getuserscountsql);
+
+                      $items = 10;
+
+                      $nrpage_amount = $num_rows/$items;
+                      $page_amount = ceil($num_rows/$items);
+                      $page_amount = $page_amount-1;
+                      $page = mysqli_real_escape_string($sql, (isset($_GET['p']) ? $_GET['p'] : null));
+                      if($page < "1"){
+                      	$page = "0";
+                      }
+                      $p_num = $items*$page;
+
+                      $getusersorgsql = mysqli_query($sql, "SELECT `organise_assign`.`user_id`, `organise_assign`.`organ_id`, `organise_assign`.`date_assigned`, `organise_assign`.`perms`, `users`.`id`, `users`.`id`, `users`.`firstname`, `users`.`lastname`, `users`.`phonenumber`, `users`.`emailaddress` FROM `organise_assign` RIGHT JOIN `users` ON `organise_assign`.`user_id` = `users`.`id` WHERE `organ_id`= '$thisorgid' AND  `organise_assign`.`perms` <> 0 LIMIT $p_num , $items");
 
                       if(!$getusersorgsql) {
                         echo '<aside class="error">
@@ -148,7 +164,21 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                         }
                       }
                   echo '</tbody>
-              </table>
+              </table>';
+              if($page_amount != "0"){
+            		echo '<ul class="pure-paginator">';
+
+                        echo '<li'; if($page == "0"){ $prev = 0; } else { $prev = $page-1; } echo '><a class="pure-button prev" href="'.$siteurl.'org/ousers/'.$thisorgid.'/?p='.$prev.'">&#171;</a></li>';
+
+            			for ( $counter = 0; $counter <= $page_amount; $counter += 1) {
+            				echo '<li><a href="'.$siteurl.'org/ousers/'.$thisorgid.'/?p='.$counter.'" class="pure-button'; if($counter == $page) { echo ' pure-button-active'; } echo '">'.($counter + 1).'</a></li>';
+            			}
+
+                        echo '<li'; if($page >= $page_amount){ echo ' onclick="return false;"'; $next = 0; } else { $next = $page+1; } echo '><a class="pure-button next" href="'.$siteurl.'org/ousers/'.$thisorgid.'/?p='.$next.'">&#187;</a></li>';
+
+            		echo '</ul>';
+            	}
+  echo '
               <h3>Assign a user</h3>
               <aside class="warning">
                 <p><i class="fa fa-user"></i> You can assign a user to your organisation below. Once you assign a user, they will be notified via email or other notification methods they have specified. You can add a user either via their email address or mobile number. Alternatively, you can create an account for a user and they will be emailed the details.</p><p><strong>Important:</strong> It is possible to assign users with administrator or trainer privileges in this section. Please ensure you double check what permission you are assigning.</p>
