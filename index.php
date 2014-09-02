@@ -46,9 +46,14 @@ if(checklogin()) {
     <!--<![endif]-->
 
   <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/tooltipster/css/tooltipster.css">
 
   <script type="text/javascript"
     src="<?php echo $siteurl; ?>libs/site.php">
+  </script>
+
+  <script type="text/javascript"
+    src="<?php echo $siteurl; ?>libs/tooltipster/js/jquery.tooltipster.min.js">
   </script>
 
   <script type="text/javascript"

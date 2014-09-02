@@ -86,7 +86,7 @@ if(!$checkpermssql) {
                 $orgname = $orgdetail['name'];
 
                 // All good, send an email
-                //sendemail($userdetails['emailaddress'], $orgname.": Assign Request", "Hello $userfirstname,<br /><br />The organisation, $orgname has requested your permission to add you as a $type. If you are expecting this, you can push the link below to accept the request. The request will expire in 1 week.<br /><br /><a href=\"$requestlink\">Accept This Request</a><br /><br />Cheers,<br />$sitename");
+                sendemail($userdetails['emailaddress'], $orgname.": Assign Request", "Hello $userfirstname,<br /><br />The organisation, $orgname has requested your permission to add you as a $type. If you are expecting this, you can push the link below to accept the request. The request will expire in 1 week.<br /><br /><a href=\"$requestlink\">Accept This Request</a><br /><br />Cheers,<br />$sitename");
 
                 $array['error'] = 0;
               }

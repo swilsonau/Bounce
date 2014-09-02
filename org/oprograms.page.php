@@ -310,8 +310,71 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                           <p>Once a program has finished (the recurring program\'s end date has been reached or a one off program has passed) it will be removed and only show in the archived programs sections. By default, clients cannot see archived programs/</p>
                         </aside>
+                      </div>
+                    </div>
 
-                        nice
+                    <div class="pure-g">
+                      <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
+                        <form class="pure-form pure-form-aligned">
+                          <fieldset>
+                            <legend>Program Details</legend>
+
+                            <div class="pure-control-group">
+                              <label for="type">Type</label>
+                              <select name="type" id="type" onchange="showprogramtype()">
+                                <option value="0">-- CHOOSE ONE --</option>
+                                <option value="1">Recurring</option>
+                                <option value="2">One Off</option>
+                              </select>
+                            </div>
+
+                            <div class="pure-control-group">
+                                <label for="programnamel">Program Name</label>
+                                <input name="programname" type="text" placeholder="" value="'.(isset($_POST['ccontactemail']) ? $_POST['ccontactemail'] : null).'">
+                            </div>
+
+                            <div class="pure-control-group">
+                                <label for="maxpax" class="tooltip" title="You can limit the amount of clients that can be assigned to this program. If left blank, there will be no limit."><i class="fa fa-info-circle"></i> Max Participants</label>
+                                <input name="maxpax" type="text" placeholder="0" size="5" value="'.(isset($_POST['ccontactemail']) ? $_POST['ccontactemail'] : null).'">
+                            </div>
+
+                            <div class="pure-control-group">
+                                <label for="maxpax" class="tooltip" title="If the class is open, any client can join the class. If the class is closed, a client can only be added by a trainer or administrator."><i class="fa fa-info-circle"></i> Open Class</label>
+                                <select name="type">
+                                  <option value="1">Yes</option>
+                                  <option value="2">No</option>
+                                </select>
+                            </div>
+                          </fieldset>
+
+                          <fieldset class="recurringprogram" style="display: none;">
+                            <legend>Recurring Program</legend>
+
+                            <div class="pure-control-group">
+                              <label for="type">Type</label>
+                              <select name="type">
+                                <option value="1">Recurring</option>
+                                <option value="2">One Off</option>
+                              </select>
+                            </div>
+                          </fieldset>
+
+                          <fieldset class="oneoffprogram" style="display: none;">
+                            <legend>One Off Program</legend>
+
+                            <div class="pure-control-group">
+                              <label for="type">Type</label>
+                              <select name="type">
+                                <option value="1">Recurring</option>
+                                <option value="2">One Off</option>
+                              </select>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </div>
+
+                      <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
+                        test
                       </div>
                     </div>
                     ';

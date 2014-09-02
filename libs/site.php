@@ -2,6 +2,16 @@
 header('Content-Type: application/javascript');
 include('../config/site.config.php');
 ?>
+$(document).ready(function() {
+  $('.tooltip').tooltipster({
+    trigger: 'click'
+  });
+});
+
+$(window).keypress(function() {
+		$('.tooltip').tooltipster('hide');
+	});
+
 function togglemenu() {
   $('.home-menu').find('li').toggle();
 }
@@ -130,4 +140,16 @@ function createnewuser() {
       }
 
     );
+}
+
+function showprogramtype() {
+  var type = $('#type').val();
+
+  if(type == 1) {
+    $('.recurringprogram').slideDown();
+    $('.oneoffprogram').slideUp();
+  } else {
+    $('.recurringprogram').slideUp();
+    $('.oneoffprogram').slideDown();
+  }
 }
