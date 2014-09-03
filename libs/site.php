@@ -6,6 +6,12 @@ $(document).ready(function() {
   $('.tooltip').tooltipster({
     trigger: 'click'
   });
+
+  $(".isdatepicker").datepicker({ dateFormat: "dd/mm/yy", minDate: 0 });
+  $(".startdatepicker").datepicker({ dateFormat: "dd/mm/yy", minDate: 0, altField: ".recurringday", altFormat: "DD"});
+
+  $(".isdatepicker").attr( 'readOnly' , 'true' );
+  $(".readonly").attr( 'readOnly' , 'true' );
 });
 
 $(window).keypress(function() {
@@ -145,12 +151,21 @@ function createnewuser() {
 function showprogramtype() {
   var type = $('#type').val();
 
-  if(type == 1) {
-    $('.recurringprogram').slideDown();
-    $('.oneoffprogram').slideUp();
-  } else {
-    $('.recurringprogram').slideUp();
-    $('.oneoffprogram').slideDown();
+  switch(type) {
+    case "0":
+      $('.recurringprogram').slideUp();
+      $('.oneoffprogram').slideUp();
+    break;
+
+    case "1":
+      $('.recurringprogram').slideDown();
+      $('.oneoffprogram').slideUp();
+    break;
+
+    case "2":
+      $('.recurringprogram').slideUp();
+      $('.oneoffprogram').slideDown();
+    break;
   }
 }
 
@@ -166,6 +181,18 @@ function sidemenu(action) {
       $('.sidemenu').slideUp();
       $('.sidemenuhide').slideUp();
       $('.sidemenushow').slideDown();
+    break;
+  }
+}
+
+function showlocaltype(value) {
+  switch(value) {
+    case "0":
+      $('.addressgroup').slideDown();
+    break;
+
+    case "1":
+      $('.addressgroup').slideUp();
     break;
   }
 }

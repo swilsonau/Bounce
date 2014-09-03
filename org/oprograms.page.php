@@ -347,14 +347,119 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             </div>
                           </fieldset>
 
+                          <fieldset>
+                            <legend>Program Location</legend>
+
+                            <aside class="address-message" style="display: none;">
+                              <p>Please now confirm the location of your organisation using the Google Map. Move the marker and push Save Location once it\'s correct. If the map is already correct, you can push the Save Profile button below.</p>
+                            </aside>
+
+                            <div class="pure-control-group">
+                              <label for="localatoffice"> Is the program at your office location?</label>
+                              <select name="localatoffice" id="type" onchange="showlocaltype(this.value)">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                              </select> <i class="fa fa-info-circle tooltip" title="Your office location being the address in the Profile section."></i>
+                            </div>
+
+                            <div class="addressgroup" style="display: none;">
+
+                            <div class="pure-control-group">
+                                <label for="street">Street</label>
+                                <input name="street" id="street" type="text" placeholder="" value="'.(isset($_POST['street']) ? $_POST['street'] : null).'">
+                            </div>
+
+                            <div class="pure-control-group">
+                                <label for="suburb">Suburb</label>
+                                <input name="suburb" id="suburb" type="text" placeholder="" value="'.(isset($_POST['suburb']) ? $_POST['suburb'] : null).'">
+                            </div>
+
+                            <div class="pure-control-group">
+                                <label for="state">State</label>
+                                <input name="astate" id="state" type="text" placeholder="" value="'.(isset($_POST['astate']) ? $_POST['astate'] : 'NSW').'" readonly>
+                            </div>
+
+                            <div class="pure-control-group">
+                                <label for="postcode">Postcode</label>
+                                <input name="postcode" id="postcode" type="text" placeholder="" value="'.(isset($_POST['postcode']) ? $_POST['postcode'] : null).'" size="5">
+                            </div>
+
+                            <div class="pure-controls">
+                              <button type="button" onclick="confirmaddress()" class="pure-button">Confirm Address</button>
+
+                              <div class="address-loading" style="display: none;">
+                                <i class="fa fa-refresh fa-spin"></i> Please wait. Loading map......
+                              </div>
+                            </div>
+
+                            </div>
+                          </fieldset>
+
                           <fieldset class="recurringprogram" style="display: none;">
                             <legend>Recurring Program</legend>
 
                             <div class="pure-control-group">
-                              <label for="type">Type</label>
-                              <select name="type">
-                                <option value="1">Recurring</option>
-                                <option value="2">One Off</option>
+                              <label for="recurr-startdate">Start Date</label>
+                              <input class="startdatepicker readonly" name="recurr-startdate" placeholder="Click Me" type="text" />
+                            </div>
+
+                            <div class="pure-control-group">
+                              <label for="recurr-enddate" class="tooltip" title="Leave blank for none."><i class="fa fa-info-circle"></i> End Date</label>
+                              <input class="isdatepicker" name="recurr-enddate" placeholder="Click Me" type="text" />
+                            </div>
+
+                            <div class="pure-control-group">
+                              <label for="recurr-day">Recurring Day</label>
+                              <input class="readonly recurringday" name="recurr-day" placeholder="Populate Start Date" type="text" />
+                            </div>
+
+                            <div class="pure-control-group">
+                              <label for="recurr-timestart">Time Start</label>
+                              <select name="recurr-timestart-hour">';
+                                for($i = 1; $i < 13; $i++) {
+                                  if($i == date('g')) {
+                                    echo "<option selected>$i</option>";
+                                  } else {
+                                    echo "<option>$i</option>";
+                                  }
+                                }
+                              echo '</select> : <select name="recurr-timestart-minute">';
+                                for($i = 0; $i < 60; $i++) {
+                                  $i = str_pad($i, '2', '0', STR_PAD_LEFT);
+                                  if($i == date('i')) {
+                                    echo "<option selected>$i</option>";
+                                  } else {
+                                    echo "<option>$i</option>";
+                                  }
+                                }
+                              echo '</select> <select name="recurr-timestart-12hr">
+                              <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
+                              <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
+                              </select>
+                            </div>
+
+                            <div class="pure-control-group">
+                              <label for="recurr-timeend">Time End</label>
+                              <select name="recurr-timeend-hour">';
+                                for($i = 1; $i < 13; $i++) {
+                                  if($i == date('g')) {
+                                    echo "<option selected>$i</option>";
+                                  } else {
+                                    echo "<option>$i</option>";
+                                  }
+                                }
+                              echo '</select> : <select name="recurr-timeend-minute">';
+                                for($i = 0; $i < 60; $i++) {
+                                  $i = str_pad($i, '2', '0', STR_PAD_LEFT);
+                                  if($i == date('i')) {
+                                    echo "<option selected>$i</option>";
+                                  } else {
+                                    echo "<option>$i</option>";
+                                  }
+                                }
+                              echo '</select> <select name="recurr-timeend-12hr">
+                              <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
+                              <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
                               </select>
                             </div>
                           </fieldset>
@@ -363,10 +468,57 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             <legend>One Off Program</legend>
 
                             <div class="pure-control-group">
-                              <label for="type">Type</label>
-                              <select name="type">
-                                <option value="1">Recurring</option>
-                                <option value="2">One Off</option>
+                              <label for="recurr-date">Date</label>
+                              <input class="isdatepicker readonly" name="recurr-date" placeholder="Click Me" type="text" />
+                            </div>
+
+                            <div class="pure-control-group">
+                              <label for="recurr-timestart">Time Start</label>
+                              <select name="recurr-timestart-hour">';
+                                for($i = 1; $i < 13; $i++) {
+                                  if($i == date('g')) {
+                                    echo "<option selected>$i</option>";
+                                  } else {
+                                    echo "<option>$i</option>";
+                                  }
+                                }
+                              echo '</select> : <select name="recurr-timestart-minute">';
+                                for($i = 0; $i < 60; $i++) {
+                                  $i = str_pad($i, '2', '0', STR_PAD_LEFT);
+                                  if($i == date('i')) {
+                                    echo "<option selected>$i</option>";
+                                  } else {
+                                    echo "<option>$i</option>";
+                                  }
+                                }
+                              echo '</select> <select name="recurr-timestart-12hr">
+                              <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
+                              <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
+                              </select>
+                            </div>
+
+                            <div class="pure-control-group">
+                              <label for="recurr-timeend">Time End</label>
+                              <select name="recurr-timeend-hour">';
+                                for($i = 1; $i < 13; $i++) {
+                                  if($i == date('g')) {
+                                    echo "<option selected>$i</option>";
+                                  } else {
+                                    echo "<option>$i</option>";
+                                  }
+                                }
+                              echo '</select> : <select name="recurr-timeend-minute">';
+                                for($i = 0; $i < 60; $i++) {
+                                  $i = str_pad($i, '2', '0', STR_PAD_LEFT);
+                                  if($i == date('i')) {
+                                    echo "<option selected>$i</option>";
+                                  } else {
+                                    echo "<option>$i</option>";
+                                  }
+                                }
+                              echo '</select> <select name="recurr-timeend-12hr">
+                              <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
+                              <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
                               </select>
                             </div>
                           </fieldset>
@@ -374,7 +526,20 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                       </div>
 
                       <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
-                        test
+                        <script type="text/javascript">
+                          window.onload = function () {
+                            google.maps.event.addDomListener(window, \'load\', gmaps_ini('.$orgdetails['cord_lat'].', '.$orgdetails['cord_long'].'));
+                          }
+                        </script>
+
+                        <div id="map-canvas" style="width: 100%; height: 300px;"></div>
+                        <div style="text-align: right; margin-top: 10px;">
+                        <button class="pure-button button-small">Reset Map</button> <button class="pure-button pure-button-primary pure-button-disabled button-small bounce-savelocal">Save Location</button>
+                        </div>
+
+                        <br /><aside>
+                          <p><i class="fa fa-star-o"></i> Moving the marker will only update the precise location of the program. Useful if the program is in a park or reserve.</p>
+                        </aside>
                       </div>
                     </div>
                     ';

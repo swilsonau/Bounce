@@ -36,6 +36,7 @@ if(checklogin()) {
 <!--<![endif]-->
 
     <script src="<?php echo $siteurl; ?>/libs/jquery-1.11.1.min.js"></script>
+    <script src="<?php echo $siteurl; ?>/libs/jquery-ui/jquery-ui.min.js"></script>
 
 
     <!--[if lte IE 8]>
@@ -47,6 +48,10 @@ if(checklogin()) {
 
   <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/tooltipster/css/tooltipster.css">
+
+  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.min.css">
+  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.structure.min.css">
+  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.theme.min.css">
 
   <script type="text/javascript"
     src="<?php echo $siteurl; ?>libs/site.php">
