@@ -92,7 +92,15 @@ function dashnav($selected, $userdetails) {
 '.$org.'
   </p>
   </div>
-  <div class="pure-menu pure-menu-open">
+
+  <div class="pure-menu pure-menu-open sidemenu-mobile">
+    <ul>
+      <li class="sidemenushow"><a onclick="sidemenu(\'show\')"><i class="fa fa-bars"></i> Open Menu</a></li>
+      <li class="sidemenuhide" style="display: none;"><a onclick="sidemenu(\'hide\')"><i class="fa fa-bars"></i> Close Menu</a></li>
+    </ul>
+  </div>
+
+  <div class="pure-menu pure-menu-open sidemenu">
     <ul>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-home"></i> Dashboard Home</a></li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-calendar"></i> My Planner</a></li>

@@ -12,7 +12,6 @@ body {
     line-height: 1.7em;
     color: #7f8c8d;
     font-size: 13px;
-    padding-top: 45px;
 }
 
 h1,
@@ -184,6 +183,7 @@ a.pure-button-primary {
   background: #701E08;
   width: 100%;
   height: 130px;
+  margin-top: 45px;
 }
 
 .page-header h1 {
@@ -422,6 +422,14 @@ aside {
             font-size: 85%;
         }
 
+.sidemenu-mobile {
+  display: none;
+}
+
+.sidemenu {
+  display: inherit;
+}
+
 /*
  * -- MOBILE MEDIA QUERIES --
  * On mobiles, we want to customize some
@@ -430,7 +438,7 @@ aside {
 
 @media (max-width: 460px) {
     .page-header {
-      margin-top: 0px;
+      display: none;
     }
 
     .accountgrid {
@@ -446,7 +454,7 @@ aside {
     }
 
     #mobile-menu {
-      display: inline!important;
+      display: inherit!important;
     }
 
     .home-menu {
@@ -456,6 +464,18 @@ aside {
 
     .mobilewarning {
       display: block!important;
+    }
+
+    .userinfo {
+      display: none;
+    }
+
+    .sidemenu {
+      display: none;
+    }
+
+    .sidemenu-mobile {
+      display: inherit;
     }
  }
 

@@ -153,3 +153,19 @@ function showprogramtype() {
     $('.oneoffprogram').slideDown();
   }
 }
+
+function sidemenu(action) {
+  switch(action) {
+    case "show":
+      $('.sidemenu').slideDown();
+      $('.sidemenushow').slideUp();
+      $('.sidemenuhide').slideDown();
+    break;
+
+    case "hide":
+      $('.sidemenu').slideUp();
+      $('.sidemenuhide').slideUp();
+      $('.sidemenushow').slideDown();
+    break;
+  }
+}

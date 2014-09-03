@@ -68,7 +68,7 @@ if(checklogin()) {
         <a class="pure-menu-heading" href="<?php echo $siteurl; ?>"><img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="100px"/></a>
 
         <div id="mobile-menu">
-          <a href="#" onclick="togglemenu()"><i class="fa fa-bars fa-2x"></i></a>
+          <a onclick="togglemenu()"><i class="fa fa-bars fa-2x"></i></a>
         </div>
 
           <ul>
