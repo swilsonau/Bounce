@@ -196,3 +196,8 @@ function showlocaltype(value) {
     break;
   }
 }
+
+function scrollToAnchor(aid){
+    var aTag = $("a[name='"+ aid +"']").offset().top;
+    $('html,body').animate({scrollTop: aTag - 65},'slow');
+}

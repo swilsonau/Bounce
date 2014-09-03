@@ -110,110 +110,6 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                     $orgdetails = mysqli_fetch_array($getorgdetsql);
 
-                    if(isset($_POST['formsubmit'])) {
-                      // Do the process for part 1, clean the inputs
-                      $name = mysqli_real_escape_string($sql, (isset($_POST['name']) ? $_POST['name'] : null));
-                      $email = mysqli_real_escape_string($sql, (isset($_POST['contactemail']) ? $_POST['contactemail'] : null));
-                      $cemail = mysqli_real_escape_string($sql, (isset($_POST['ccontactemail']) ? $_POST['ccontactemail'] : null));
-                      $phone = mysqli_real_escape_string($sql, (isset($_POST['phonenumber']) ? $_POST['phonenumber'] : null));
-                      $street = mysqli_real_escape_string($sql, (isset($_POST['street']) ? $_POST['street'] : null));
-                      $suburb = mysqli_real_escape_string($sql, (isset($_POST['suburb']) ? $_POST['suburb'] : null));
-                      $state = mysqli_real_escape_string($sql, (isset($_POST['astate']) ? $_POST['astate'] : null));
-                      $postcode = mysqli_real_escape_string($sql, (isset($_POST['postcode']) ? $_POST['postcode'] : null));
-
-                      $latchng = mysqli_real_escape_string($sql, (isset($_POST['latchng']) ? $_POST['latchng'] : null));
-                      $lngchng = mysqli_real_escape_string($sql, (isset($_POST['lngchng']) ? $_POST['lngchng'] : null));
-
-                      // Error validation
-                      // Doing it server side because ajax/js takes too long
-                      $errors = 0;
-                      $errorarray = array();
-
-                      if($email == '') {
-                        $errors++;
-                        $errorarray[] = "You must enter a Contact email address.";
-                      }
-
-                      if(!filter_var($email, FILTER_VALIDATE_EMAIL) && $email != '') {
-                        $errors++;
-                        $errorarray[] = "You must enter a valid Contact email address.";
-                      }
-
-                      if($cemail == '') {
-                        $errors++;
-                        $errorarray[] = "You must enter a Public Contact email address.";
-                      }
-
-                      if(!filter_var($cemail, FILTER_VALIDATE_EMAIL) && $cemail != '') {
-                        $errors++;
-                        $errorarray[] = "You must enter a valid Public Contact email address.";
-                      }
-
-                      if($phone == '') {
-                        $errors++;
-                        $errorarray[] = "Telephone Number is a required field.";
-                      }
-
-                      if((!is_numeric($phone) || strlen($phone) != 10) && $phone != '') {
-                        $errors++;
-                        $errorarray[] = "Telephone Number is incorrectly formatted. Eg. 0200000000";
-                      }
-
-                      if($street == '') {
-                        $errors++;
-                        $errorarray[] = "Street is a required field.";
-                      }
-
-                      if($suburb == '') {
-                        $errors++;
-                        $errorarray[] = "Suburb is a required field.";
-                      }
-
-                      if($state == '') {
-                        $errors++;
-                        $errorarray[] = "State is a required field.";
-                      }
-
-                      if($postcode == '') {
-                        $errors++;
-                        $errorarray[] = "Postcode is a required field.";
-                      }
-
-                      if((!is_numeric($postcode) || strlen($postcode) != 4) && $postcode != '') {
-                        $errors++;
-                        $errorarray[] = "Postcode is incorrectly formatted. Eg. 2500";
-                      }
-
-                      // Show errors if needed
-                      if($errors > 0) {
-                        echo '<aside class="error"><strong>Please fix the following errors:</strong><br /><ul>';
-                        foreach($errorarray as $error) {
-                          echo '<li>'.$error.'</li>';
-                        }
-                        echo '</ul></aside>';
-                      } else {
-                        // Do update SQL statement
-                        if(isset($latchng) || isset($lngchng)) {
-                          $xychange = ', `cord_lat` = \''.$latchng.'\', `cord_long` = \''.$lngchng.'\'';
-                        }
-
-                        $sql2 = mysqli_query($sql, "UPDATE `organisation` SET `name` = '$name', `contact_email` = '$email', `ccontact_email` = '$cemail', `contact_phone` = '$phone', `address_street` = '$street', `address_suburb` = '$suburb', `address_state` = '$state', `address_postcode` = '$postcode'$xychange WHERE `id` = '$orgid'");
-
-                        if(!$sql2) {
-                          echo 'Sorry, there was an issue saving those details.';
-                          echo mysqli_error($sql);
-                        } else {
-                          // Send an email to the organisation administrator notifying the changes
-                          $user = $userdetails['firstname'].' '.$userdetails['lastname'];
-
-                          sendemail($email, "Organisation Changes", "<strong>Attention $name administrations</strong><br /><br />The user, $user, has made changes to your organisational profile on $sitename. If this is in error, please revert the changes.<br /><br />Cheers,<br />$sitename");
-
-                          echo '<aside class="success"><p>Changes Saved</p></aside>';
-                        }
-                      }
-
-                    }
-
                     echo '
                     <div class="pure-g">
                       <div class="pure-u-1 pure-u-md-1-1" style="padding: 5px;">
@@ -314,8 +210,150 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                     </div>
 
                     <div class="pure-g">
-                      <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">
-                        <form class="pure-form pure-form-aligned">
+                      <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">';
+
+                      if(isset($_POST['formsubmit'])) {
+                        print_r($_POST);
+                        // Do the process for part 1, clean the inputs
+                        $type = mysqli_real_escape_string($sql, (isset($_POST['type']) ? $_POST['type'] : null));
+                        $programname = mysqli_real_escape_string($sql, (isset($_POST['programname']) ? $_POST['programname'] : null));
+                        $maxpax = mysqli_real_escape_string($sql, (isset($_POST['maxpax']) ? $_POST['maxpax'] : null));
+                        $openclass = mysqli_real_escape_string($sql, (isset($_POST['openclass']) ? $_POST['openclass'] : null));
+                        $localatoffice = mysqli_real_escape_string($sql, (isset($_POST['localatoffice']) ? $_POST['localatoffice'] : null));
+
+                        if($localatoffice == 0) {
+                          $street = mysqli_real_escape_string($sql, (isset($_POST['street']) ? $_POST['street'] : null));
+                          $suburb = mysqli_real_escape_string($sql, (isset($_POST['suburb']) ? $_POST['suburb'] : null));
+                          $state = mysqli_real_escape_string($sql, (isset($_POST['astate']) ? $_POST['astate'] : null));
+                          $postcode = mysqli_real_escape_string($sql, (isset($_POST['postcode']) ? $_POST['postcode'] : null));
+                        } else {
+                          $street = $orgdetails['address_street'];
+                          $suburb = $orgdetails['address_suburb'];
+                          $state = $orgdetails['address_state'];
+                          $postcode = $orgdetails['address_postcode'];
+                        }
+
+                        if($type == 1) {
+                          $recurrstartdate = mysqli_real_escape_string($sql, (isset($_POST['recurr-startdate']) ? $_POST['recurr-startdate'] : null));
+                          $recurrenddate = mysqli_real_escape_string($sql, (isset($_POST['recurr-enddate']) ? $_POST['recurr-enddate'] : null));
+                          $recurrday = mysqli_real_escape_string($sql, (isset($_POST['recurr-day']) ? $_POST['recurr-day'] : null));
+
+                          $recurrtimestarthour = mysqli_real_escape_string($sql, (isset($_POST['recurr-timestart-hour']) ? $_POST['recurr-timestart-hour'] : null));
+                          $recurrtimestartminute = mysqli_real_escape_string($sql, (isset($_POST['recurr-timestart-minute']) ? $_POST['recurr-timestart-minute'] : null));
+                          $recurrtimestart12hr = mysqli_real_escape_string($sql, (isset($_POST['recurr-timestart-12hr']) ? $_POST['recurr-timestart-12hr'] : null));
+
+                          $recurrtimeendhour = mysqli_real_escape_string($sql, (isset($_POST['recurr-timeend-hour']) ? $_POST['recurr-timeend-hour'] : null));
+                          $recurrtimeendminute = mysqli_real_escape_string($sql, (isset($_POST['recurr-timeend-minute']) ? $_POST['recurr-timeend-minute'] : null));
+                          $recurrtimeend12hr = mysqli_real_escape_string($sql, (isset($_POST['recurr-timeend-12hr']) ? $_POST['recurr-timeend-12hr'] : null));
+                        }elseif($type == 2) {
+                          $oneoffdate = mysqli_real_escape_string($sql, (isset($_POST['oneoff-date']) ? $_POST['oneoff-date'] : null));
+
+                          $oneofftimestarthour = mysqli_real_escape_string($sql, (isset($_POST['oneoff-timestart-hour']) ? $_POST['oneoff-timestart-hour'] : null));
+                          $oneofftimestartminute = mysqli_real_escape_string($sql, (isset($_POST['oneoff-timestart-minute']) ? $_POST['oneoff-timestart-minute'] : null));
+                          $oneofftimestart12hr = mysqli_real_escape_string($sql, (isset($_POST['oneoff-timestart-12hr']) ? $_POST['oneoff-timestart-12hr'] : null));
+
+                          $oneofftimeendhour = mysqli_real_escape_string($sql, (isset($_POST['oneoff-timeend-hour']) ? $_POST['oneoff-timeend-hour'] : null));
+                          $oneofftimeendminute = mysqli_real_escape_string($sql, (isset($_POST['oneoff-timeend-minute']) ? $_POST['oneoff-timeend-minute'] : null));
+                          $oneofftimeend12hr = mysqli_real_escape_string($sql, (isset($_POST['oneoff-timeend-12hr']) ? $_POST['oneoff-timeend-12hr'] : null));
+                        }
+
+
+
+                        $latchng = mysqli_real_escape_string($sql, (isset($_POST['latchng']) ? $_POST['latchng'] : null));
+                        $lngchng = mysqli_real_escape_string($sql, (isset($_POST['lngchng']) ? $_POST['lngchng'] : null));
+
+                        // Error validation
+                        // Doing it server side because ajax/js takes too long
+                        $errors = 0;
+                        $errorarray = array();
+
+                        if($type == 0) {
+                          $errors++;
+                          $errorarray[] = "You must select a Program Type.";
+                        }
+
+                        if($programname == '') {
+                          $errors++;
+                          $errorarray[] = "You must enter a Program Name.";
+                        }
+
+                        if(!is_numeric($maxpax) && $maxpax != null) {
+                          $errors++;
+                          $errorarray[] = "The Max Participants must be numeric.";
+                        }
+
+                        if($street == '') {
+                          $errors++;
+                          $errorarray[] = "Street is a required field.";
+                        }
+
+                        if($suburb == '') {
+                          $errors++;
+                          $errorarray[] = "Suburb is a required field.";
+                        }
+
+                        if($state == '') {
+                          $errors++;
+                          $errorarray[] = "State is a required field.";
+                        }
+
+                        if($postcode == '') {
+                          $errors++;
+                          $errorarray[] = "Postcode is a required field.";
+                        }
+
+                        if($type == 1) {
+                          if($recurrstartdate == '') {
+                            $errors++;
+                            $errorarray[] = "You must enter a Start Date";
+                          }
+
+                          if($recurrenddate == '') {
+                            $errors++;
+                            $errorarray[] = "You must enter an End Date";
+                          }
+                        }
+
+                        if((!is_numeric($postcode) || strlen($postcode) != 4) && $postcode != '') {
+                          $errors++;
+                          $errorarray[] = "Postcode is incorrectly formatted. Eg. 2500";
+                        }
+
+                        // Show errors if needed
+                        if($errors > 0) {
+                          echo '
+                          <a name="thisform"></a>
+                          <script>window.onload = scrollToAnchor("thisform")</script>
+                          <aside class="error"><strong>Please fix the following errors:</strong><br /><ul>';
+                          foreach($errorarray as $error) {
+                            echo '<li>'.$error.'</li>';
+                          }
+                          echo '</ul></aside>';
+                        } else {
+                          // Do update SQL statement
+                          if(isset($latchng) || isset($lngchng)) {
+                            $xychange = ', `cord_lat` = \''.$latchng.'\', `cord_long` = \''.$lngchng.'\'';
+                          }
+
+                          //$sql2 = mysqli_query($sql, "UPDATE `organisation` SET `name` = '$name', `contact_email` = '$email', `ccontact_email` = '$cemail', `contact_phone` = '$phone', `address_street` = '$street', `address_suburb` = '$suburb', `address_state` = '$state', `address_postcode` = '$postcode'$xychange WHERE `id` = '$orgid'");
+
+                          if(!$sql2) {
+                            echo 'Sorry, there was an issue saving those details.';
+                            echo mysqli_error($sql);
+                          } else {
+                            // Send an email to the organisation administrator notifying the changes
+                            $user = $userdetails['firstname'].' '.$userdetails['lastname'];
+
+                            //sendemail($email, "Organisation Changes", "<strong>Attention $name administrations</strong><br /><br />The user, $user, has made changes to your organisational profile on $sitename. If this is in error, please revert the changes.<br /><br />Cheers,<br />$sitename");
+
+                            echo '<aside class="success"><p>Changes Saved</p></aside>';
+                          }
+                        }
+
+                      }
+
+                      echo '
+                        <form class="pure-form pure-form-aligned" method="post" action="'.$siteurl.'org/oprograms/'.$thisorgid.'">
                           <fieldset>
                             <legend>Program Details</legend>
 
@@ -339,8 +377,8 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             </div>
 
                             <div class="pure-control-group">
-                                <label for="maxpax" class="tooltip" title="If the class is open, any client can join the class. If the class is closed, a client can only be added by a trainer or administrator."><i class="fa fa-info-circle"></i> Open Class</label>
-                                <select name="type">
+                                <label for="openclass" class="tooltip" title="If the class is open, any client can join the class. If the class is closed, a client can only be added by a trainer or administrator."><i class="fa fa-info-circle"></i> Open Class</label>
+                                <select name="openclass">
                                   <option value="1">Yes</option>
                                   <option value="2">No</option>
                                 </select>
@@ -468,13 +506,13 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             <legend>One Off Program</legend>
 
                             <div class="pure-control-group">
-                              <label for="recurr-date">Date</label>
-                              <input class="isdatepicker readonly" name="recurr-date" placeholder="Click Me" type="text" />
+                              <label for="oneoff-date">Date</label>
+                              <input class="isdatepicker readonly" name="oneoff-date" placeholder="Click Me" type="text" />
                             </div>
 
                             <div class="pure-control-group">
-                              <label for="recurr-timestart">Time Start</label>
-                              <select name="recurr-timestart-hour">';
+                              <label for="oneoff-timestart">Time Start</label>
+                              <select name="oneoff-timestart-hour">';
                                 for($i = 1; $i < 13; $i++) {
                                   if($i == date('g')) {
                                     echo "<option selected>$i</option>";
@@ -482,7 +520,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                                     echo "<option>$i</option>";
                                   }
                                 }
-                              echo '</select> : <select name="recurr-timestart-minute">';
+                              echo '</select> : <select name="oneoff-timestart-minute">';
                                 for($i = 0; $i < 60; $i++) {
                                   $i = str_pad($i, '2', '0', STR_PAD_LEFT);
                                   if($i == date('i')) {
@@ -491,15 +529,15 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                                     echo "<option>$i</option>";
                                   }
                                 }
-                              echo '</select> <select name="recurr-timestart-12hr">
+                              echo '</select> <select name="oneoff-timestart-12hr">
                               <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
                               <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
                               </select>
                             </div>
 
                             <div class="pure-control-group">
-                              <label for="recurr-timeend">Time End</label>
-                              <select name="recurr-timeend-hour">';
+                              <label for="oneoff-timeend">Time End</label>
+                              <select name="oneoff-timeend-hour">';
                                 for($i = 1; $i < 13; $i++) {
                                   if($i == date('g')) {
                                     echo "<option selected>$i</option>";
@@ -507,7 +545,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                                     echo "<option>$i</option>";
                                   }
                                 }
-                              echo '</select> : <select name="recurr-timeend-minute">';
+                              echo '</select> : <select name="oneoff-timeend-minute">';
                                 for($i = 0; $i < 60; $i++) {
                                   $i = str_pad($i, '2', '0', STR_PAD_LEFT);
                                   if($i == date('i')) {
@@ -516,12 +554,19 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                                     echo "<option>$i</option>";
                                   }
                                 }
-                              echo '</select> <select name="recurr-timeend-12hr">
+                              echo '</select> <select name="oneoff-timeend-12hr">
                               <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
                               <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
                               </select>
                             </div>
                           </fieldset>
+
+                          <input type="hidden" name="latchng" id="latchng" />
+                          <input type="hidden" name="lngchng" id="lngchng" />
+
+                          <div class="pure-controls bounce-controls">
+                              <button type="submit" name="formsubmit" class="pure-button pure-button-primary formsubmit">Add Program</button>
+                          </div>
                         </form>
                       </div>
 
@@ -533,9 +578,6 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                         </script>
 
                         <div id="map-canvas" style="width: 100%; height: 300px;"></div>
-                        <div style="text-align: right; margin-top: 10px;">
-                        <button class="pure-button button-small">Reset Map</button> <button class="pure-button pure-button-primary pure-button-disabled button-small bounce-savelocal">Save Location</button>
-                        </div>
 
                         <br /><aside>
                           <p><i class="fa fa-star-o"></i> Moving the marker will only update the precise location of the program. Useful if the program is in a park or reserve.</p>
