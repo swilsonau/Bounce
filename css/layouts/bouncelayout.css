@@ -188,7 +188,7 @@ a.pure-button-primary {
 
 .page-header h1 {
   color: white;
-  margin: 40px 30px 30px 30px;
+  padding: 25px 30px 30px 30px;
 }
 
 .signup-header {
@@ -231,7 +231,7 @@ a.pure-button-primary {
 }
 
 aside {
-    background: #1f8dd6;
+    background: #e05e51;
     padding: 0.1em 1em;
     border-radius: 3px;
     color: #fff;
@@ -438,7 +438,14 @@ aside {
 
 @media (max-width: 460px) {
     .page-header {
-      display: none;
+      height: 100%;
+      margin-top: 72px;
+    }
+
+    .page-header h1 {
+      color: white;
+      padding: 25px 30px;
+      font-size: 20px;
     }
 
     .accountgrid {
