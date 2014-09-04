@@ -47,14 +47,50 @@ function gmaps_ini(lat, lng) {
     center: local,
     zoom: 16
   };
+
+  var current = {
+    url: '<?php echo $siteurl; ?>img/currentlocation.png',
+    // This marker is 20 pixels wide by 32 pixels tall.
+    size: new google.maps.Size(32, 32),
+    // The origin for this image is 0,0.
+    origin: new google.maps.Point(0,0),
+    // The anchor for this image is the base of the flagpole at 0,32.
+    anchor: new google.maps.Point(17, 32)
+  };
+
+  var image = {
+    url: '<?php echo $siteurl; ?>img/mylocation.png',
+    // This marker is 20 pixels wide by 32 pixels tall.
+    size: new google.maps.Size(32, 32),
+    // The origin for this image is 0,0.
+    origin: new google.maps.Point(0,0),
+    // The anchor for this image is the base of the flagpole at 0,32.
+    anchor: new google.maps.Point(17, 32)
+  };
+
   var map = new google.maps.Map(document.getElementById("map-canvas"),
       mapOptions);
 
       var marker = new google.maps.Marker({
           position: local,
           map: map,
+          icon: image,
           draggable:true
       });
+
+      if(!!navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+
+            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            var infowindow = new google.maps.Marker({
+                map: map,
+                position: geolocate,
+                icon: current,
+                title: 'Your location'
+            });
+      });
+    }
 
       google.maps.event.addListener(marker, 'dragend', function() {
         // When the user moves the marker, enable the save location button

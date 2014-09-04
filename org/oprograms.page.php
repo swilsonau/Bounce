@@ -117,8 +117,9 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                           <thead>
                               <tr>
                                   <th width="5%">ID</th>
-                                  <th width="20%">Program Date</th>
-                                  <th width="20%">Program Time</th>
+                                  <th width="15%">Program Name</th>
+                                  <th width="15%">Program Date</th>
+                                  <th width="15%">Program Time</th>
                                   <th width="10%">Program Type</th>
                                   <th width="10%">Program Trainer</th>
                                   <th width="10%">Program Attendees</th>
@@ -161,18 +162,19 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               while($prog = mysqli_fetch_array($progsql)) {
                                 echo '<tr>
                                 <td>'.$prog['id'].'</td>
+                                <td>'.$prog['programname'].'</td>
                                 <td>';
                                 if($prog['type'] == 1) {
-                                  echo "Every ".date('l', $prog['datestart']);
+                                  echo "Every ".date('l', strtotime(str_replace('/', '-', $prog['datestart'])));
                                 } else {
-                                  echo date('l d/m/y', $prog['datestart']);
+                                  echo date('l d/m/y', strtotime(str_replace('/', '-', $prog['datestart'])));
                                 }
                                 echo '</td>
-                                <td>'.$prog['timestring'].'</td>
+                                <td>'.$prog['timestart'].' to '.$prog['timeend'].'</td>
                                 <td>'.progtype($prog['type']) .'</td>
                                 <td>'.$prog['id'].'</td>
-                                <td>'.$prog['id'].'</td>
-                                <td><a href="#" class="pure-button"><i class="fa fa-pencil"></i> Edit</a> <a href="#" class="pure-button"><i class="fa fa-trash"></i> Delete</a></td>
+                                <td>'.$prog['id'].' (Max '.$prog['maxpax'].')</td>
+                                <td><a href="#" class="pure-button"><i class="fa fa-pencil"></i></a> <a href="#" class="pure-button"><i class="fa fa-trash"></i></a></td>
                                 </tr>';
                               }
                             }
@@ -213,7 +215,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                       <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px;">';
 
                       if(isset($_POST['formsubmit'])) {
-                        print_r($_POST);
+                        //print_r($_POST);
                         // Do the process for part 1, clean the inputs
                         $type = mysqli_real_escape_string($sql, (isset($_POST['type']) ? $_POST['type'] : null));
                         $programname = mysqli_real_escape_string($sql, (isset($_POST['programname']) ? $_POST['programname'] : null));
@@ -312,6 +314,22 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             $errors++;
                             $errorarray[] = "You must enter an End Date";
                           }
+
+                          if(strtotime("$recurrtimestarthour:$recurrtimestartminute $recurrtimestart12hr") > strtotime("$recurrtimeendhour:$recurrtimeendminute $recurrtimeend12hr")) {
+                            $errors++;
+                            $errorarray[] = "The program cannot end before it starts.";
+                          }
+
+                        }elseif($type == 2) {
+                          if($oneoffdate == '') {
+                            $errors++;
+                            $errorarray[] = "You must enter a Date";
+                          }
+
+                          if(strtotime("$oneofftimestarthour:$oneofftimestartminute $oneofftimestart12hr") > strtotime("$oneofftimeendhour:$oneofftimeendminute $oneofftimeend12hr")) {
+                            $errors++;
+                            $errorarray[] = "The program cannot end before it starts.";
+                          }
                         }
 
                         if((!is_numeric($postcode) || strlen($postcode) != 4) && $postcode != '') {
@@ -331,14 +349,58 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                           echo '</ul></aside>';
                         } else {
                           // Do update SQL statement
-                          if(isset($latchng) || isset($lngchng)) {
-                            $xychange = ', `cord_lat` = \''.$latchng.'\', `cord_long` = \''.$lngchng.'\'';
+                          if((isset($latchng) && $latchng != '') || (isset($lngchng) && $lngchng != '')) {
+                            // It was changed on the page, no need to get x and y
+                            $lat = $latchng;
+                            $lng = $lngchng;
+                          } else {
+                            // Not changed on page, get the x and y from Google
+
+                            $session = new Temboo_Session('bounceapp', 'Bounce', 'b3fa425a34b14b1898f8415aa083bedf');
+
+                            $geocodeByAddress = new Google_Geocoding_GeocodeByAddress($session);
+                            $geocodeByAddressInputs = $geocodeByAddress->newInputs();
+                            $geocodeByAddressInputs->setAddress("$street $suburb $state $postcode");
+                            $geocodeByAddressResults = $geocodeByAddress->execute($geocodeByAddressInputs)->getResults();
+                            //echo $geocodeByAddressResults->getResponse();
+                            $geoxml = new SimpleXMLElement($geocodeByAddressResults->getResponse());
+
+                            $geo = $geoxml->xpath('/GeocodeResponse/result/geometry');
+
+                            $lat = (string) $geo[0]->location->lat;
+                            $lng = (string) $geo[0]->location->lng;
+                          }
+
+                          if($type == 1) {
+                            $datestart = $recurrstartdate;
+                            $dateend = $recurrenddate;
+
+                            echo "$recurrstartdate $datestart $recurrenddate $dateend";
+
+                            $timestart = "$recurrtimestarthour:$recurrtimestartminute $recurrtimestart12hr";
+                            $timeend = "$recurrtimeendhour:$recurrtimeendminute $recurrtimeend12hr";
+
+                            $time = time();
+                            $userid = $userdetails['id'];
+
+                            $sql2 = mysqli_query($sql, "INSERT INTO `programs`(`orgid`, `programname`, `maxpax`, `openclass`, `datestart`, `dateend`, `timestart`, `timeend`, `type`, `street`, `suburb`, `state`, `postcode`, `lat`, `lng`, `datecreated`, `createdbyid`)VALUES('$thisorgid', '$programname', '$maxpax', '$openclass', '$datestart', '$dateend', '$timestart', '$timeend', '1', '$street', '$suburb', '$state', '$postcode', '$lat', '$lng', '$time', '$userid')");
+                          } else {
+                            $datestart = $oneoffdate;
+
+                            $timestart = "$oneofftimestarthour:$oneofftimestartminute $oneofftimestart12hr";
+                            $timeend = "$oneofftimeendhour:$oneofftimeendminute $oneofftimeend12hr";
+
+                            $time = time();
+                            $userid = $userdetails['id'];
+
+                            $sql2 = mysqli_query($sql, "INSERT INTO `programs`(`orgid`, `programname`, `maxpax`, `openclass`, `datestart`, `dateend`, `timestart`, `timeend`, `type`, `street`, `suburb`, `state`, `postcode`, `lat`, `lng`, `datecreated`, `createdbyid`)VALUES('$thisorgid', '$programname', '$maxpax', '$openclass', '$datestart', '', '$timestart', '$timeend', '2', '$street', '$suburb', '$state', '$postcode', '$lat', '$lng', '$time', '$userid')");
+
                           }
 
                           //$sql2 = mysqli_query($sql, "UPDATE `organisation` SET `name` = '$name', `contact_email` = '$email', `ccontact_email` = '$cemail', `contact_phone` = '$phone', `address_street` = '$street', `address_suburb` = '$suburb', `address_state` = '$state', `address_postcode` = '$postcode'$xychange WHERE `id` = '$orgid'");
 
                           if(!$sql2) {
-                            echo 'Sorry, there was an issue saving those details.';
+                            echo '<aside class="error"><p>Sorry, there was an issue saving that program. Please try again later or contact '.$sitename.' support.</p></aside>';
                             echo mysqli_error($sql);
                           } else {
                             // Send an email to the organisation administrator notifying the changes
@@ -348,7 +410,23 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                             echo '<aside class="success"><p>Changes Saved</p></aside>';
                           }
+
                         }
+
+                        echo "<script>
+                        $(document).ready(function() {";
+                        if($type == 1) {
+                          echo "$('.recurringprogram').slideDown();";
+                        }elseif($type == 2) {
+                          echo "$('.oneoffprogram').slideDown();";
+                        }
+
+                        if($localatoffice == 0) {
+                            echo "$('.addressgroup').slideDown();";
+                        }
+
+                        echo "});
+                        </script>";
 
                       }
 
@@ -360,27 +438,27 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             <div class="pure-control-group">
                               <label for="type">Type</label>
                               <select name="type" id="type" onchange="showprogramtype()">
-                                <option value="0">-- CHOOSE ONE --</option>
-                                <option value="1">Recurring</option>
-                                <option value="2">One Off</option>
+                                <option value="0"'; if(!isset($_POST['type']) || $_POST['type'] == 0) { echo ' selected'; } echo '>-- CHOOSE ONE --</option>
+                                <option value="1"'; if(isset($_POST['type']) && $_POST['type'] == 1) { echo ' selected'; } echo '>Recurring</option>
+                                <option value="2"'; if(isset($_POST['type']) && $_POST['type'] == 2) { echo ' selected'; } echo '>One Off</option>
                               </select>
                             </div>
 
                             <div class="pure-control-group">
                                 <label for="programnamel">Program Name</label>
-                                <input name="programname" type="text" placeholder="" value="'.(isset($_POST['ccontactemail']) ? $_POST['ccontactemail'] : null).'">
+                                <input name="programname" type="text" placeholder="" value="'.(isset($_POST['programname']) ? $_POST['programname'] : null).'">
                             </div>
 
                             <div class="pure-control-group">
                                 <label for="maxpax" class="tooltip" title="You can limit the amount of clients that can be assigned to this program. If left blank, there will be no limit."><i class="fa fa-info-circle"></i> Max Participants</label>
-                                <input name="maxpax" type="text" placeholder="0" size="5" value="'.(isset($_POST['ccontactemail']) ? $_POST['ccontactemail'] : null).'">
+                                <input name="maxpax" type="text" placeholder="0" size="5" value="'.(isset($_POST['maxpax']) ? $_POST['maxpax'] : null).'">
                             </div>
 
                             <div class="pure-control-group">
                                 <label for="openclass" class="tooltip" title="If the class is open, any client can join the class. If the class is closed, a client can only be added by a trainer or administrator."><i class="fa fa-info-circle"></i> Open Class</label>
                                 <select name="openclass">
-                                  <option value="1">Yes</option>
-                                  <option value="2">No</option>
+                                  <option value="1"'; if(!isset($_POST['openclass']) || $_POST['openclass'] == 1) { echo ' selected'; } echo '>Yes</option>
+                                  <option value="2"'; if(isset($_POST['openclass']) && $_POST['openclass'] == 2) { echo ' selected'; } echo '>No</option>
                                 </select>
                             </div>
                           </fieldset>
@@ -395,8 +473,8 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             <div class="pure-control-group">
                               <label for="localatoffice"> Is the program at your office location?</label>
                               <select name="localatoffice" id="type" onchange="showlocaltype(this.value)">
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
+                                <option value="1"'; if(!isset($_POST['localatoffice']) || $_POST['localatoffice'] == 1) { echo ' selected'; } echo '>Yes</option>
+                                <option value="0"'; if(isset($_POST['localatoffice']) && $_POST['localatoffice'] == 0) { echo ' selected'; } echo '>No</option>
                               </select> <i class="fa fa-info-circle tooltip" title="Your office location being the address in the Profile section."></i>
                             </div>
 
@@ -438,24 +516,26 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                             <div class="pure-control-group">
                               <label for="recurr-startdate">Start Date</label>
-                              <input class="startdatepicker readonly" name="recurr-startdate" placeholder="Click Me" type="text" />
+                              <input class="startdatepicker readonly" name="recurr-startdate" placeholder="Click Me" type="text" value="'.(isset($_POST['recurr-startdate']) ? $_POST['recurr-startdate'] : null).'" />
                             </div>
 
                             <div class="pure-control-group">
                               <label for="recurr-enddate" class="tooltip" title="Leave blank for none."><i class="fa fa-info-circle"></i> End Date</label>
-                              <input class="isdatepicker" name="recurr-enddate" placeholder="Click Me" type="text" />
+                              <input class="isdatepicker" name="recurr-enddate" placeholder="Click Me" type="text" value="'.(isset($_POST['recurr-enddate']) ? $_POST['recurr-enddate'] : null).'" />
                             </div>
 
                             <div class="pure-control-group">
                               <label for="recurr-day">Recurring Day</label>
-                              <input class="readonly recurringday" name="recurr-day" placeholder="Populate Start Date" type="text" />
+                              <input class="readonly recurringday" name="recurr-day" placeholder="Populate Start Date" type="text" value="'.(isset($_POST['recurr-day']) ? $_POST['recurr-day'] : null).'" />
                             </div>
 
                             <div class="pure-control-group">
                               <label for="recurr-timestart">Time Start</label>
                               <select name="recurr-timestart-hour">';
                                 for($i = 1; $i < 13; $i++) {
-                                  if($i == date('g')) {
+                                  if($i == date('g') && !isset($_POST['recurr-timestart-hour'])) {
+                                    echo "<option selected>$i</option>";
+                                  }elseif(isset($_POST['recurr-timestart-hour']) && $_POST['recurr-timestart-hour'] == $i){
                                     echo "<option selected>$i</option>";
                                   } else {
                                     echo "<option>$i</option>";
@@ -464,15 +544,17 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               echo '</select> : <select name="recurr-timestart-minute">';
                                 for($i = 0; $i < 60; $i++) {
                                   $i = str_pad($i, '2', '0', STR_PAD_LEFT);
-                                  if($i == date('i')) {
+                                  if($i == date('i') && !isset($_POST['recurr-timestart-minute'])) {
+                                    echo "<option selected>$i</option>";
+                                  }elseif(isset($_POST['recurr-timestart-minute']) && $_POST['recurr-timestart-minute'] == $i){
                                     echo "<option selected>$i</option>";
                                   } else {
                                     echo "<option>$i</option>";
                                   }
                                 }
                               echo '</select> <select name="recurr-timestart-12hr">
-                              <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
-                              <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
+                              <option'; if(isset($_POST['recurr-timestart-12hr']) && $_POST['recurr-timestart-12hr'] == "AM") { echo ' selected'; }elseif(date('A') == "AM" && !isset($_POST['recurr-timestart-12hr'])) { echo ' selected'; } echo '>AM</option>
+                              <option'; if(isset($_POST['recurr-timestart-12hr']) && $_POST['recurr-timestart-12hr'] == "PM") { echo ' selected'; }elseif(date('A') == "PM" && !isset($_POST['recurr-timestart-12hr'])) { echo ' selected'; } echo '>PM</option>
                               </select>
                             </div>
 
@@ -480,7 +562,9 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               <label for="recurr-timeend">Time End</label>
                               <select name="recurr-timeend-hour">';
                                 for($i = 1; $i < 13; $i++) {
-                                  if($i == date('g')) {
+                                  if($i == date('g') && !isset($_POST['recurr-timeend-hour'])) {
+                                    echo "<option selected>$i</option>";
+                                  }elseif(isset($_POST['recurr-timeend-hour']) && $_POST['recurr-timeend-hour'] == $i){
                                     echo "<option selected>$i</option>";
                                   } else {
                                     echo "<option>$i</option>";
@@ -489,15 +573,17 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               echo '</select> : <select name="recurr-timeend-minute">';
                                 for($i = 0; $i < 60; $i++) {
                                   $i = str_pad($i, '2', '0', STR_PAD_LEFT);
-                                  if($i == date('i')) {
+                                  if($i == date('i') && !isset($_POST['recurr-timeend-minute'])) {
+                                    echo "<option selected>$i</option>";
+                                  }elseif(isset($_POST['recurr-timeend-minute']) && $_POST['recurr-timeend-minute'] == $i){
                                     echo "<option selected>$i</option>";
                                   } else {
                                     echo "<option>$i</option>";
                                   }
                                 }
                               echo '</select> <select name="recurr-timeend-12hr">
-                              <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
-                              <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
+                              <option'; if(isset($_POST['recurr-timeend-12hr']) && $_POST['recurr-timeend-12hr'] == "AM") { echo ' selected'; }elseif(date('A') == "AM" && !isset($_POST['recurr-timeend-12hr'])) { echo ' selected'; } echo '>AM</option>
+                              <option'; if(isset($_POST['recurr-timeend-12hr']) && $_POST['recurr-timeend-12hr'] == "PM") { echo ' selected'; }elseif(date('A') == "PM" && !isset($_POST['recurr-timeend-12hr'])) { echo ' selected'; } echo '>PM</option>
                               </select>
                             </div>
                           </fieldset>
@@ -507,14 +593,16 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                             <div class="pure-control-group">
                               <label for="oneoff-date">Date</label>
-                              <input class="isdatepicker readonly" name="oneoff-date" placeholder="Click Me" type="text" />
+                              <input class="isdatepicker readonly" name="oneoff-date" placeholder="Click Me" type="text" value="'.(isset($_POST['oneoff-date']) ? $_POST['oneoff-date'] : null).'" />
                             </div>
 
                             <div class="pure-control-group">
                               <label for="oneoff-timestart">Time Start</label>
                               <select name="oneoff-timestart-hour">';
                                 for($i = 1; $i < 13; $i++) {
-                                  if($i == date('g')) {
+                                  if($i == date('g') && !isset($_POST['oneoff-timestart-hour'])) {
+                                    echo "<option selected>$i</option>";
+                                  }elseif(isset($_POST['oneoff-timestart-hour']) && $_POST['oneoff-timestart-hour'] == $i){
                                     echo "<option selected>$i</option>";
                                   } else {
                                     echo "<option>$i</option>";
@@ -523,15 +611,17 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               echo '</select> : <select name="oneoff-timestart-minute">';
                                 for($i = 0; $i < 60; $i++) {
                                   $i = str_pad($i, '2', '0', STR_PAD_LEFT);
-                                  if($i == date('i')) {
+                                  if($i == date('i') && !isset($_POST['oneoff-timestart-minute'])) {
+                                    echo "<option selected>$i</option>";
+                                  }elseif(isset($_POST['oneoff-timestart-minute']) && $_POST['oneoff-timestart-minute'] == $i){
                                     echo "<option selected>$i</option>";
                                   } else {
                                     echo "<option>$i</option>";
                                   }
                                 }
                               echo '</select> <select name="oneoff-timestart-12hr">
-                              <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
-                              <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
+                              <option'; if(isset($_POST['oneoff-timestart-12hr']) && $_POST['oneoff-timestart-12hr'] == "AM") { echo ' selected'; }elseif(date('A') == "AM" && !isset($_POST['oneoff-timestart-12hr'])) { echo ' selected'; } echo '>AM</option>
+                              <option'; if(isset($_POST['oneoff-timestart-12hr']) && $_POST['oneoff-timestart-12hr'] == "PM") { echo ' selected'; }elseif(date('A') == "PM" && !isset($_POST['oneoff-timestart-12hr'])) { echo ' selected'; } echo '>PM</option>
                               </select>
                             </div>
 
@@ -539,7 +629,9 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               <label for="oneoff-timeend">Time End</label>
                               <select name="oneoff-timeend-hour">';
                                 for($i = 1; $i < 13; $i++) {
-                                  if($i == date('g')) {
+                                  if($i == date('g') && !isset($_POST['oneoff-timeend-hour'])) {
+                                    echo "<option selected>$i</option>";
+                                  }elseif(isset($_POST['oneoff-timeend-hour']) && $_POST['oneoff-timeend-hour'] == $i){
                                     echo "<option selected>$i</option>";
                                   } else {
                                     echo "<option>$i</option>";
@@ -548,15 +640,17 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               echo '</select> : <select name="oneoff-timeend-minute">';
                                 for($i = 0; $i < 60; $i++) {
                                   $i = str_pad($i, '2', '0', STR_PAD_LEFT);
-                                  if($i == date('i')) {
+                                  if($i == date('i') && !isset($_POST['oneoff-timeend-minute'])) {
+                                    echo "<option selected>$i</option>";
+                                  }elseif(isset($_POST['oneoff-timeend-minute']) && $_POST['oneoff-timeend-minute'] == $i){
                                     echo "<option selected>$i</option>";
                                   } else {
                                     echo "<option>$i</option>";
                                   }
                                 }
                               echo '</select> <select name="oneoff-timeend-12hr">
-                              <option'; if(date('A') == "AM") { echo ' selected'; } echo '>AM</option>
-                              <option'; if(date('A') == "PM") { echo ' selected'; } echo '>PM</option>
+                              <option'; if(isset($_POST['oneoff-timeend-12hr']) && $_POST['oneoff-timeend-12hr'] == "AM") { echo ' selected'; }elseif(date('A') == "AM" && !isset($_POST['oneoff-timeend-12hr'])) { echo ' selected'; } echo '>AM</option>
+                              <option'; if(isset($_POST['oneoff-timeend-12hr']) && $_POST['oneoff-timeend-12hr'] == "PM") { echo ' selected'; }elseif(date('A') == "PM" && !isset($_POST['oneoff-timeend-12hr'])) { echo ' selected'; } echo '>PM</option>
                               </select>
                             </div>
                           </fieldset>

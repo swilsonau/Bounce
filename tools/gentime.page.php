@@ -4,7 +4,7 @@
         <h2 class="content-head is-center">Gen Time</h2>
         <p style="text-align: center;">
           <?php
-            echo strtotime("09/02/14 3:30PM");
+            echo strtotime("3:30PM");
             echo "<br />".time();
           ?>
         </p>
