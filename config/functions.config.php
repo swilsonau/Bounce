@@ -115,8 +115,8 @@ function dashnav($selected, $userdetails) {
           ';
         } else {
           $nav .='<li class="pure-menu-heading">Find Trainers</li>
-          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Trainers</a></li>
-          <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-search"></i> Find Programs</a></li>';
+          <li'; if($selected == 'findtrainers') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/findtrainers"><i class="fa fa-search"></i> Find Trainers</a></li>
+          <li'; if($selected == 'findprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/findprograms"><i class="fa fa-search"></i> Find Programs</a></li>';
       }
         $nav .= '<li class="pure-menu-heading">Settings</li>
         <li'; if($selected == 'profile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/profile"><i class="fa fa-user"></i> My Profile</a></li>
@@ -157,7 +157,7 @@ function valid_pass($candidate) {
 function checkorgownership($userid) {
   global $sql;
 
-  $fetch = mysqli_query($sql, "SELECT `users`.`id` AS `userid`, `organise_assign`.`organ_id` AS `orgid`, `organise_assign`.`perms` FROM `users` RIGHT JOIN `organise_assign` ON `users`.`id` = `organise_assign`.`user_id` WHERE `users`.`id` = '$userid' AND `organise_assign`.`perms` >= '1'");
+  $fetch = mysqli_query($sql, "SELECT `users`.`id` AS `userid`, `organise_assign`.`organ_id` AS `orgid`, `organise_assign`.`perms` FROM `users` RIGHT JOIN `organise_assign` ON `users`.`id` = `organise_assign`.`user_id` WHERE `users`.`id` = '$userid' AND `organise_assign`.`perms` > '1'");
 
   if(!$fetch) {
     return false;
@@ -225,5 +225,70 @@ function progtype($progtype) {
       break;
   }
 }
+
+function dateDiff($time1, $time2, $precision = 6) {
+    // If not numeric then convert texts to unix timestamps
+    if (!is_int($time1)) {
+      $time1 = strtotime($time1);
+    }
+    if (!is_int($time2)) {
+      $time2 = strtotime($time2);
+    }
+
+    // If time1 is bigger than time2
+    // Then swap time1 and time2
+    if ($time1 > $time2) {
+      $ttime = $time1;
+      $time1 = $time2;
+      $time2 = $ttime;
+    }
+
+    // Set up intervals and diffs arrays
+    $intervals = array('year','month','day','hour','minute','second');
+    $diffs = array();
+
+    // Loop thru all intervals
+    foreach ($intervals as $interval) {
+      // Create temp time from time1 and interval
+      $ttime = strtotime('+1 ' . $interval, $time1);
+      // Set initial values
+      $add = 1;
+      $looped = 0;
+      // Loop until temp time is smaller than time2
+      while ($time2 >= $ttime) {
+        // Create new temp time from time1 and interval
+        $add++;
+        $ttime = strtotime("+" . $add . " " . $interval, $time1);
+        $looped++;
+      }
+
+      $time1 = strtotime("+" . $looped . " " . $interval, $time1);
+      $diffs[$interval] = $looped;
+    }
+
+    $count = 0;
+    $times = array();
+    // Loop thru all diffs
+    foreach ($diffs as $interval => $value) {
+      // Break if we have needed precission
+      if ($count >= $precision) {
+	break;
+      }
+      // Add value and interval
+      // if value is bigger than 0
+      if ($value > 0) {
+	// Add s if value is not 1
+	if ($value != 1) {
+	  $interval .= "s";
+	}
+	// Add value and interval to times array
+	$times[] = $value . " " . $interval;
+	$count++;
+      }
+    }
+
+    // Return string with times
+    return implode(", ", $times);
+  }
 
 ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2014 at 08:44 AM
+-- Generation Time: Sep 07, 2014 at 01:44 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `organisation` (
   `address_state` varchar(10) NOT NULL,
   `address_postcode` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `organisation`
@@ -97,7 +97,8 @@ CREATE TABLE IF NOT EXISTS `organisation` (
 INSERT INTO `organisation` (`id`, `name`, `contact_email`, `cord_lat`, `cord_long`, `ccontact_email`, `contact_phone`, `address_street`, `address_suburb`, `address_state`, `address_postcode`) VALUES
 (1, 'Wollongong Runners Association', 'sw730@uowmail.edu.au', '-34.4103220', '150.8994663', '', '', '', '', '', ''),
 (2, 'Savvy Fitness Fairy Meadow', 'sw730@uowmail.edu.au', '-34.40369098158406', '150.89029823925216', 'notarealemail@savvy.com.au', '0242841100', 'Unit 5/135-143 Princes Hwy', 'Fairy Meadow', 'NSW', '2519'),
-(3, 'Internetrix', 'internetrix+org@stewartwilson.id.au', '-34.42129705790611', '150.89168186871723', 'notarealemail@internetrix.com.au', '0242286464', '4/85-87 Smith St', 'Wollongong', 'NSW', '2500');
+(3, 'Internetrix', 'internetrix+org@stewartwilson.id.au', '-34.42181922124878', '150.89200373379902', 'notarealemail@internetrix.com.au', '0242286464', '4/85-87 Smith St', 'Wollongong', 'NSW', '2500'),
+(4, 'Anytime Fitness Shellharbour', 'anytime-shellharbour@stewartwilson.id.au', '-34.57921229999993', '150.8674899306884', 'anytime-shellharbour@stewartwilson.id.au', '0242315603', 'Shop 6 & 7, Suite 15 - 17 2 Memorial Drive', 'Shellharbour', 'NSW', '2529');
 
 -- --------------------------------------------------------
 
@@ -113,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `organise_assign` (
   `date_unassigned` varchar(250) NOT NULL,
   `perms` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `organise_assign`
@@ -124,8 +125,9 @@ INSERT INTO `organise_assign` (`id`, `user_id`, `organ_id`, `date_assigned`, `da
 (3, 6, 2, '1407843007', '', 2),
 (7, 6, 3, '', '', 3),
 (9, 5, 2, '1409118057', '', 1),
-(12, 10, 2, '1409544419', '', 1),
-(13, 11, 3, '1409544810', '', 2);
+(12, 10, 3, '1409544419', '', 1),
+(13, 11, 3, '1409544810', '', 2),
+(14, 6, 4, '1409544810', '', 3);
 
 -- --------------------------------------------------------
 
@@ -154,20 +156,57 @@ CREATE TABLE IF NOT EXISTS `pending_user` (
 
 CREATE TABLE IF NOT EXISTS `programs` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
+  `orgid` int(5) NOT NULL,
+  `programname` varchar(250) NOT NULL,
+  `maxpax` int(5) NOT NULL,
+  `openclass` int(1) NOT NULL,
   `datestart` varchar(250) NOT NULL,
-  `timestring` varchar(250) NOT NULL,
+  `dateend` varchar(250) NOT NULL,
+  `timestart` varchar(250) NOT NULL,
+  `timeend` varchar(250) NOT NULL,
   `type` int(1) NOT NULL DEFAULT '0',
+  `street` text NOT NULL,
+  `suburb` varchar(250) NOT NULL,
+  `state` varchar(250) NOT NULL,
+  `postcode` int(4) NOT NULL,
+  `lat` varchar(250) NOT NULL,
+  `lng` varchar(250) NOT NULL,
   `datecreated` varchar(250) NOT NULL,
   `createdbyid` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `programs`
 --
 
-INSERT INTO `programs` (`id`, `datestart`, `timestring`, `type`, `datecreated`, `createdbyid`) VALUES
-(1, '1409556600', '5:30PM', 1, '1409553190', '6');
+INSERT INTO `programs` (`id`, `orgid`, `programname`, `maxpax`, `openclass`, `datestart`, `dateend`, `timestart`, `timeend`, `type`, `street`, `suburb`, `state`, `postcode`, `lat`, `lng`, `datecreated`, `createdbyid`) VALUES
+(1, 3, 'Power Sesh', 5, 2, '15/09/2014', '', '4:00 PM', '4:30 PM', 2, 'Stuart Park', 'Wollongong', 'NSW', 2500, '-34.411773619516936', '150.90008857249143', '1409831843', '6'),
+(2, 3, 'Weekly Power Session', 25, 1, '08/09/2014', '24/11/2014', '8:00 AM', '8:30 AM', 1, 'Stuart Park', 'Wollongong', 'NSW', 2500, '-34.4103220', '150.8994663', '1409984383', '6'),
+(3, 2, 'Morning Pump', 45, 1, '08/09/2014', '22/12/2014', '5:00 AM', '6:00 AM', 1, 'Unit 5/135-143 Princes Hwy', 'Fairy Meadow', 'NSW', 2519, '-34.4038470', '150.8903720', '1410076997', '6'),
+(4, 2, 'Afternoon Session', 45, 1, '08/09/2014', '22/12/2014', '5:30 PM', '6:30 PM', 1, 'Unit 5/135-143 Princes Hwy', 'Fairy Meadow', 'NSW', 2519, '-34.4038470', '150.8903720', '1410077044', '6'),
+(5, 4, 'Lunch Time Special', 25, 1, '08/09/2014', '22/12/2014', '12:30 PM', '1:00 PM', 1, 'Shop 6 & 7, Suite 15 - 17 2 Memorial Drive', 'Shellharbour', 'NSW', 2529, '-34.5792123', '150.8674041', '1410084835', '6');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `program_assign`
+--
+
+CREATE TABLE IF NOT EXISTS `program_assign` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(5) NOT NULL,
+  `progid` int(5) NOT NULL,
+  `dateassigned` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `program_assign`
+--
+
+INSERT INTO `program_assign` (`id`, `userid`, `progid`, `dateassigned`) VALUES
+(1, 10, 5, '');
 
 -- --------------------------------------------------------
 
@@ -182,6 +221,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `emailaddress` text NOT NULL,
   `password` varchar(250) NOT NULL,
   `phonenumber` varchar(10) NOT NULL,
+  `postcode` int(4) NOT NULL,
+  `pc_lat` varchar(250) NOT NULL,
+  `pc_lng` varchar(250) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `type` int(1) NOT NULL DEFAULT '0',
   `ip` varchar(250) NOT NULL,
@@ -197,14 +239,14 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `emailaddress`, `password`, `phonenumber`, `status`, `type`, `ip`, `activationhash`, `fb_userid`, `fb_secret`, `fb_fullname`, `fb_profileimageurl`) VALUES
-(1, 'Stewart', 'Wilson', 'stewartwilson@outlook.com', '$2y$10$MoXWADFSxO1QoLGOzp3Ra.yc0giYri6IwYMqL25fU9pxnVttBJQvq', '0433971992', 1, 1, '', '', '0', '', '', ''),
-(4, 'Stewart', 'W', 'sw730@uowmail.edu.au', '$2y$10$o8xRW5d4XCsAyfCSrH7mQ.j2CaXW0/E2erOVdtk0/YX/KJQ8uAqV6', '0411111111', 0, 1, '', '86312f1882fc284272d416d19a105856878c30ad95233bb8ead09ff3d0e1d14a', '0', '', '', ''),
-(5, 'Stewart', 'Trainer', 'trainer@stewartwilson.id.au', '$2y$10$UpXJ5SSgHf6DVZ1XIPw.IOqCxgDqx/xJykPBNt4qBpxpLnW8cYni6', '0400000000', 1, 2, '127.0.0.1', '', '0', '', '', ''),
-(6, 'Stewart 2', 'Trainer 2', 'trainer2@stewartwilson.id.au', '$2y$10$DWA.020gpFYVWmWme8PI0ehwRf0Lw.gSbMND51mPeBE6QWDJe2GbO', '0400000001', 1, 0, '127.0.0.1', '', '10152614563742969', 'CAAD7yZCW0VZBMBAAvPkMAEysbnO6FCyFZBYK2by6kVsxrWqpSHXHYmeJ2CEH3dx1EQECk4invqlD9LItvZChQN3vTTPOx29lF8A0PduQsphnFZANJk95NZCZAEDKO8ZCQF4ZB3H2WZBicSJygBCAqFCmXXGzvd0LrZAVgVgLRtGuSZCPUp4BNQuRUjHtXMI2SwsO4VVqyzenawH3kmLeLoSKQA0w', 'Stewart Wilson', 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p74x74/10500499_10152521874937969_8601961230157440385_n.jpg?oh=b98d0bf579b1dcfaa7b43af3f07e7244&oe=546FDC39&__gda__=1417265631_00e968429e837d455adc2d6b6e6704fe'),
-(7, 'James', 'W', 'jw192@uowmail.edu.au', '$2y$10$adkV0EA/d1v/gnhmslJe3.bDSySJMkHhcw4m6X4kDm8E9.2rwaDXy', '0430017348', 1, 0, '10.64.20.182', '', '10203441127966472', 'CAAD7yZCW0VZBMBAMLK4ofPZCnS3GDrppJaZA0qUDHus2MzZCZASc6loUlbDsPSQZAJHLeZAki58h3wcBoqFFcdxyHh0e5saPIDzIkrZCIgyHUNQH4fq5XA4ZCtHh5ZBRTR4jZBqGIBSZCO11ttIra6Xg2ehCn7sp5RNZANgak58gBdQ8DGfLqEqZAhKDBkpLbNny2VKkmKplRpbpgMvyZBmbmgCbc3Kj', '', ''),
-(10, 'Stewart', 'Wilson', 'client_test@stewartwilson.id.au', '$2y$10$eJIwVucTymiv7q9ouGQkWOv1Twc.6FXwieuityZRoKW4Nlh4HZtuu', '0400000002', 1, 0, '127.0.0.1', '', '', '', '', ''),
-(11, 'Trainer', 'Trainer', 'trainer_test@stewartwilson.id.au', '$2y$10$C31FAhRALgVGgJzsPSuDeeLbkk7rMjGYEi8/d0DZuL04voJ1R0GTe', '0400000003', 1, 0, '127.0.0.1', '', '', '', '', '');
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `emailaddress`, `password`, `phonenumber`, `postcode`, `pc_lat`, `pc_lng`, `status`, `type`, `ip`, `activationhash`, `fb_userid`, `fb_secret`, `fb_fullname`, `fb_profileimageurl`) VALUES
+(1, 'Stewart', 'Wilson', 'stewartwilson@outlook.com', '$2y$10$MoXWADFSxO1QoLGOzp3Ra.yc0giYri6IwYMqL25fU9pxnVttBJQvq', '0433971992', 2519, '0', '', 1, 1, '', '', '0', '', '', ''),
+(4, 'Stewart', 'W', 'sw730@uowmail.edu.au', '$2y$10$o8xRW5d4XCsAyfCSrH7mQ.j2CaXW0/E2erOVdtk0/YX/KJQ8uAqV6', '0411111111', 2519, '0', '', 0, 1, '', '86312f1882fc284272d416d19a105856878c30ad95233bb8ead09ff3d0e1d14a', '0', '', '', ''),
+(5, 'Stewart', 'Trainer', 'trainer@stewartwilson.id.au', '$2y$10$UpXJ5SSgHf6DVZ1XIPw.IOqCxgDqx/xJykPBNt4qBpxpLnW8cYni6', '0400000000', 2519, '0', '', 1, 2, '127.0.0.1', '', '0', '', '', ''),
+(6, 'Stewart 2', 'Trainer 2', 'trainer2@stewartwilson.id.au', '$2y$10$DWA.020gpFYVWmWme8PI0ehwRf0Lw.gSbMND51mPeBE6QWDJe2GbO', '0400000001', 2519, '0', '', 1, 0, '127.0.0.1', '', '10152614563742969', 'CAAD7yZCW0VZBMBAAvPkMAEysbnO6FCyFZBYK2by6kVsxrWqpSHXHYmeJ2CEH3dx1EQECk4invqlD9LItvZChQN3vTTPOx29lF8A0PduQsphnFZANJk95NZCZAEDKO8ZCQF4ZB3H2WZBicSJygBCAqFCmXXGzvd0LrZAVgVgLRtGuSZCPUp4BNQuRUjHtXMI2SwsO4VVqyzenawH3kmLeLoSKQA0w', 'Stewart Wilson', 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p74x74/10500499_10152521874937969_8601961230157440385_n.jpg?oh=b98d0bf579b1dcfaa7b43af3f07e7244&oe=546FDC39&__gda__=1417265631_00e968429e837d455adc2d6b6e6704fe'),
+(7, 'James', 'W', 'jw192@uowmail.edu.au', '$2y$10$adkV0EA/d1v/gnhmslJe3.bDSySJMkHhcw4m6X4kDm8E9.2rwaDXy', '0430017348', 2519, '0', '', 1, 0, '10.64.20.182', '', '10203441127966472', 'CAAD7yZCW0VZBMBAMLK4ofPZCnS3GDrppJaZA0qUDHus2MzZCZASc6loUlbDsPSQZAJHLeZAki58h3wcBoqFFcdxyHh0e5saPIDzIkrZCIgyHUNQH4fq5XA4ZCtHh5ZBRTR4jZBqGIBSZCO11ttIra6Xg2ehCn7sp5RNZANgak58gBdQ8DGfLqEqZAhKDBkpLbNny2VKkmKplRpbpgMvyZBmbmgCbc3Kj', '', ''),
+(10, 'Stewart', 'Wilson', 'client_test@stewartwilson.id.au', '$2y$10$JxFges8YsyNtz3tuAZxaYu9X9yC7.6Vpbya66fsxPjHWknXFpZR.O', '0400000002', 2519, '-34.3902523', '150.8783824', 1, 0, '127.0.0.1', '', '', '', '', ''),
+(11, 'Trainer', 'Trainer', 'trainer_test@stewartwilson.id.au', '$2y$10$C31FAhRALgVGgJzsPSuDeeLbkk7rMjGYEi8/d0DZuL04voJ1R0GTe', '0400000003', 2519, '0', '', 1, 0, '127.0.0.1', '', '', '', '', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

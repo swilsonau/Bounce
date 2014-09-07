@@ -26,6 +26,10 @@ function changeorg(value, site){
   window.location='<?php echo $siteurl; ?>org/' + site +'/' + value;
 }
 
+function changedistance(value, site){
+  window.location='<?php echo $siteurl; ?>account/' + site +'/' + value;
+}
+
 function showpasswordfields() {
   $('.newpassword-group').slideDown();
   $('.confirmpassword-group').slideDown();
