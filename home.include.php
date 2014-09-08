@@ -39,7 +39,7 @@
 
 <div class="content-wrapper">
     <div class="content">
-        <h2 class="content-head is-center">Excepteur sint occaecat cupidatat.</h2>
+        <h2 class="content-head is-center">SOMETHING SOMETHING SOMETHING.</h2>
 
         <div class="pure-g">
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
@@ -55,7 +55,7 @@
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                 <h3 class="content-subhead">
                     <i class="fa fa-mobile"></i>
-                    Responsive Layouts
+                    Works Anywhere
                 </h3>
                 <p>
                     Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
@@ -64,7 +64,7 @@
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                 <h3 class="content-subhead">
                     <i class="fa fa-th-large"></i>
-                    Modular
+                    Heaps of Features
                 </h3>
                 <p>
                     Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
@@ -82,19 +82,21 @@
         </div>
     </div>
 
-    <div class="ribbon l-box-lrg pure-g">
-        <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5">
-            <img class="pure-img-responsive" alt="File Icons" width="300" src="img/common/file-icons.png">
-        </div>
-        <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+    <div class="ribbon pure-g">
+        <div class="gmap-view">
+          <div class="home-gmap">
+            <script type="text/javascript">
+              window.onload = function () {
+                google.maps.event.addDomListener(window, 'load', gmaps_ini(-34.5792123, 150.8674041));
+              }
+            </script>
 
-            <h2 class="content-head content-head-ribbon">Are you a trainer or gym?</h2>
+            <div id="map-canvas" class="home-map"></div>
+          </div>
 
-            <p>
-                Discover how <?php echo $sitename; ?> can improve communication with your clients! Sign up today to start offering <?php echo $sitename; ?> to your clients.
-            </p>
-
-            <p><a href="<?php echo $siteurl; ?>signup/part1" class="pure-button">Sign Up</a></p>
+          <div class="home-text">
+                <h2 class="content-head content-head-ribbon">There's someone near you...</h2>
+            </div>
         </div>
     </div>
 

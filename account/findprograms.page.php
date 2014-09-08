@@ -66,30 +66,39 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                   echo '
                   <div class="pure-u-1 pure-u-md-1-3">
                     <div class="program-indv" style="background: url(\'http://maps.googleapis.com/maps/api/staticmap?center='.$prog['lat'].','.$prog['lng'].'&zoom=16&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:%7C'.$prog['lat'].','.$prog['lng'].'\'); ">
-                      <div style="float: left; width: 70%;">
-                        <h1>'.$prog['programname'].'</h1>
-                        <h2>'.$prog['name'].'</h2>
-                        <span class="program-local">Approx '.round($prog['distance']).'km away</span>
-                      </div>
+                      <div class="program-content">
+                        <div style="float: left; width: 75%;">
+                          <h1>'.$prog['programname'].'</h1>
+                          <h2>'.$prog['name'].'</h2>
+                          <span class="program-local"><i class="fa fa-location-arrow"></i> Approx '.round($prog['distance']).'km away</span><br />
+                          <span class="program-address"><i class="fa fa-building"></i> '.$prog['street'].', '.$prog['suburb'].' '.$prog['state'].' '.$prog['postcode'].'</span>
+                        </div>
 
-                      <div style="float: right; width: 30%;">
-                        <table width="100%">
-                          <tr>
-                            <td><i class="fa fa-clock-o"></i></td>
-                            <td>'.$prog['timestart'].'</td>
-                          </tr>
+                        <div style="float: right; width: 25%;">
+                          <table width="100%" style="color: black;">
+                            <tr>
+                              <td><i class="fa fa-clock-o"></i></td>
+                              <td>'.$prog['timestart'].'</td>
+                            </tr>
 
-                          <tr>
-                            <td><i class="fa fa-bolt"></i></td>
-                            <td>'.dateDiff($prog['timestart'], $prog['timeend']).'</td>
-                          </tr>
+                            <tr>
+                              <td><i class="fa fa-bolt"></i></td>
+                              <td>'.dateDiff($prog['timestart'], $prog['timeend']).'</td>
+                            </tr>
 
-                          <tr>
-                            <td><i class="fa fa-users"></i></td>
-                            <td>'.$prog['count'].' ('.$prog['maxpax'].' Max)</td>
-                          </tr>
-                        </table><br />
-                        <a href="" class="pure-button pure-button-primary"><i class="fa fa-circle-o"></i> Join</a>
+                            <tr>
+                              <td><i class="fa fa-users"></i></td>
+                              <td>'.$prog['count'].' ('.$prog['maxpax'].' Max)</td>
+                            </tr>
+                          </table><br />';
+                          if($prog['openclass'] == 1) {
+                            echo '<a href="" class="pure-button pure-button-primary"><i class="fa fa-circle-o"></i> Join</a>';
+                          } else {
+                            echo '<a class="pure-button pure-button-error"><i class="fa fa-times"></i> Closed</a>';
+                          }
+
+                        echo '</div>
+                        <div style="clear: both;"></div>
                       </div>
                     </div>
                   </div>
