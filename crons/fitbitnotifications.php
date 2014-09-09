@@ -12,9 +12,10 @@ $notificationData = file_get_contents($_FILES['updates']['tmp_name']);
 mail("sw730@uowmail.edu.au", "fitbit stuff", $notificationData);
 
 die();
+
 $jsondata = json_decode($notificationData);
 
-$token = $jsondata
+$token = $jsondata;
 
 // Get the list of users currently using fitbit
 $fbf_sql = mysqli_query($sql, "SELECT `u_id`, `AccessToken`, `AccessTokenSecret` FROM `connectedapps` WHERE `app` = 'fitbit' AND `UserID` = '$token'");
