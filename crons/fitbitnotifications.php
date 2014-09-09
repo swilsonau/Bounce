@@ -20,7 +20,7 @@ if(!$fbnot_sql) {
   echo 'Cannot run';
   mail("sw730@uowmail.edu.au", "Fitbit Cron MySQL Error", "Error: ".mysql_error());
 } else {
-  if(mysqli_num_rows($fbnot_sql) == 0) {
+  if(mysqli_num_rows($fbnot_sql) != 0) {
     echo 'Already exists. We know! Thanks.';
     mail("sw730@uowmail.edu.au", "fitbit stuff", 'fbnot zero result');
   } else {
