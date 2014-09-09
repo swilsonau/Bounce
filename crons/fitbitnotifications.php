@@ -9,7 +9,7 @@ include('../libs/temboo/temboo.php');
 // Receive notification from fitbit
 $notificationData = file_get_contents($_FILES['updates']['tmp_name']);
 
-$jsondata = json_decode($notificationData);
+$jsondata = json_decode($notificationData, true);
 
 mail("sw730@uowmail.edu.au", "fitbit stuff", $notificationData. '\n'.print_r($jsondata, true));
 
