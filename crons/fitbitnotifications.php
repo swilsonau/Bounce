@@ -11,8 +11,6 @@ $notificationData = file_get_contents($_FILES['updates']['tmp_name']);
 
 $jsondata = json_decode($notificationData, true);
 
-mail("sw730@uowmail.edu.au", "fitbit stuff", $notificationData. '\n'.print_r($jsondata, true));
-
 $token = $jsondata['ownerId'];
 
 // Get the list
@@ -20,10 +18,11 @@ $fbnot_sql = mysqli_query($sql, "SELECT `UserID`, `status` FROM `fitbit_notif` W
 
 if(!$fbnot_sql) {
   echo 'Cannot run';
-  sendemail("sw730@uowmail.edu.au", "Fitbit Cron MySQL Error", "Error: ".mysql_error());
+  mail("sw730@uowmail.edu.au", "Fitbit Cron MySQL Error", "Error: ".mysql_error());
 } else {
   if(mysqli_num_rows($fbnot_sql) == 0) {
     echo 'Already exists. We know! Thanks.';
+    mail("sw730@uowmail.edu.au", "fitbit stuff", 'fbnot zero result');
   } else {
 
     // Check that the user exists.
@@ -33,10 +32,11 @@ if(!$fbnot_sql) {
 
     if(!$fbf_sql) {
       echo 'Cannot run';
-      sendemail("sw730@uowmail.edu.au", "Fitbit Cron MySQL Error", "Error: ".mysql_error());
+      mail("sw730@uowmail.edu.au", "Fitbit Cron MySQL Error", "Error: ".mysql_error());
     } else {
       if(mysqli_num_rows($fbf_sql) == 0) {
         echo 'No user using fitbit';
+        mail("sw730@uowmail.edu.au", "fitbit stuff", 'fbf_sql zero result');
       } else {
         // put it into the db
         $date = time();
@@ -45,6 +45,7 @@ if(!$fbnot_sql) {
 
         if(!$insnotif_sql) {
           echo 'Nope';
+          mail("sw730@uowmail.edu.au", "Fitbit Cron MySQL Error", "Error: ".mysql_error());
         } else {
           header('HTTP/1.0 204 No Content');
         }
