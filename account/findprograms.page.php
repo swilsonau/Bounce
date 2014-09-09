@@ -53,7 +53,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
             $pc_lng = $userdetails['pc_lng'];
 
             // Get the programs available
-            $findpgsql = mysqli_query($sql, "SELECT *, ( 6371 * acos( cos( radians($pc_lat) ) * cos( radians( `programs`.`lat` ) ) * cos( radians( `programs`.`lng` ) - radians($pc_lng) ) + sin( radians($pc_lat) ) * sin( radians( `programs`.`lat` ) ) ) ) AS distance, (select count(*) from `program_assign` WHERE `progid` = `programs`.`id`) AS count FROM `programs` LEFT JOIN `organisation` ON `programs`.`orgid` = `organisation`.`id` HAVING distance < $distance ORDER BY distance");
+            $findpgsql = mysqli_query($sql, "SELECT *, `programs`.`id` AS `pid`, ( 6371 * acos( cos( radians($pc_lat) ) * cos( radians( `programs`.`lat` ) ) * cos( radians( `programs`.`lng` ) - radians($pc_lng) ) + sin( radians($pc_lat) ) * sin( radians( `programs`.`lat` ) ) ) ) AS distance, (select count(*) from `program_assign` WHERE `progid` = `programs`.`id`) AS count FROM `programs` LEFT JOIN `organisation` ON `programs`.`orgid` = `organisation`.`id` HAVING distance < $distance ORDER BY distance");
 
             if(!$findpgsql) {
               echo '<aside class="error">There was an error.</aside>';
@@ -92,12 +92,13 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             </tr>
                           </table><br />';
                           if($prog['openclass'] == 1) {
-                            echo '<a href="" class="pure-button pure-button-primary"><i class="fa fa-circle-o"></i> Join</a>';
+                            echo '<button class="pure-button pure-button-primary '.$prog['pid'].'-joinbutton" onclick="joinprogram('.$prog['pid'].');"><i class="fa fa-circle-o"></i> Join</button>';
                           } else {
                             echo '<a class="pure-button pure-button-error"><i class="fa fa-times"></i> Closed</a>';
                           }
-
-                        echo '</div>
+                        echo '
+                          <a class="pure-button pure-button-primary '.$prog['pid'].'-loading" style="display: none;"><i class="fa fa-refresh fa-spin"></i> Loading</a>
+                        </div>
                         <div style="clear: both;"></div>
                       </div>
                     </div>
