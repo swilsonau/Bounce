@@ -245,4 +245,22 @@ function scrollToAnchor(aid){
 function joinprogram(progid){
   $('.' + progid + '-joinbutton').slideUp();
   $('.' + progid + '-loading').delay(1000).slideDown();
+
+  $.post(
+    "<?php echo $siteurl; ?>account/enrol_ajax.php",
+    { progid: progid },
+    function(data) {
+      var parsedata = JSON.parse(data);
+
+      if(parsedata.error == 1) {
+        alert(parsedata.errortext);
+        $('.' + progid + '-loading').slideUp();
+        $('.' + progid + '-joinbutton').delay(1000).slideDown();
+      } else {
+        $('.' + progid + '-loading').slideUp();
+        $('.' + progid + '-joinbutton').delay(1000).slideDown();
+      }
+    }
+
+  );
 }
