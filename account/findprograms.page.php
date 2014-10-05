@@ -63,12 +63,23 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
               } else {
                 echo '<div class="pure-g">';
                 while($prog = mysqli_fetch_array($findpgsql)) {
+                  // Check is user is assigned to this program
+                  $programid = $prog['pid'];
+                  $userid = $userdetails['id'];
+                  $checkenrols = mysqli_query($sql, "SELECT `id`, `userid`, `progid` FROM `program_assign` WHERE `userid` = '$userid' AND  `progid` = '$programid' LIMIT 1");
+
+                  if($checkenrols) {
+                    $check = mysqli_num_rows($checkenrols);
+                  } else {
+                    $check = 0;
+                  }
+
                   echo '
                   <div class="pure-u-1 pure-u-md-1-3">
                     <div class="program-indv" style="background: url(\'http://maps.googleapis.com/maps/api/staticmap?center='.$prog['lat'].','.$prog['lng'].'&zoom=16&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:%7C'.$prog['lat'].','.$prog['lng'].'\'); ">
                       <div class="program-content">
                         <div style="float: left; width: 75%;">
-                          <h1>'.$prog['programname'].'</h1>
+                          <h1>'.$prog['programname'].' </h1>
                           <h2>'.$prog['name'].'</h2>
                           <span class="program-local"><i class="fa fa-location-arrow"></i> Approx '.round($prog['distance']).'km away</span><br />
                           <span class="program-address"><i class="fa fa-building"></i> '.$prog['street'].', '.$prog['suburb'].' '.$prog['state'].' '.$prog['postcode'].'</span>
@@ -92,12 +103,15 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                             </tr>
                           </table><br />';
                           if($prog['openclass'] == 1) {
-                            echo '<button class="pure-button pure-button-primary '.$prog['pid'].'-joinbutton" onclick="joinprogram('.$prog['pid'].');"><i class="fa fa-circle-o"></i> Join</button>';
+                            if($check == 0) {
+                              echo '<button class="pure-button pure-button-primary '.$prog['pid'].'-joinbutton" onclick="joinprogram('.$prog['pid'].', \'join\');"><i class="fa fa-circle-o"></i> Join</button>';
+                            } else {
+                              echo '<button class="pure-button pure-button-primary '.$prog['pid'].'-joinbutton" onclick="joinprogram('.$prog['pid'].', \'leave\');"><i class="fa fa-close"></i> Leave</button>';
+                            }
                           } else {
                             echo '<a class="pure-button pure-button-error"><i class="fa fa-times"></i> Closed</a>';
                           }
                         echo '
-                          <a class="pure-button pure-button-primary '.$prog['pid'].'-loading" style="display: none;"><i class="fa fa-refresh fa-spin"></i> Loading</a>
                         </div>
                         <div style="clear: both;"></div>
                       </div>

@@ -527,9 +527,9 @@ aside {
  }
 
  .tile-grid {
-   width: 50%;
    margin-left: auto;
    margin-right: auto;
+   margin-top: 30px;
  }
 
  .tile-row {

@@ -242,23 +242,22 @@ function scrollToAnchor(aid){
     $('html,body').animate({scrollTop: aTag - 65},'slow');
 }
 
-function joinprogram(progid){
-  $('.' + progid + '-joinbutton').slideUp();
-  $('.' + progid + '-loading').delay(1000).slideDown();
+function joinprogram(progid, action){
+  var buttontext = $('.' + progid + '-joinbutton').html();
+
+  $('.' + progid + '-joinbutton').html('<i class="fa fa-refresh fa-spin"></i> Loading');
 
   $.post(
     "<?php echo $siteurl; ?>account/enrol_ajax.php",
-    { progid: progid },
+    { progid: progid, action: action },
     function(data) {
       var parsedata = JSON.parse(data);
 
       if(parsedata.error == 1) {
         alert(parsedata.errortext);
-        $('.' + progid + '-loading').slideUp();
-        $('.' + progid + '-joinbutton').delay(1000).slideDown();
+        $('.' + progid + '-joinbutton').html(buttontext);
       } else {
-        $('.' + progid + '-loading').slideUp();
-        $('.' + progid + '-joinbutton').delay(1000).slideDown();
+        $('.' + progid + '-joinbutton').html('<i class="fa fa-check"></i> Joined');
       }
     }
 

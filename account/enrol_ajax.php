@@ -8,6 +8,16 @@ include('../config/functions.config.php');
 // Temboo API
 include('../libs/temboo/temboo.php');
 
+if(!checklogin()) {
+  echo json_encode(array("error" => 1, "errortext" => "You are not logged in."));
+  die();
+}
+
+if($_SERVER["CONTENT_TYPE"] != "application/x-www-form-urlencoded; charset=UTF-8") {
+  echo json_encode(array("error" => 1, "errortext" => "Invalid request. Expecting something different. Sorry but we are experiencing an issue. Please try again later."));
+  die();
+}
+
 // Stuff
 $progid = mysqli_real_escape_string($sql, (isset($_POST['progid']) ? $_POST['progid'] : null));
 $userid = $_SESSION['bounceuser'];
@@ -38,7 +48,18 @@ if(!$checkpermssql) {
         $array['error'] = 1;
         $array['errortext'] = "You cannot choose this class. Please choose a new one.";
       } else {
+        // All good to join the class, process this
 
+        $date = time();
+
+        $inssql = mysqli_query($sql, "INSERT INTO `program_assign`(`userid`, `progid`, `dateassigned`)VALUES('$userid', '$progid', $date)");
+
+        if(!$inssql) {
+          $array['error'] = 1;
+          $array['errortext'] = "We are having issues processing that request. Please try again later.";
+        } else {
+          $array['error'] = 0;
+        }
       }
     }
   }

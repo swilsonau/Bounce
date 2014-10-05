@@ -160,6 +160,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               </tr>';
                             } else {
                               while($prog = mysqli_fetch_array($progsql)) {
+
                                 echo '<tr>
                                 <td>'.$prog['id'].'</td>
                                 <td>'.$prog['programname'].'</td>
