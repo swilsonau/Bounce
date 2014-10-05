@@ -16,8 +16,8 @@ if(gethostname() == "eden.sp.cleverapp.net") {
   $siteurl = "https://bounceapp.net/";
   $sitename = "Bounce";
 } else {
-  if($_SERVER['SERVER_ADDR'] == "10.64.23.164") {
-    $siteurl = "http://10.64.23.164/";
+  if($_SERVER['SERVER_ADDR'] == "10.64.31.33") {
+    $siteurl = "http://10.64.31.33/";
     $sitename = "Bounce Dev";
   } else {
     $siteurl = "http://bouncelocal.net/";

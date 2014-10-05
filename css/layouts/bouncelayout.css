@@ -193,7 +193,21 @@ a.pure-button-primary {
 
 .page-header h1 {
   color: white;
-  padding: 25px 30px 30px 30px;
+  padding: 35px 0px 0px 30px;
+}
+
+.page-header small {
+  text-transform: uppercase;
+  opacity: 0.5;
+  font-size: 18px;
+}
+
+.pg-pull-left {
+  float: left;
+}
+
+.pg-pull-right {
+  float: right;
 }
 
 .signup-header {
@@ -499,6 +513,40 @@ aside {
   color: black;
 }
 
+.mobile-only {
+  display: none;
+}
+
+
+/*
+ * DASHBOARD STYLES
+ */
+
+ .dashboard-wrapper {
+   margin-top: 70px;
+ }
+
+ .tile-grid {
+   width: 50%;
+   margin-left: auto;
+   margin-right: auto;
+ }
+
+ .tile-row {
+   margin-bottom: 0px;
+ }
+
+ .tile {
+   margin-left: 5px;
+   margin-bottom: 5px;
+   height: 200px;
+   background: #ea2828;
+ }
+
+ .tile:hover {
+   background: #c10404;
+ }
+
 /*
  * -- MOBILE MEDIA QUERIES --
  * On mobiles, we want to customize some
@@ -552,6 +600,14 @@ aside {
 
     .sidemenu-mobile {
       display: inherit;
+    }
+
+    .mobile-only {
+      display: inherit;
+    }
+
+    .tile-grid {
+      width: 100%;
     }
  }
 

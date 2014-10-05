@@ -4,9 +4,15 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 ?>
 
 <div class="page-header">
-  <div class="content">
-    <h1><?php echo getusertype($userdetails, true); ?> Dashboard</h1>
+  <div class="pg-pull-left">
+    <h1>Hi <?php echo $userdetails['firstname']; ?> <small>Welcome to <?php echo $sitename; ?></small></h1>
   </div>
+
+  <div class="pg-pull-right">
+    fdsgsdngfsjkgsdjknbfdsjsjn
+  </div>
+
+  <div style="clear: both;"></div>
 </div>
 
 <div class="content-wrapper accountgrid">
@@ -20,10 +26,50 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
           }
         ?>
       </div>
-      <div class="pure-u-1 pure-u-md-1-5">2</div>
-      <div class="pure-u-1 pure-u-md-1-5">3</div>
-      <div class="pure-u-1 pure-u-md-1-5">4</div>
-      <div class="pure-u-1 pure-u-md-1-5">5</div>
+      <div class="pure-u-1 pure-u-md-3-4 tile-grid">
+        <div class="pure-g tile-row">
+          <div class="pure-u-1 pure-u-md-2-5 tile">
+            <h2>Next Session Reminder</h2>
+            <p>
+              Your next session is booked for:<br />
+              Date: MON 20th August<br />
+              Time: 6:00am<br />
+              Location: North Wollongong Beach<br />
+              Trainer: Daniel Chapman<br />
+            </p>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-4-24 tile">
+            2
+          </div>
+
+          <div class="pure-u-1 pure-u-md-4-24 tile">
+            3
+          </div>
+
+          <div class="pure-u-1 pure-u-md-4-24 tile">
+            4
+          </div>
+        </div>
+
+        <div class="pure-g tile-row">
+          <div class="pure-u-1 pure-u-md-4-24 tile">
+            5
+          </div>
+
+          <div class="pure-u-1 pure-u-md-4-24 tile">
+            6
+          </div>
+
+          <div class="pure-u-1 pure-u-md-2-5 tile">
+            7
+          </div>
+
+          <div class="pure-u-1 pure-u-md-4-24 tile">
+            8
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 
