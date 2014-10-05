@@ -257,7 +257,11 @@ function joinprogram(progid, action){
         alert(parsedata.errortext);
         $('.' + progid + '-joinbutton').html(buttontext);
       } else {
-        $('.' + progid + '-joinbutton').html('<i class="fa fa-check"></i> Joined');
+        if(action == 'leave') {
+          $('.' + progid + '-joinbutton').html('<i class="fa fa-check"></i> Left');
+        } else {
+          $('.' + progid + '-joinbutton').html('<i class="fa fa-check"></i> Joined');
+        }
       }
     }
 
