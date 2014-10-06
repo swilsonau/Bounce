@@ -24,7 +24,7 @@
         <apply executable="php" failonerror="true">
             <arg value="-l" />
 
-            <fileset dir="${basedir}/src/app">
+            <fileset dir="${basedir}/">
                 <include name="**/*.php" />
                 <modified />
             </fileset>
@@ -37,7 +37,7 @@
             <arg value="--count-tests" />
             <arg value="--log-csv" />
             <arg value="${basedir}/build/logs/phploc.csv" />
-            <arg path="${basedir}/src/app" />
+            <arg path="${basedir}/" />
         </exec>
     </target>
 
@@ -46,14 +46,14 @@
             <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
             <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
             <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
-            <arg path="${basedir}/src/app" />
+            <arg path="${basedir}/" />
         </exec>
     </target>
 
     <target name="phpmd"
     description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="phpmd">
-            <arg path="${basedir}/src/app" />
+            <arg path="${basedir}/" />
             <arg value="text" />
             <arg value="${basedir}/build/phpmd.xml" />
         </exec>
@@ -61,7 +61,7 @@
 
     <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
         <exec executable="phpmd">
-            <arg path="${basedir}/src/app" />
+            <arg path="${basedir}/" />
             <arg value="xml" />
             <arg value="${basedir}/build/phpmd.xml" />
             <arg value="--reportfile" />
@@ -73,7 +73,7 @@
     description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="phpcs">
             <arg value="--standard=${basedir}/build/phpcs.xml" />
-            <arg path="${basedir}/src/app" />
+            <arg path="${basedir}/" />
         </exec>
     </target>
 
@@ -82,7 +82,7 @@
             <arg value="--report=checkstyle" />
             <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
             <arg value="--standard=${basedir}/build/phpcs.xml" />
-            <arg path="${basedir}/src/app" />
+            <arg path="${basedir}/" />
         </exec>
     </target>
 
@@ -90,7 +90,7 @@
         <exec executable="phpcpd">
             <arg value="--log-pmd" />
             <arg value="${basedir}/build/logs/pmd-cpd.xml" />
-            <arg path="${basedir}/src/app" />
+            <arg path="${basedir}/" />
         </exec>
     </target>
     <!-- Not Used Anymore -->
@@ -104,7 +104,7 @@
     <target name="phpdoc" description="Generate API documentation using phpDocumentor2">
         <exec executable="phpdoc">
             <arg value="-d" />
-            <arg path="${basedir}/src/app" />
+            <arg path="${basedir}/" />
             <arg value="-t" />
             <arg path="${basedir}/build/api" />
         </exec>
@@ -115,7 +115,7 @@
             <arg value="--config" />
             <arg path="${basedir}/build/apigen.neon" />
             <arg value="--source" />
-            <arg value="${basedir}/src/" />
+            <arg value="${basedir}/" />
             <arg value="--destination" />
             <arg value="${basedir}/build/api" />
         </exec>
