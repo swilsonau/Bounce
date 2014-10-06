@@ -31,7 +31,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
         <div class="pure-u-1 pure-u-md-3-4">
             <aside>
-              <p><i class="fa fa-info-circle"></i> You can use this page to find your nearest programs. If you're already a member of the organisation and there is a spot available, you can join instantly. Otherwise, you'll need to request to join a session.</p>
+              <p><i class="fa fa-info-circle"></i> You can use this page to find your nearest programs. This will only show programs run by any organisations you're assigned to.</p>
             </aside>
 
             <?php
@@ -51,12 +51,14 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
             $pc_lat = $userdetails['pc_lat'];
             $pc_lng = $userdetails['pc_lng'];
+            $userid = $userdetails['id'];
 
             // Get the programs available
-            $findpgsql = mysqli_query($sql, "SELECT *, `programs`.`id` AS `pid`, ( 6371 * acos( cos( radians($pc_lat) ) * cos( radians( `programs`.`lat` ) ) * cos( radians( `programs`.`lng` ) - radians($pc_lng) ) + sin( radians($pc_lat) ) * sin( radians( `programs`.`lat` ) ) ) ) AS distance, (select count(*) from `program_assign` WHERE `progid` = `programs`.`id`) AS count FROM `programs` LEFT JOIN `organisation` ON `programs`.`orgid` = `organisation`.`id` HAVING distance < $distance ORDER BY distance");
+            $findpgsql = mysqli_query($sql, "SELECT *, `programs`.`id` AS `pid`, ( 6371 * acos( cos( radians($pc_lat) ) * cos( radians( `programs`.`lat` ) ) * cos( radians( `programs`.`lng` ) - radians($pc_lng) ) + sin( radians($pc_lat) ) * sin( radians( `programs`.`lat` ) ) ) ) AS distance, (select count(*) from `program_assign` WHERE `progid` = `programs`.`id`) AS count FROM `programs` LEFT JOIN `organisation` ON `programs`.`orgid` = `organisation`.`id` WHERE `organisation`.`id` IN (SELECT `organ_id` FROM `organise_assign` WHERE `user_id` = '$userid' AND `perms` != 0) HAVING distance < $distance  ORDER BY distance");
 
             if(!$findpgsql) {
               echo '<aside class="error">There was an error.</aside>';
+              echo mysqli_error($sql);
             } else {
               if(!mysqli_num_rows($findpgsql)) {
                 echo '<aside class="error">We cannot find any programs right now.</aside>';
