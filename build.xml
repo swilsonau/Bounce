@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Bounce" default="build">
 
-    <target name="build" depends="prepare,lint,phploc,pdepend,phpmd,phpmd-ci,phpcs,phpcs-ci,phpcpd,apigen,phpunit"/>
+    <target name="build" depends="prepare,lint,phploc,pdepend,phpcs,phpcs-ci,phpcpd,phpunit"/>
 
     <target name="clean" depends="clean-build" description="Cleanup build and composer artifacts" />
 
@@ -50,25 +50,6 @@
         </exec>
     </target>
 
-    <target name="phpmd"
-    description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="phpmd">
-            <arg path="${basedir}/" />
-            <arg value="text" />
-            <arg value="${basedir}/build/phpmd.xml" />
-        </exec>
-    </target>
-
-    <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-        <exec executable="phpmd">
-            <arg path="${basedir}/" />
-            <arg value="xml" />
-            <arg value="${basedir}/build/phpmd.xml" />
-            <arg value="--reportfile" />
-            <arg value="${basedir}/build/logs/pmd.xml" />
-        </exec>
-    </target>
-
     <target name="phpcs"
     description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="phpcs">
@@ -93,13 +74,6 @@
             <arg path="${basedir}/" />
         </exec>
     </target>
-    <!-- Not Used Anymore -->
-    <target name="phpdox" description="Generate API documentation using phpDox">
-        <exec executable="phpdox">
-            <arg value="-f" />
-            <arg path="${basedir}/build/phpdox.xml" />
-        </exec>
-    </target>
 
     <target name="phpdoc" description="Generate API documentation using phpDocumentor2">
         <exec executable="phpdoc">
@@ -107,17 +81,6 @@
             <arg path="${basedir}/" />
             <arg value="-t" />
             <arg path="${basedir}/build/api" />
-        </exec>
-    </target>
-
-    <target name="apigen" description="Generate API documentation using apigen">
-        <exec executable="apigen">
-            <arg value="--config" />
-            <arg path="${basedir}/build/apigen.neon" />
-            <arg value="--source" />
-            <arg value="${basedir}/" />
-            <arg value="--destination" />
-            <arg value="${basedir}/build/api" />
         </exec>
     </target>
 
