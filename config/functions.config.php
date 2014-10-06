@@ -86,12 +86,12 @@ function dashnav($selected, $userdetails) {
   }
 
   $nav = '
-  <div class="userinfo is-center">
+  <!---<div class="userinfo is-center">
   <img src="'.$grav.'" />
   <p>'.$userdetails['firstname'].'<br />
 '.$org.'
   </p>
-  </div>
+  </div>-->
 
   <div class="pure-menu pure-menu-open sidemenu-mobile">
     <ul>

@@ -90,15 +90,15 @@ if(checklogin()) {
           </ul>
 
 
-        <!---<div class="nav-right">
+        <div class="nav-right">
           <?php
           if(!checklogin()) {
             echo 'Please <a href="'.$siteurl.'account">Login</a> to continue.';
           } else {
-            echo '<button class="pure-button pure-button-primary" onclick="window.location = \''.$siteurl.'account/logout\'"><i class="fa fa-power-off"></i> Logout</button>';
+            echo '<button class="pure-button pure-button-primary" onclick="window.location = \''.$siteurl.'account/logout\'"><i class="fa fa-user"></i> '.$userdetails['firstname'].'</button>';
           }
           ?>
-        </div>-->
+        </div>
     </div>
 </div>
 <div style="clear: both;"></div>

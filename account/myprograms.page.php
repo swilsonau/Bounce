@@ -30,7 +30,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
         </div>
 
         <div class="pure-u-1 pure-u-md-3-4">
-
+          
         </div>
   </div>
 </div>

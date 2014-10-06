@@ -352,6 +352,10 @@ aside {
    margin: 0;
  }
 
+ .nav-right button {
+   background: #701E08;
+ }
+
 /*
  * -- CONTENT STYLES --
  * This represents the content area (everything below the blue section)
