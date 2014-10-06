@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Bounce" default="build">
+
+    <target name="build" depends="prepare,lint,phploc,pdepend,phpmd,phpmd-ci,phpcs,phpcs-ci,phpcpd,apigen,phpunit"/>
+
+    <target name="clean" depends="clean-build,clean-composer" description="Cleanup build and composer artifacts" />
+
+    <target name="clean-build" description="Cleanup build artifacts">
+        <delete dir="${basedir}/build/api"/>
+        <delete dir="${basedir}/build/coverage"/>
+        <delete dir="${basedir}/build/logs"/>
+        <delete dir="${basedir}/build/pdepend"/>
+    </target>
+
+    <target name="prepare" depends="clean-build" description="Prepare for build">
+        <mkdir dir="${basedir}/build/api"/>
+        <mkdir dir="${basedir}/build/coverage"/>
+        <mkdir dir="${basedir}/build/logs"/>
+        <mkdir dir="${basedir}/build/pdepend"/>
+    </target>
+
+    <target name="lint"
+            description="Preform Syntax check of sourcecode files">
+        <apply executable="php" failonerror="true">
+            <arg value="-l" />
+
+            <fileset dir="${basedir}/src/app">
+                <include name="**/*.php" />
+                <modified />
+            </fileset>
+
+        </apply>
+    </target>
+
+    <target name="phploc" description="Measure project size using PHPLOC">
+        <exec executable="phploc">
+            <arg value="--count-tests" />
+            <arg value="--log-csv" />
+            <arg value="${basedir}/build/logs/phploc.csv" />
+            <arg path="${basedir}/src/app" />
+        </exec>
+    </target>
+
+    <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+        <exec executable="pdepend">
+            <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+            <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+            <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+            <arg path="${basedir}/src/app" />
+        </exec>
+    </target>
+
+    <target name="phpmd"
+    description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
+        <exec executable="phpmd">
+            <arg path="${basedir}/src/app" />
+            <arg value="text" />
+            <arg value="${basedir}/build/phpmd.xml" />
+        </exec>
+    </target>
+
+    <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
+        <exec executable="phpmd">
+            <arg path="${basedir}/src/app" />
+            <arg value="xml" />
+            <arg value="${basedir}/build/phpmd.xml" />
+            <arg value="--reportfile" />
+            <arg value="${basedir}/build/logs/pmd.xml" />
+        </exec>
+    </target>
+
+    <target name="phpcs"
+    description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
+        <exec executable="phpcs">
+            <arg value="--standard=${basedir}/build/phpcs.xml" />
+            <arg path="${basedir}/src/app" />
+        </exec>
+    </target>
+
+    <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
+        <exec executable="phpcs" output="/dev/null">
+            <arg value="--report=checkstyle" />
+            <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+            <arg value="--standard=${basedir}/build/phpcs.xml" />
+            <arg path="${basedir}/src/app" />
+        </exec>
+    </target>
+
+    <target name="phpcpd" description="Find duplicate code using PHPCPD">
+        <exec executable="phpcpd">
+            <arg value="--log-pmd" />
+            <arg value="${basedir}/build/logs/pmd-cpd.xml" />
+            <arg path="${basedir}/src/app" />
+        </exec>
+    </target>
+    <!-- Not Used Anymore -->
+    <target name="phpdox" description="Generate API documentation using phpDox">
+        <exec executable="phpdox">
+            <arg value="-f" />
+            <arg path="${basedir}/build/phpdox.xml" />
+        </exec>
+    </target>
+
+    <target name="phpdoc" description="Generate API documentation using phpDocumentor2">
+        <exec executable="phpdoc">
+            <arg value="-d" />
+            <arg path="${basedir}/src/app" />
+            <arg value="-t" />
+            <arg path="${basedir}/build/api" />
+        </exec>
+    </target>
+
+    <target name="apigen" description="Generate API documentation using apigen">
+        <exec executable="apigen">
+            <arg value="--config" />
+            <arg path="${basedir}/build/apigen.neon" />
+            <arg value="--source" />
+            <arg value="${basedir}/src/" />
+            <arg value="--destination" />
+            <arg value="${basedir}/build/api" />
+        </exec>
+    </target>
+
+    <target name="phpunit" description="Run unit tests with PHPUnit">
+        <exec executable="phpunit" failonerror="true" >
+            <arg value="-c" />
+            <arg path="${basedir}/src/phpunit.xml" />
+            <arg value="--coverage-clover" />
+            <arg value="${basedir}/build/logs/clover.xml" />
+            <arg value="--coverage-html" />
+            <arg value="${basedir}/build/coverage" />
+            <arg value="--log-junit" />
+            <arg value="${basedir}/build/logs/junit.xml" />
+        </exec>
+    </target>
+
+    <!-- Deployment
+
+    <target name="deploy-dev" depends="clean-dev,copyfiles-dev,fixperms-dev,deploydb-dev" description="deploy to bounceapp.net" />
+
+    <target name="clean-dev" description="Clean up old files">
+        <delete dir="/var/www/dev.csci321.com/app"/>
+        <delete dir="/var/www/dev.csci321.com/bootstrap"/>
+        <delete dir="/var/www/dev.csci321.com/stylesheets"/>
+        <delete dir="/var/www/dev.csci321.com/web" failonerror="false"/>
+        <delete dir="/var/www/dev.csci321.com/vendor"/>
+    </target>
+
+    <target name="copyfiles-dev" description="copy new files">
+        <copy todir="/var/www/dev.csci321.com">
+            <fileset dir="${basedir}/src" />
+        </copy>
+    </target>
+
+    <target name="fixperms-dev" description="Fix permissions for files">
+        <chgrp group="client9">
+            <fileset dir="/var/www/dev.csci321.com">
+                <include name="**/*" />
+                <exclude name="web/stats/" />
+                <exclude name="log/" />
+                <exclude name="ssl/" />
+            </fileset>
+        </chgrp>
+
+        <chmod file="/var/www/dev.csci321.com/app/storage/**" perm="777" type="dir" failonerror="false" />
+        <chmod file="/var/www/dev.csci321.com/artisan" perm="775" failonerror="false" />
+    </target>
+
+    <target name="deploydb-dev" description="Deploy the Database">
+        <exec executable="/var/www/dev.csci321.com/artisan" dir="/var/www/dev.csci321.com/" failonerror="true">
+            <arg value="migrate"/>
+        </exec>
+    </target>
+-->
+</project>
