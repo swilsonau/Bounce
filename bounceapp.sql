@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 07, 2014 at 01:44 PM
+-- Generation Time: Oct 06, 2014 at 06:20 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -60,14 +60,47 @@ CREATE TABLE IF NOT EXISTS `connectedapps` (
   `UserID` text NOT NULL,
   `dateadded` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `connectedapps`
 --
 
 INSERT INTO `connectedapps` (`id`, `app`, `u_id`, `AccessToken`, `AccessTokenSecret`, `UserID`, `dateadded`) VALUES
-(3, 'fitbit', 1, '8767bf6b05396af0918a7a0a94acfb36', '9c537896313bd4db5a10b7e9e97e1035', '25HHFT', '1407321907');
+(4, 'fitbit', 1, '87a5fbb4938c558b4c57a5c4164a0ac2', '05d9c47abad9943c60d82f7841c6369b', '25HHFT', '1410176835');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fitbitdata`
+--
+
+CREATE TABLE IF NOT EXISTS `fitbitdata` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `userid` int(5) NOT NULL,
+  `date` varchar(250) NOT NULL,
+  `steps` varchar(250) NOT NULL,
+  `distance` varchar(250) NOT NULL,
+  `minutesSedentary` varchar(250) NOT NULL,
+  `minutesLightlyActive` varchar(250) NOT NULL,
+  `minutesFairlyActive` varchar(250) NOT NULL,
+  `minutesVeryActive` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fitbit_notif`
+--
+
+CREATE TABLE IF NOT EXISTS `fitbit_notif` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `UserID` varchar(250) NOT NULL,
+  `date` varchar(250) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -146,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `pending_user` (
   `daterequest` varchar(250) NOT NULL,
   `expiry` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -185,7 +218,7 @@ INSERT INTO `programs` (`id`, `orgid`, `programname`, `maxpax`, `openclass`, `da
 (2, 3, 'Weekly Power Session', 25, 1, '08/09/2014', '24/11/2014', '8:00 AM', '8:30 AM', 1, 'Stuart Park', 'Wollongong', 'NSW', 2500, '-34.4103220', '150.8994663', '1409984383', '6'),
 (3, 2, 'Morning Pump', 45, 1, '08/09/2014', '22/12/2014', '5:00 AM', '6:00 AM', 1, 'Unit 5/135-143 Princes Hwy', 'Fairy Meadow', 'NSW', 2519, '-34.4038470', '150.8903720', '1410076997', '6'),
 (4, 2, 'Afternoon Session', 45, 1, '08/09/2014', '22/12/2014', '5:30 PM', '6:30 PM', 1, 'Unit 5/135-143 Princes Hwy', 'Fairy Meadow', 'NSW', 2519, '-34.4038470', '150.8903720', '1410077044', '6'),
-(5, 4, 'Lunch Time Special', 25, 1, '08/09/2014', '22/12/2014', '12:30 PM', '1:00 PM', 1, 'Shop 6 & 7, Suite 15 - 17 2 Memorial Drive', 'Shellharbour', 'NSW', 2529, '-34.5792123', '150.8674041', '1410084835', '6');
+(5, 4, 'Lunch Time Special', 1, 1, '08/09/2014', '22/12/2014', '12:30 PM', '1:00 PM', 1, 'Shop 6 & 7, Suite 15 - 17 2 Memorial Drive', 'Shellharbour', 'NSW', 2529, '-34.5792123', '150.8674041', '1410084835', '6');
 
 -- --------------------------------------------------------
 
@@ -199,14 +232,14 @@ CREATE TABLE IF NOT EXISTS `program_assign` (
   `progid` int(5) NOT NULL,
   `dateassigned` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `program_assign`
 --
 
 INSERT INTO `program_assign` (`id`, `userid`, `progid`, `dateassigned`) VALUES
-(1, 10, 5, '');
+(11, 10, 5, '1412555793');
 
 -- --------------------------------------------------------
 
@@ -240,12 +273,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `emailaddress`, `password`, `phonenumber`, `postcode`, `pc_lat`, `pc_lng`, `status`, `type`, `ip`, `activationhash`, `fb_userid`, `fb_secret`, `fb_fullname`, `fb_profileimageurl`) VALUES
-(1, 'Stewart', 'Wilson', 'stewartwilson@outlook.com', '$2y$10$MoXWADFSxO1QoLGOzp3Ra.yc0giYri6IwYMqL25fU9pxnVttBJQvq', '0433971992', 2519, '0', '', 1, 1, '', '', '0', '', '', ''),
+(1, 'Stewart', 'Wilson', 'stewartwilson@outlook.com', '$2y$10$82VB/JJWvGTKqXK7oQq5BuPCvVURPSjQGxuH3tdQRcjpN09qYJQvS', '0433971992', 2519, '0', '', 1, 1, '', '', '0', '', '', ''),
 (4, 'Stewart', 'W', 'sw730@uowmail.edu.au', '$2y$10$o8xRW5d4XCsAyfCSrH7mQ.j2CaXW0/E2erOVdtk0/YX/KJQ8uAqV6', '0411111111', 2519, '0', '', 0, 1, '', '86312f1882fc284272d416d19a105856878c30ad95233bb8ead09ff3d0e1d14a', '0', '', '', ''),
 (5, 'Stewart', 'Trainer', 'trainer@stewartwilson.id.au', '$2y$10$UpXJ5SSgHf6DVZ1XIPw.IOqCxgDqx/xJykPBNt4qBpxpLnW8cYni6', '0400000000', 2519, '0', '', 1, 2, '127.0.0.1', '', '0', '', '', ''),
 (6, 'Stewart 2', 'Trainer 2', 'trainer2@stewartwilson.id.au', '$2y$10$DWA.020gpFYVWmWme8PI0ehwRf0Lw.gSbMND51mPeBE6QWDJe2GbO', '0400000001', 2519, '0', '', 1, 0, '127.0.0.1', '', '10152614563742969', 'CAAD7yZCW0VZBMBAAvPkMAEysbnO6FCyFZBYK2by6kVsxrWqpSHXHYmeJ2CEH3dx1EQECk4invqlD9LItvZChQN3vTTPOx29lF8A0PduQsphnFZANJk95NZCZAEDKO8ZCQF4ZB3H2WZBicSJygBCAqFCmXXGzvd0LrZAVgVgLRtGuSZCPUp4BNQuRUjHtXMI2SwsO4VVqyzenawH3kmLeLoSKQA0w', 'Stewart Wilson', 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p74x74/10500499_10152521874937969_8601961230157440385_n.jpg?oh=b98d0bf579b1dcfaa7b43af3f07e7244&oe=546FDC39&__gda__=1417265631_00e968429e837d455adc2d6b6e6704fe'),
 (7, 'James', 'W', 'jw192@uowmail.edu.au', '$2y$10$adkV0EA/d1v/gnhmslJe3.bDSySJMkHhcw4m6X4kDm8E9.2rwaDXy', '0430017348', 2519, '0', '', 1, 0, '10.64.20.182', '', '10203441127966472', 'CAAD7yZCW0VZBMBAMLK4ofPZCnS3GDrppJaZA0qUDHus2MzZCZASc6loUlbDsPSQZAJHLeZAki58h3wcBoqFFcdxyHh0e5saPIDzIkrZCIgyHUNQH4fq5XA4ZCtHh5ZBRTR4jZBqGIBSZCO11ttIra6Xg2ehCn7sp5RNZANgak58gBdQ8DGfLqEqZAhKDBkpLbNny2VKkmKplRpbpgMvyZBmbmgCbc3Kj', '', ''),
-(10, 'Stewart', 'Wilson', 'client_test@stewartwilson.id.au', '$2y$10$JxFges8YsyNtz3tuAZxaYu9X9yC7.6Vpbya66fsxPjHWknXFpZR.O', '0400000002', 2519, '-34.3902523', '150.8783824', 1, 0, '127.0.0.1', '', '', '', '', ''),
+(10, 'Stewart', 'Wilson', 'client_test@stewartwilson.id.au', '$2y$10$JxFges8YsyNtz3tuAZxaYu9X9yC7.6Vpbya66fsxPjHWknXFpZR.O', '0400000002', 2519, '-34.4054039', '150.8784300', 1, 0, '127.0.0.1', '', '', '', '', ''),
 (11, 'Trainer', 'Trainer', 'trainer_test@stewartwilson.id.au', '$2y$10$C31FAhRALgVGgJzsPSuDeeLbkk7rMjGYEi8/d0DZuL04voJ1R0GTe', '0400000003', 2519, '0', '', 1, 0, '127.0.0.1', '', '', '', '', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
