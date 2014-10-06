@@ -38,32 +38,37 @@ if(checklogin()) {
     <script src="<?php echo $siteurl; ?>/libs/jquery-1.11.1.min.js"></script>
     <script src="<?php echo $siteurl; ?>/libs/jquery-ui/jquery-ui.min.js"></script>
 
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>css/layouts/bouncelayout.css">
 
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="css/layouts/marketing-old-ie.css">
-    <![endif]-->
-    <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="<?php echo $siteurl; ?>css/layouts/bouncelayout.css">
-    <!--<![endif]-->
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/tooltipster/css/tooltipster.css">
 
-  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/tooltipster/css/tooltipster.css">
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.min.css">
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.theme.min.css">
 
-  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.min.css">
-  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.structure.min.css">
-  <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.theme.min.css">
+    <script type="text/javascript"
+      src="<?php echo $siteurl; ?>libs/site.php">
+    </script>
 
-  <script type="text/javascript"
-    src="<?php echo $siteurl; ?>libs/site.php">
-  </script>
+    <script type="text/javascript"
+      src="<?php echo $siteurl; ?>libs/tooltipster/js/jquery.tooltipster.min.js">
+    </script>
 
-  <script type="text/javascript"
-    src="<?php echo $siteurl; ?>libs/tooltipster/js/jquery.tooltipster.min.js">
-  </script>
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKh4oR9Q39yvLf3xTxG1ViXWF-UjA0iw0">
+    </script>
 
-  <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKh4oR9Q39yvLf3xTxG1ViXWF-UjA0iw0">
-  </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-53229393-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
 
 </head>
 <body>

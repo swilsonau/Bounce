@@ -101,7 +101,19 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               <td><i class="fa fa-users"></i></td>
                               <td>'.$prog['count'].' ('.$prog['maxpax'].' Max)</td>
                             </tr>
-                          </table><br />';
+                            ';
+                            if($check == 1) {
+                              echo '<tr style="color: green;">
+                                    <td><i class="fa fa-check"></i></td>
+                                    <td>Enrolled</td>
+                                    </tr>';
+                            } else {
+                              echo '<tr style="color: green;">
+                                    <td>&nbsp</td>
+                                    <td>&nbsp</td>
+                                    </tr>';
+                            }
+                            echo '</table><br />';
                           if($prog['openclass'] == 1) {
                             if($check == 0) {
                               echo '<button class="pure-button pure-button-primary '.$prog['pid'].'-joinbutton" onclick="joinprogram('.$prog['pid'].', \'join\');"><i class="fa fa-circle-o"></i> Join</button>';
