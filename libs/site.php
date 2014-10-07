@@ -242,10 +242,13 @@ function scrollToAnchor(aid){
     $('html,body').animate({scrollTop: aTag - 65},'slow');
 }
 
-function joinprogram(progid, action){
-  var buttontext = $('.' + progid + '-joinbutton').html();
+function joinprogram(progid, action, ismodal){
+  ismodal = (typeof ismodal === "undefined") ? false : ismodal;
 
-  $('.' + progid + '-joinbutton').html('<i class="fa fa-refresh fa-spin"></i> Loading');
+  if(!ismodal) {
+    var buttontext = $('.' + progid + '-joinbutton').html();
+    $('.' + progid + '-joinbutton').html('<i class="fa fa-refresh fa-spin"></i> Loading');
+  }
 
   $.post(
     "<?php echo $siteurl; ?>account/enrol_ajax.php",
@@ -255,10 +258,20 @@ function joinprogram(progid, action){
 
       if(parsedata.error == 1) {
         alert(parsedata.errortext);
-        $('.' + progid + '-joinbutton').html(buttontext);
+
+        if(!ismodal) {
+          $('.' + progid + '-joinbutton').html(buttontext);
+        }
       } else {
         if(action == 'leave') {
-          $('.' + progid + '-joinbutton').html('<i class="fa fa-check"></i> Left');
+          if(!ismodal) {
+            $('.' + progid + '-joinbutton').html('<i class="fa fa-check"></i> Left');
+          } else {
+            var inst = $.remodal.lookup[$('[data-remodal-id=modal]').data('remodal')];
+            inst.close();
+
+            location.reload();
+          }
         } else {
           $('.' + progid + '-joinbutton').html('<i class="fa fa-check"></i> Joined');
         }

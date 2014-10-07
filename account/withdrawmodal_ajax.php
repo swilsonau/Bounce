@@ -47,7 +47,7 @@ if(!$checkpermssql) {
                 </aside>
                 <p>Are you sure you want to withdraw from '.$prog['programname'].'?</p>
                 <a class="remodal-cancel" href="#">NO</a>
-                <a class="remodal-button" href="#">YES</a>';
+                <a class="remodal-confirm" href="#" onclick="joinprogram('.$prog['progid'].', \'leave\', true); return false;">YES</a>';
   }
 
 }
