@@ -613,6 +613,54 @@ aside {
     .tile-grid {
       width: 100%;
     }
+
+    /* table hackery so it looks better on mobile */
+    .pure-table,
+    .pure-table table,
+    .pure-table thead,
+    .pure-table tbody,
+    .pure-table th,
+    .pure-table td,
+    .pure-table tr
+     {
+      display: block;
+    }
+
+    .pure-table thead tr {
+      position: absolute;
+  		top: -9999px;
+  		left: -9999px;
+    }
+
+    .pure-table tr {
+      border: 1px solid #ccc;
+      margin-bottom: 5px;
+    }
+
+    .pure-table td {
+  		/* Behave  like a "row" */
+  		border: none;
+  		border-bottom: 1px solid #eee;
+  		position: relative;
+  		padding-left: 35%;
+  		white-space: normal;
+  		text-align:left;
+  	}
+
+    .pure-table td:before {
+  		/* Now like a table header */
+  		position: absolute;
+  		/* Top/left values mimic padding */
+  		top: 6px;
+  		left: 6px;
+  		width: 30%;
+  		padding-right: 10px;
+  		white-space: nowrap;
+  		text-align:left;
+  		font-weight: bold;
+	   }
+
+    .pure-table td:before { content: attr(data-title); }
  }
 
 /*

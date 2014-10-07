@@ -162,20 +162,20 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                               while($prog = mysqli_fetch_array($progsql)) {
 
                                 echo '<tr>
-                                <td>'.$prog['id'].'</td>
-                                <td>'.$prog['programname'].'</td>
-                                <td>';
+                                <td data-title="ID">'.$prog['id'].'</td>
+                                <td data-title="Name">'.$prog['programname'].'</td>
+                                <td data-title="Date">';
                                 if($prog['type'] == 1) {
                                   echo "Every ".date('l', strtotime(str_replace('/', '-', $prog['datestart'])));
                                 } else {
                                   echo date('l d/m/y', strtotime(str_replace('/', '-', $prog['datestart'])));
                                 }
                                 echo '</td>
-                                <td>'.$prog['timestart'].' to '.$prog['timeend'].'</td>
-                                <td>'.progtype($prog['type']) .'</td>
-                                <td>'.$prog['id'].'</td>
-                                <td>'.$prog['id'].' (Max '.$prog['maxpax'].')</td>
-                                <td><a href="#" class="pure-button"><i class="fa fa-pencil"></i></a> <a href="#" class="pure-button"><i class="fa fa-trash"></i></a></td>
+                                <td data-title="Time">'.$prog['timestart'].' to '.$prog['timeend'].'</td>
+                                <td data-title="Type">'.progtype($prog['type']) .'</td>
+                                <td data-title="Trainer">'.$prog['id'].'</td>
+                                <td data-title="Attendees">'.$prog['id'].' (Max '.$prog['maxpax'].')</td>
+                                <td data-title="Options"><a href="#" class="pure-button"><i class="fa fa-pencil"></i></a> <a href="#" class="pure-button"><i class="fa fa-trash"></i></a></td>
                                 </tr>';
                               }
                             }

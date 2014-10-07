@@ -68,11 +68,17 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
             } else {
               while($usrprog = mysqli_fetch_array($usprgsq)) {
                 echo '<tr>
-                <td>'.$usrprog['programname'].'</td>
-                <td></td>
-                <td>'.dateDiff($usrprog['timestart'], $usrprog['timeend']).'</td>
-                <td><i class="fa fa-check"></i> Enrolled</td>
-                <td style="text-align: right;"><button class="pure-button"><i class="fa fa-search"></i> View Details</button> <button class="pure-button pure-button-error"><i class="fa fa-external-link-square"></i> Withdraw</button></td>
+                <td data-title="Name">'.$usrprog['programname'].'</td>
+                <td>';
+                if($usrprog['type'] == 1) {
+                  echo "Every ".date('l', strtotime(str_replace('/', '-', $usrprog['datestart'])));
+                } else {
+                  echo date('l d/m/y', strtotime(str_replace('/', '-', $usrprog['datestart'])));
+                }
+                echo '</td>
+                <td data-title="Time">'.dateDiff($usrprog['timestart'], $usrprog['timeend']).'</td>
+                <td data-title="Status"><i class="fa fa-check"></i> Enrolled</td>
+                <td data-title="Options" style="text-align: right;"><button class="pure-button"><i class="fa fa-search"></i> View Details</button> <button class="pure-button pure-button-error"><i class="fa fa-external-link-square"></i> Withdraw</button></td>
                 </tr>';
               }
             }
