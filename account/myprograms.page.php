@@ -4,7 +4,7 @@
 
 // Code by Stewart Wilson 4267084
 
-// Find Programs
+// My Programs
 
 // Make sure the user is logged in
 if(!checklogin()) {
@@ -17,7 +17,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
 <div class="page-header">
     <div class="pg-pull-left">
-      <h1>My Programs <small></small></h1>
+      <h1>My Programs <small>xx</small></h1>
     </div>
 </div>
 
@@ -33,6 +33,10 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
           <aside>
             <p><i class="fa fa-info-circle"></i> This is a list of the current programs you're assigned to. You can view information or withdraw from a program here.</p>
           </aside>
+
+          <div style="text-align: right; margin-bottom: 5px;">
+            View Type: <a class="pure-button pure-button-primary" href="#"><i class="fa fa-tasks"></i></a> <a class="pure-button" href="#"><i class="fa fa-cubes"></i></a>
+          </div>
 
           <table class="pure-table" width="100%">
             <thead>
@@ -78,7 +82,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                 echo '</td>
                 <td data-title="Time">'.dateDiff($usrprog['timestart'], $usrprog['timeend']).'</td>
                 <td data-title="Status"><i class="fa fa-check"></i> Enrolled</td>
-                <td data-title="Options" style="text-align: right;"><button class="pure-button"><i class="fa fa-search"></i> View Details</button> <button class="pure-button pure-button-error"><i class="fa fa-external-link-square"></i> Withdraw</button></td>
+                <td data-title="Options" style="text-align: right;"><button class="pure-button"><i class="fa fa-search"></i> View Details</button> <button class="pure-button pure-button-error" onclick="withdrawmodal('.$usrprog['progid'].')"><i class="fa fa-external-link-square"></i> Withdraw</button></td>
                 </tr>';
               }
             }
@@ -86,6 +90,12 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
           ?>
         </tbody>
       </table>
+
+      <div class="remodal" data-remodal-id="modal">
+        <p>Loading content....</p>
+
+        <a class="remodal-cancel" href="#">Cancel</a>
+      </div>
         </div>
   </div>
 </div>

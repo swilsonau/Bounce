@@ -47,12 +47,18 @@ if(checklogin()) {
     <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.structure.min.css">
     <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/jquery-ui/jquery-ui.theme.min.css">
 
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/remodal/jquery.remodal.css">
+
     <script type="text/javascript"
       src="<?php echo $siteurl; ?>libs/site.php">
     </script>
 
     <script type="text/javascript"
       src="<?php echo $siteurl; ?>libs/tooltipster/js/jquery.tooltipster.min.js">
+    </script>
+
+    <script type="text/javascript"
+      src="<?php echo $siteurl; ?>libs/remodal/jquery.remodal.js">
     </script>
 
     <script type="text/javascript"
@@ -113,6 +119,7 @@ if(!isset($_GET['page'])) {
       include($_GET['page'].'/default.page.php');
     } else {
       // 404 page not found
+      header('HTTP/1.0 404 Not Found');
       include('notfound.include.php');
     }
   } else {
@@ -120,6 +127,7 @@ if(!isset($_GET['page'])) {
       include($_GET['page'].'/'.$_GET['action'].'.page.php');
     } else {
       // 404 page not found
+      header('HTTP/1.0 404 Not Found');
       include('notfound.include.php');
     }
   }
