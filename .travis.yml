@@ -4,15 +4,21 @@ language: php
 php:
   - 5.5
 
+#before_install:
+
+install:
+  - pyrus install pear/PHP_CodeSniffer
+
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
   - mysql -e "create database IF NOT EXISTS bounceapp;" -uroot;
   - mysql -u root bounceapp < bounceapp.sql
 
-# omitting "script:" will default to phpunit
-# use the $DB env variable to determine the phpunit.xml to use
-script: php -l **/*.php
-#script: phpunit --configuration phpunit_mysql.xml --coverage-text
+# Lint check
+script: find . -name "*.php" -exec php -l {} \;
+script: phpcs --standard=./build/phpcs.xml .
+
+
 
 # configure notifications (email, IRC, campfire etc)
 notifications:
