@@ -8,8 +8,6 @@ php:
 
 install:
   - pear install pear/PHP_CodeSniffer
-
-after_install:
   - phpenv rehash
 
 # execute any number of scripts before the test run, custom env's are available as variables
