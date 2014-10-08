@@ -270,6 +270,7 @@ function joinprogram(progid, action, ismodal){
             var inst = $.remodal.lookup[$('[data-remodal-id=modal]').data('remodal')];
             inst.close();
 
+            // Do the reload
             location.reload();
           }
         } else {
