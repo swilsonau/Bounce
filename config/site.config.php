@@ -22,13 +22,13 @@ switch(gethostname()) {
   case "eden.sp.cleverapp.net":
     $siteurl = "https://bounceapp.net/";
     $sitename = "Bounce";
-    $alias = "bounce-prod-eden01";
+    $alias = "bounce-prod";
   break;
 
   case "byron.sp.cleverapp.net":
     $siteurl = "http://pre-prod.bounceapp.net/";
     $sitename = "Bounce";
-    $alias = "bounce-pre-prod-byron01";
+    $alias = "bounce-pre-prod";
   break;
 
   case "proj-is06":
