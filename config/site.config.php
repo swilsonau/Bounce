@@ -12,17 +12,30 @@
 // SITE NAME
 // Sets the current site name or branding
 
-if(gethostname() == "eden.sp.cleverapp.net") {
-  $siteurl = "https://bounceapp.net/";
-  $sitename = "Bounce";
-} else {
-  if($_SERVER['SERVER_ADDR'] == "10.64.19.111") {
+switch(gethostname()) {
+  default:
     $siteurl = "http://".$_SERVER['SERVER_ADDR']."/";
     $sitename = "Bounce Dev";
-  } else {
+    $alias = gethostname()."-dev";
+  break;
+
+  case "eden.sp.cleverapp.net":
+    $siteurl = "https://bounceapp.net/";
+    $sitename = "Bounce";
+    $alias = "bounce-prod-eden01";
+  break;
+
+  case "byron.sp.cleverapp.net":
+    $siteurl = "http://pre-prod.bounceapp.net/";
+    $sitename = "Bounce";
+    $alias = "bounce-pre-prod-byron01";
+  break;
+
+  case "proj-is06":
     $siteurl = "http://bouncelocal.net/";
     $sitename = "Bounce Dev";
-  }
+    $alias = "proj-is06-dev";
+  break;
 }
 
 // SITE VERSION

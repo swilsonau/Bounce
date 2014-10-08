@@ -138,7 +138,7 @@ if(!isset($_GET['page'])) {
     <div class="footer l-box is-center">
         <img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="80px" /><br />
         &copy; 2014 <?php echo $sitename; ?>. All Rights Reserved.<br />
-        <strong>Connected to:</strong> <?php echo gethostname(); ?><br />
+        <strong>Connected to:</strong> <?php echo $alias." (".gethostname().")"; ?><br />
         <strong>Version:</strong> <?php echo $siteversion; ?>
     </div>
 
