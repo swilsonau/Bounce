@@ -18,8 +18,9 @@ before_script:
   - mysql -u root bounceapp < bounceapp.sql
 
 # Lint check
-script: find . -name "*.php" -exec php -l {} \;
-script: phpcs --standard=./build/phpcs.xml .
+script:
+  - find . -name "*.php" -exec php -l {} \;
+  - phpcs --standard=./build/phpcs.xml .
 
 
 
