@@ -12,13 +12,13 @@ install:
 
 # execute any number of scripts before the test run, custom env's are available as variables
 before_script:
-  - mysql -e "create database IF NOT EXISTS bounceapp;" -uroot;
-  - mysql -u root bounceapp < bounceapp.sql
+#  - mysql -e "create database IF NOT EXISTS bounceapp;" -uroot;
+#  - mysql -u root bounceapp < bounceapp.sql
 
 # Lint check
 script:
   - find . -name "*.php" -exec php -l {} \;
-  - phpcs --standard=./build/phpcs.xml .
+#  - phpcs --standard=./build/phpcs.xml .
 
 
 
