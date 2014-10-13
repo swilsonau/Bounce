@@ -44,7 +44,8 @@ function hidepasswordfields() {
     }
 }
 
-function gmaps_ini(lat, lng) {
+function gmaps_ini(lat, lng, drag) {
+  drag = (typeof drag === "undefined") ? true : drag;
   var local = new google.maps.LatLng(lat, lng);
 
   var mapOptions = {
@@ -79,7 +80,7 @@ function gmaps_ini(lat, lng) {
           position: local,
           map: map,
           icon: image,
-          draggable:true
+          draggable:drag
       });
 
       if(!!navigator.geolocation) {
@@ -279,7 +280,7 @@ function joinprogram(progid, action, ismodal){
       }
     }
 
-  );
+  ).error(function() { alert('Sorry. There was an error completing that.'); });
 }
 
 function withdrawmodal(progid) {
@@ -299,5 +300,27 @@ function withdrawmodal(progid) {
       }
     }
 
-  );
+  ).error(function() { alert('Sorry. There was an error completing that.'); });
+}
+
+function progviewmodal(progid) {
+  $.post(
+    "<?php echo $siteurl; ?>account/progviewmodal_ajax.php",
+    { progid: progid },
+    function(data) {
+      var parsedata = JSON.parse(data);
+
+      if(parsedata.error == 1) {
+        alert(parsedata.errortext);
+      } else {
+        $('[data-remodal-id=modal]').html(parsedata.html);
+
+        var inst = $.remodal.lookup[$('[data-remodal-id=modal]').data('remodal')];
+        inst.open();
+
+        gmaps_ini(parsedata.long_lat, parsedata.long_lng, false);
+      }
+    }
+
+  ).error(function() { alert('Sorry. There was an error completing that.'); });
 }

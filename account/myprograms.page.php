@@ -82,7 +82,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                 echo '</td>
                 <td data-title="Time">'.dateDiff($usrprog['timestart'], $usrprog['timeend']).'</td>
                 <td data-title="Status"><i class="fa fa-check"></i> Enrolled</td>
-                <td data-title="Options" style="text-align: right;"><button class="pure-button"><i class="fa fa-search"></i> View Details</button> <button class="pure-button pure-button-error" onclick="withdrawmodal('.$usrprog['progid'].')"><i class="fa fa-external-link-square"></i> Withdraw</button></td>
+                <td data-title="Options" style="text-align: right;"><button class="pure-button" onclick="progviewmodal('.$usrprog['progid'].')"><i class="fa fa-search"></i> View Details</button> <button class="pure-button pure-button-error" onclick="withdrawmodal('.$usrprog['progid'].')"><i class="fa fa-external-link-square"></i> Withdraw</button></td>
                 </tr>';
               }
             }
