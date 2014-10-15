@@ -103,7 +103,7 @@ function dashnav($selected, $userdetails) {
   <div class="pure-menu pure-menu-open sidemenu">
     <ul>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-home"></i> Dashboard Home</a></li>
-        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-calendar"></i> My Planner</a></li>
+        <li'; if($selected == 'myplanner') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/myplanner"><i class="fa fa-calendar"></i> My Planner</a></li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-bar-chart-o"></i> My Progress</a></li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-child"></i> My Trainers</a></li>
         <li'; if($selected == 'myprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/myprograms"><i class="fa fa-rss"></i> My Programs</a></li>';
@@ -147,6 +147,24 @@ function valid_pass($candidate) {
     if (!preg_match_all('$\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$', $candidate))
         return FALSE;
     return TRUE;
+}
+
+function countDays($day, $start, $end)
+{
+    $w = array(date('w', $start), date('w', $end));
+
+    if ($w[0] < $w[1])
+    {
+        $partialWeekCount = ($day >= $w[0] && $day <= $w[1]);
+    }else if ($w[0] == $w[1])
+    {
+        $partialWeekCount = $w[0] == $day;
+    }else
+    {
+        $partialWeekCount = ($day >= $w[0] || $day <= $w[1]);
+    }
+
+    return floor( ( $end-$start )/60/60/24/7) + $partialWeekCount;
 }
 
 

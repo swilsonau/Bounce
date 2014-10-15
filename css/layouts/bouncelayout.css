@@ -103,6 +103,7 @@ a.pure-button-primary {
 }
 .home-menu.pure-menu-open {
     background: #2d3e50;
+    z-index: 99;
 }
 .pure-menu.pure-menu-open.pure-menu-fixed {
     /* Fixed menus normally have a border at the bottom. */

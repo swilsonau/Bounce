@@ -45,8 +45,42 @@ if(!$checkpermssql) {
       </script>
 
       <div id="map-canvas" style="width: 100%; height: 300px;"></div>
+      <br />
+      <div class="pure-g">
+          <div class="pure-u-1 pure-u-md-1-2">
+            <table width="100%">
+              <tr>
+                <td width="30%">Day:</td>
+                <td>';
+                if($prog['type'] == 1) {
+                  $array['html'] .= "Every ".date('l', strtotime(str_replace('/', '-', $prog['datestart'])));
+                } else {
+                  $array['html'] .= date('l d/m/y', strtotime(str_replace('/', '-', $prog['datestart'])));
+                }
+                $array['html'] .= '</td>
+              </tr>
+              <tr>
+                <td width="30%">Start Time:</td>
+                <td>'.$prog['timestart'].'</td>
+              </tr>
+              <tr>
+                <td width="30%">End Time:</td>
+                <td>'.$prog['timeend'].'</td>
+              </tr>
+              <tr>
+                <td width="30%">Program Ends:</td>
+                <td>'.(empty($prog['dateend']) ? "Does not end" : $prog['dateend']).'</td>
+              </tr>
+            </table>
+          </div>
 
-      <br /><br /><a class="remodal-cancel" href="#">Close</a>';
+          <div class="pure-u-1 pure-u-md-1-2">
+            <h3 style="margin-top: 0; padding-top: 0;">Location</h3>
+            '.$prog['street'].'<br />'.$prog['suburb'].' '.$prog['state'].' '.$prog['postcode'].'
+          </div>
+      </div>
+      <br />
+      <a class="remodal-cancel" href="#">Close</a>';
       $array['long_lat'] = $prog['lat'];
       $array['long_lng'] = $prog['lng'];
   }

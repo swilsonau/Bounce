@@ -37,6 +37,7 @@ if(checklogin()) {
 
     <script src="<?php echo $siteurl; ?>/libs/jquery-1.11.1.min.js"></script>
     <script src="<?php echo $siteurl; ?>/libs/jquery-ui/jquery-ui.min.js"></script>
+    <script src="<?php echo $siteurl; ?>/libs/moment.min.js"></script>
 
     <link rel="stylesheet" href="<?php echo $siteurl; ?>css/layouts/bouncelayout.css">
 
@@ -49,6 +50,8 @@ if(checklogin()) {
 
     <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/remodal/jquery.remodal.css">
 
+    <link rel="stylesheet" href="<?php echo $siteurl; ?>libs/fullcalendar-2.1.1/fullcalendar.css">
+
     <script type="text/javascript"
       src="<?php echo $siteurl; ?>libs/site.php">
     </script>
@@ -59,6 +62,10 @@ if(checklogin()) {
 
     <script type="text/javascript"
       src="<?php echo $siteurl; ?>libs/remodal/jquery.remodal.js">
+    </script>
+
+    <script type="text/javascript"
+      src="<?php echo $siteurl; ?>libs/fullcalendar-2.1.1/fullcalendar.js">
     </script>
 
     <script type="text/javascript"
