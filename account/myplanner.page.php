@@ -72,7 +72,10 @@ $(document).ready(function() {
         </div>
 
         <div class="pure-u-1 pure-u-md-3-4">
-          <br />
+          <aside>
+            <p><i class="fa fa-info-circle"></i> This is your planner. It shows all your programs in a calendar view. Click on a program to show more information.</p>
+          </aside>
+
           <div id='calendar'></div>
         </div>
   </div>

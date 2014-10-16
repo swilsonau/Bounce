@@ -76,7 +76,8 @@ if(!$checkpermssql) {
 
           <div class="pure-u-1 pure-u-md-1-2">
             <h3 style="margin-top: 0; padding-top: 0;">Location</h3>
-            '.$prog['street'].'<br />'.$prog['suburb'].' '.$prog['state'].' '.$prog['postcode'].'
+            '.$prog['street'].'<br />'.$prog['suburb'].' '.$prog['state'].' '.$prog['postcode'].'<br /><br />
+            <a class="pure-button" href="https://www.google.com/maps/dir/Current+Location/'.str_replace(" ", "+", "$prog[street] $prog[suburb] $prog[postcode] $prog[postcode]").'" target="_blank">Get Directions</a>
           </div>
       </div>
       <br />

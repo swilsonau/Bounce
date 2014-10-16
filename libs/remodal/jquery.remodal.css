@@ -106,7 +106,7 @@ body.remodal_active .remodal-overlay {
     box-sizing: border-box;
 
     font-size: 16px;
-    background: url('../../img/nav-bg.png') no-repeat #f4f4f4;
+    background: url('../../img/modal-bg.png') no-repeat #f4f4f4;
     background-clip: padding-box;
     background-size: 100%;
     color: #182a3c;

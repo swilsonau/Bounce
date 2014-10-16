@@ -4,15 +4,9 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 ?>
 
 <div class="page-header">
-  <div class="pg-pull-left">
-    <h1>Hi <?php echo $userdetails['firstname']; ?> <small>Welcome to <?php echo $sitename; ?></small></h1>
+  <div class="content">
+    <h1>Hi <?php echo $userdetails['firstname']; ?>!</h1>
   </div>
-
-  <div class="pg-pull-right">
-    fdsgsdngfsjkgsdjknbfdsjsjn
-  </div>
-
-  <div style="clear: both;"></div>
 </div>
 
 <div class="content-wrapper accountgrid">

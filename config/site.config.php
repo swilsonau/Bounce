@@ -40,7 +40,7 @@ switch(gethostname()) {
 
 // SITE VERSION
 // Sets the site version
-$siteversion = "0.2.1 master";
+$siteversion = "0.3.0 master";
 
 date_default_timezone_set('Australia/Sydney');
 

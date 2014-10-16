@@ -39,7 +39,7 @@
 
 <div class="content-wrapper">
     <div class="content">
-        <h2 class="content-head is-center">SOMETHING SOMETHING SOMETHING.</h2>
+        <h2 class="content-head is-center">Personal Training - reinvented.</h2>
 
         <div class="pure-g">
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
@@ -49,7 +49,7 @@
                     Get Started Quickly
                 </h3>
                 <p>
-                    Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+                    <?php echo $sitename; ?> allows you to instantly enrol into the program that suits you. Communicate with your Personal Trainer easily and quickly.
                 </p>
             </div>
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
@@ -58,7 +58,7 @@
                     Works Anywhere
                 </h3>
                 <p>
-                    Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+                    No downloading apps or constantly scrolling, we've worked hard to make sure <?php echo $sitename; ?> just works on mobile, tablet and computer.
                 </p>
             </div>
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
@@ -67,16 +67,16 @@
                     Heaps of Features
                 </h3>
                 <p>
-                    Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+                    We've made <?php echo $sitename; ?> super easy to use and packed it full of features. From a simple planner to your diet schedule, we have you covered.
                 </p>
             </div>
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                 <h3 class="content-subhead">
-                    <i class="fa fa-check-square-o"></i>
-                    Plays Nice
+                    <i class="fa fa-bar-chart"></i>
+                    Tracks Your Results
                 </h3>
                 <p>
-                    Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+                    Don't get left behind. <?php echo $sitename; ?> makes it super easy to track your results and get tips from your trainer.
                 </p>
             </div>
         </div>
@@ -86,8 +86,75 @@
         <div class="gmap-view">
           <div class="home-gmap">
             <script type="text/javascript">
+              function gmaps_ini_home(lat, lng, drag) {
+                drag = (typeof drag === "undefined") ? true : drag;
+                var local = new google.maps.LatLng('-37', '150');
+
+                var mapOptions = {
+                  center: local,
+                  zoom: 16
+                };
+
+                var current = {
+                  url: '<?php echo $siteurl; ?>img/currentlocation.png',
+                  // This marker is 20 pixels wide by 32 pixels tall.
+                  size: new google.maps.Size(32, 32),
+                  // The origin for this image is 0,0.
+                  origin: new google.maps.Point(0,0),
+                  // The anchor for this image is the base of the flagpole at 0,32.
+                  anchor: new google.maps.Point(17, 32)
+                };
+
+                var image = {
+                  url: '<?php echo $siteurl; ?>img/mylocation.png',
+                  // This marker is 20 pixels wide by 32 pixels tall.
+                  size: new google.maps.Size(32, 32),
+                  // The origin for this image is 0,0.
+                  origin: new google.maps.Point(0,0),
+                  // The anchor for this image is the base of the flagpole at 0,32.
+                  anchor: new google.maps.Point(17, 32)
+                };
+
+                var map = new google.maps.Map(document.getElementById("map-canvas"),
+                    mapOptions);
+
+                    var marker = new google.maps.Marker({
+                        position: local,
+                        map: map,
+                        icon: image,
+                        draggable:drag
+                    });
+
+                    if(!!navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(function(position) {
+
+                          var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                          var infowindow = new google.maps.Marker({
+                              map: map,
+                              position: geolocate,
+                              icon: current,
+                              title: 'Your location'
+                          });
+                    });
+                  }
+
+                    google.maps.event.addListener(marker, 'dragend', function() {
+                      // When the user moves the marker, enable the save location button
+                      $('.bounce-savelocal').removeClass('pure-button-disabled');
+
+                      // Store these vars in hidden inputs....
+                      var change = marker.getPosition();
+
+                      $('#latchng').val(change.lat());
+                      $('#lngchng').val(change.lng());
+                    });
+              }
+
+
+
               window.onload = function () {
-                google.maps.event.addDomListener(window, 'load', gmaps_ini(-34.5792123, 150.8674041));
+                google.maps.event.addDomListener(window, 'load', gmaps_ini_home());
               }
             </script>
 
