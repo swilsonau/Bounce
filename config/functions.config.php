@@ -118,7 +118,11 @@ function dashnav($selected, $userdetails) {
           <li'; if($selected == 'findtrainers') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/findtrainers"><i class="fa fa-search"></i> Find Trainers</a></li>
           <li'; if($selected == 'findprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/findprograms"><i class="fa fa-search"></i> Find Programs</a></li>';
       }
-        $nav .= '<li class="pure-menu-heading">Settings</li>
+        $nav .= '
+        <li class="pure-menu-heading">Messages</li>
+        <li'; if($selected == 'inbox') { $nav .= $select; } $nav .='><a href="'.$siteurl.'messaging/new"><i class="fa fa-plus-circle"></i> New</a></li>
+        <li'; if($selected == 'inbox') { $nav .= $select; } $nav .='><a href="'.$siteurl.'messaging/inbox"><i class="fa fa-envelope-o"></i> Inbox</a></li>
+        <li class="pure-menu-heading">Settings</li>
         <li'; if($selected == 'profile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/profile"><i class="fa fa-user"></i> My Profile</a></li>
         <li'; if($selected == 'apps') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/apps"><i class="fa fa-exchange"></i> Connected Apps</a></li>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/logout"><i class="fa fa-power-off"></i> Logout</a></li>

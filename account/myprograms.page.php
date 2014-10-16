@@ -16,9 +16,9 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 ?>
 
 <div class="page-header">
-    <div class="pg-pull-left">
-      <h1>My Programs <small>xx</small></h1>
-    </div>
+  <div class="content">
+    <h1>My Programs</h1>
+  </div>
 </div>
 
 <div class="content-wrapper accountgrid">
