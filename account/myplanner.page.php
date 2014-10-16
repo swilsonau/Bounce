@@ -19,13 +19,13 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 $(document).ready(function() {
 
     $('#calendar').fullCalendar({
+      height: 700,
        events: '<?php echo $siteurl; ?>account/calendar_ajax.php',
         header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay,list'
 			},
-      aspectRatio: '0.5',
       scrollTime: '06:00:00',
       defaultView: 'agendaWeek',
       firstDay: 1,
@@ -33,26 +33,35 @@ $(document).ready(function() {
       columnFormat: {
         month: 'ddd', week: 'ddd D/M', day: 'dddd D/M'
       },
-      viewRender: function(view) {
+      /*viewRender: function(view) {
         if ($(window).width() < 514){
             $('#calendar').fullCalendar( 'changeView', 'list' );
         } else {
             $('#calendar').fullCalendar( 'changeView', 'agendaWeek' );
         }
-      },
+      },*/
       windowResize: function(view) {
         if ($(window).width() < 514){
             $('#calendar').fullCalendar( 'changeView', 'list' );
         } else {
             $('#calendar').fullCalendar( 'changeView', 'agendaWeek' );
         }
-      }
+      },
+      eventClick: function(calEvent, jsEvent, view) {
+
+        progviewmodal(calEvent.id);
+
+    }
     })
 
 });
 </script>
 
-
+<div class="page-header">
+  <div class="content">
+    <h1><?php echo getusertype($userdetails, true); ?> Dashboard / Profile</h1>
+  </div>
+</div>
 
 <div class="content-wrapper accountgrid">
   <div class="pure-g">
@@ -67,4 +76,10 @@ $(document).ready(function() {
           <div id='calendar'></div>
         </div>
   </div>
+</div>
+
+<div class="remodal" data-remodal-id="modal">
+  <p>Loading content....</p>
+
+  <a class="remodal-cancel" href="#">Cancel</a>
 </div>
