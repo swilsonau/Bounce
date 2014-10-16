@@ -259,7 +259,7 @@ CREATE TABLE `program_assign` (
   `progid` int(5) NOT NULL,
   `dateassigned` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,7 +268,7 @@ CREATE TABLE `program_assign` (
 
 LOCK TABLES `program_assign` WRITE;
 /*!40000 ALTER TABLE `program_assign` DISABLE KEYS */;
-INSERT INTO `program_assign` VALUES (31,10,7,'1413420470'),(33,10,5,'1413422604'),(34,10,6,'1413422605'),(35,11,1,'1413427393'),(36,11,7,'1413427393');
+INSERT INTO `program_assign` VALUES (31,10,7,'1413420470'),(33,10,5,'1413422604'),(34,10,6,'1413422605'),(35,11,1,'1413427393'),(36,11,7,'1413427393'),(39,10,2,'1413435273'),(40,10,9,'1413435282'),(41,10,8,'1413435316');
 /*!40000 ALTER TABLE `program_assign` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +299,7 @@ CREATE TABLE `programs` (
   `datecreated` varchar(250) NOT NULL,
   `createdbyid` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +308,7 @@ CREATE TABLE `programs` (
 
 LOCK TABLES `programs` WRITE;
 /*!40000 ALTER TABLE `programs` DISABLE KEYS */;
-INSERT INTO `programs` VALUES (1,3,'Power Sesh',5,1,'15/09/2014','','4:00 PM','4:30 PM',2,'Stuart Park','Wollongong','NSW',2500,'-34.411773619516936','150.90008857249143','1409831843','6'),(2,3,'Weekly Power Session',25,1,'08/09/2014','24/11/2014','8:00 AM','8:30 AM',1,'Stuart Park','Wollongong','NSW',2500,'-34.4103220','150.8994663','1409984383','6'),(3,2,'Morning Pump',45,1,'08/09/2014','22/12/2014','5:00 AM','6:00 AM',1,'Unit 5/135-143 Princes Hwy','Fairy Meadow','NSW',2519,'-34.4038470','150.8903720','1410076997','6'),(4,2,'Afternoon Session',45,1,'08/09/2014','22/12/2014','5:30 PM','6:30 PM',1,'Unit 5/135-143 Princes Hwy','Fairy Meadow','NSW',2519,'-34.4038470','150.8903720','1410077044','6'),(5,4,'Lunch Time Special',1,1,'08/09/2014','22/12/2014','12:30 PM','1:00 PM',1,'Shop 6 & 7, Suite 15 - 17 2 Memorial Drive','Shellharbour','NSW',2529,'-34.5792123','150.8674041','1410084835','6'),(6,4,'Super Evening Workout',50,1,'06/10/2014','27/10/2014','5:00 PM','6:00 PM',1,'Shellharbour Reserve','Shellharbour','NSW',2527,'-34.580315398874035','150.8738771838532','1412592645','11'),(7,3,'Another Program',50,1,'17/10/2014','20/02/2015','2:00 PM','2:30 PM',1,'4/85-87 Smith St','Wollongong','NSW',2500,'-34.4214630','150.8916470','1413345120','11'),(8,3,'Test',25,1,'20/10/2014','26/01/2015','5:00 PM','5:30 PM',1,'4/85-87 Smith St','Wollongong','NSW',2500,'-34.4214630','150.8916470','1413370230','11');
+INSERT INTO `programs` VALUES (1,3,'Power Sesh',5,1,'15/09/2014','','4:00 PM','4:30 PM',2,'Stuart Park','Wollongong','NSW',2500,'-34.411773619516936','150.90008857249143','1409831843','6'),(2,3,'Weekly Power Session',25,1,'08/09/2014','24/11/2014','8:00 AM','8:30 AM',1,'Stuart Park','Wollongong','NSW',2500,'-34.4103220','150.8994663','1409984383','6'),(3,2,'Morning Pump',45,1,'08/09/2014','22/12/2014','5:00 AM','6:00 AM',1,'Unit 5/135-143 Princes Hwy','Fairy Meadow','NSW',2519,'-34.4038470','150.8903720','1410076997','6'),(4,2,'Afternoon Session',45,1,'08/09/2014','22/12/2014','5:30 PM','6:30 PM',1,'Unit 5/135-143 Princes Hwy','Fairy Meadow','NSW',2519,'-34.4038470','150.8903720','1410077044','6'),(5,4,'Lunch Time Special',1,1,'08/09/2014','22/12/2014','12:30 PM','1:00 PM',1,'Shop 6 & 7, Suite 15 - 17 2 Memorial Drive','Shellharbour','NSW',2529,'-34.5792123','150.8674041','1410084835','6'),(6,4,'Super Evening Workout',50,1,'06/10/2014','27/10/2014','5:00 PM','6:00 PM',1,'Shellharbour Reserve','Shellharbour','NSW',2527,'-34.580315398874035','150.8738771838532','1412592645','11'),(7,3,'Another Program',50,1,'17/10/2014','20/02/2015','2:00 PM','2:30 PM',1,'4/85-87 Smith St','Wollongong','NSW',2500,'-34.4214630','150.8916470','1413345120','11'),(8,3,'Test',25,1,'20/10/2014','26/01/2015','5:00 PM','5:30 PM',1,'4/85-87 Smith St','Wollongong','NSW',2500,'-34.4214630','150.8916470','1413370230','11'),(9,3,'Morning Pump',25,1,'16/10/2014','29/01/2015','7:30 AM','8:00 AM',1,'Stuart Park','Wollongong','NSW',2500,'-34.4103220','150.8994663','1413435062','11');
 /*!40000 ALTER TABLE `programs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,4 +360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-16 15:40:51
+-- Dump completed on 2014-10-16 15:56:11

@@ -104,8 +104,8 @@ function dashnav($selected, $userdetails) {
     <ul>
         <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-home"></i> Dashboard Home</a></li>
         <li'; if($selected == 'myplanner') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/myplanner"><i class="fa fa-calendar"></i> My Planner</a></li>
-        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-bar-chart-o"></i> My Progress</a></li>
-        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-child"></i> My Trainers</a></li>
+        <li'; if($selected == 'myprogress') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-bar-chart-o"></i> My Progress</a></li>
+        <li'; if($selected == 'mytrainer') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-child"></i> My Trainers</a></li>
         <li'; if($selected == 'myprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/myprograms"><i class="fa fa-rss"></i> My Programs</a></li>';
         if(isset($isorg)) {
           $nav .= '<li class="pure-menu-heading">Organisation Settings</li>
@@ -125,7 +125,7 @@ function dashnav($selected, $userdetails) {
         <li class="pure-menu-heading">Settings</li>
         <li'; if($selected == 'profile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/profile"><i class="fa fa-user"></i> My Profile</a></li>
         <li'; if($selected == 'apps') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/apps"><i class="fa fa-exchange"></i> Connected Apps</a></li>
-        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+        <li'; if($selected == 'logout') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/logout"><i class="fa fa-power-off"></i> Logout</a></li>
     </ul>
   </div>';
 
