@@ -54,7 +54,7 @@ if(!$checkpermssql) {
           for($i = 0; $i < $numofdays; $i++) {
               $timestart = strtotime($result. " ".$prog['timestart']. " + $i week");
               $timeend = strtotime($result. " ".$prog['timeend']. " + $i week");
-              $array[] = array("id" => $prog['pid'], "title" => $prog['programname'], "start" => date('Y-m-d\TH:i', $timestart), "end" => date('Y-m-d\TH:i', $timeend), "color" => $color);
+              $array[] = array("id" => $prog['pid'], "title" => $prog['programname'], "start" => date('Y-m-d\TH:i', $timestart), "end" => date('Y-m-d\TH:i', $timeend), "color" => $color, "backgroundColor" => $color);
           }
         } else {
           // One off
@@ -62,7 +62,7 @@ if(!$checkpermssql) {
           $timestart = strtotime($datestart." ".$prog['timestart']);
           $timeend = strtotime($datestart." ".$prog['timeend']);
 
-          $array[] = array("id" => $prog['pid'], "title" => "One off: ".$prog['programname'], "start" => date('Y-m-d\TH:i', $timestart), "end" => date('Y-m-d\TH:i', $timeend), "color" => $color);
+          $array[] = array("id" => $prog['pid'], "title" => "One off: ".$prog['programname'], "start" => date('Y-m-d\TH:i', $timestart), "end" => date('Y-m-d\TH:i', $timeend), "color" => $color, "backgroundColor" => $color);
         }
       }
   }

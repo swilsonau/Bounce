@@ -38,7 +38,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
             View Type: <a class="pure-button pure-button-primary" href="#"><i class="fa fa-tasks"></i></a> <a class="pure-button" href="#"><i class="fa fa-cubes"></i></a>
           </div>
 
-          <table class="pure-table" width="100%">
+          <table class="pure-table pure-table-bordered" width="100%">
             <thead>
               <tr>
                 <td width="30%">Program Name</td>
@@ -79,7 +79,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                 } else {
                   echo date('l d/m/y', strtotime(str_replace('/', '-', $usrprog['datestart'])));
                 }
-                echo '</td>
+                echo '<br />'.$usrprog['timestart'].' - '.$usrprog['timeend'].'</td>
                 <td data-title="Time">'.dateDiff($usrprog['timestart'], $usrprog['timeend']).'</td>
                 <td data-title="Status"><i class="fa fa-check"></i> Enrolled</td>
                 <td data-title="Options" style="text-align: right;"><button class="pure-button" onclick="progviewmodal('.$usrprog['progid'].')"><i class="fa fa-search"></i> View Details</button> <button class="pure-button pure-button-error" onclick="withdrawmodal('.$usrprog['progid'].')"><i class="fa fa-external-link-square"></i> Withdraw</button></td>

@@ -147,7 +147,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                           $p_num = $items*$page;
 
                           // Get programs
-                          $progsql = mysqli_query($sql, "SELECT * FROM `programs` WHERE `orgid` = '$thisorgid' LIMIT $p_num , $items");
+                          $progsql = mysqli_query($sql, "SELECT *, (select count(*) from `program_assign` WHERE `progid` = `programs`.`id`) AS count FROM `programs` WHERE `orgid` = '$thisorgid' LIMIT $p_num , $items");
 
                           if(!$progsql) {
                             echo '<tr>
@@ -174,7 +174,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                                 <td data-title="Time">'.$prog['timestart'].' to '.$prog['timeend'].'</td>
                                 <td data-title="Type">'.progtype($prog['type']) .'</td>
                                 <td data-title="Trainer">'.$prog['id'].'</td>
-                                <td data-title="Attendees">'.$prog['id'].' (Max '.$prog['maxpax'].')</td>
+                                <td data-title="Attendees">'.$prog['count'].' (Max '.$prog['maxpax'].')</td>
                                 <td data-title="Options"><a href="#" class="pure-button"><i class="fa fa-pencil"></i></a> <a href="#" class="pure-button"><i class="fa fa-trash"></i></a></td>
                                 </tr>';
                               }
