@@ -184,7 +184,7 @@ CREATE TABLE `organisation` (
 
 LOCK TABLES `organisation` WRITE;
 /*!40000 ALTER TABLE `organisation` DISABLE KEYS */;
-INSERT INTO `organisation` VALUES (1,'Wollongong Runners Association','sw730@uowmail.edu.au','-34.4103220','150.8994663','','','','','',''),(2,'Savvy Fitness Fairy Meadow','sw730@uowmail.edu.au','-34.40369098158406','150.89029823925216','notarealemail@savvy.com.au','0242841100','Unit 5/135-143 Princes Hwy','Fairy Meadow','NSW','2519'),(3,'Internetrix','internetrix+org@stewartwilson.id.au','-34.42181922124878','150.89200373379902','notarealemail@internetrix.com.au','0242286464','4/85-87 Smith St','Wollongong','NSW','2500'),(4,'Anytime Fitness Shellharbour','anytime-shellharbour@stewartwilson.id.au','-34.57921229999993','150.8674899306884','anytime-shellharbour@stewartwilson.id.au','0242315603','Shop 6 & 7, Suite 15 - 17 2 Memorial Drive','Shellharbour','NSW','2529');
+INSERT INTO `organisation` VALUES (1,'Wollongong Runners Association','sw730@uowmail.edu.au','-34.4103220','150.8994663','','','','','',''),(2,'Savvy Fitness Fairy Meadow','sw730@uowmail.edu.au','-34.40369098158406','150.89029823925216','notarealemail@savvy.com.au','0242841100','Unit 5/135-143 Princes Hwy','Fairy Meadow','NSW','2519'),(3,'Internetrix','internetrix+org@stewartwilson.id.au','-34.42181922124878','150.89200373379902','notarealemail@internetrix.com.au','0242286464','4/85-87 Smith St','Wollongong','NSW','2500'),(4,'Anytime Fitness Shellharbour','anytime-shellharbour@stewartwilson.id.au','-34.57938896991103','150.86789762645867','anytime-shellharbour@stewartwilson.id.au','0242315603','Shop 6 & 7, Suite 15 - 17 2 Memorial Drive','Shellharbour','NSW','2529');
 /*!40000 ALTER TABLE `organisation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +259,7 @@ CREATE TABLE `program_assign` (
   `progid` int(5) NOT NULL,
   `dateassigned` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -268,6 +268,7 @@ CREATE TABLE `program_assign` (
 
 LOCK TABLES `program_assign` WRITE;
 /*!40000 ALTER TABLE `program_assign` DISABLE KEYS */;
+INSERT INTO `program_assign` VALUES (31,10,7,'1413420470'),(33,10,5,'1413422604'),(34,10,6,'1413422605');
 /*!40000 ALTER TABLE `program_assign` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,4 +360,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-15 21:57:29
+-- Dump completed on 2014-10-16 12:55:29

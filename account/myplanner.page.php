@@ -23,31 +23,36 @@ $(document).ready(function() {
         header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
+				right: 'month,agendaWeek,agendaDay,list'
 			},
+      aspectRatio: '0.5',
+      scrollTime: '06:00:00',
       defaultView: 'agendaWeek',
       firstDay: 1,
       draggable: true,
       columnFormat: {
         month: 'ddd', week: 'ddd D/M', day: 'dddd D/M'
       },
+      viewRender: function(view) {
+        if ($(window).width() < 514){
+            $('#calendar').fullCalendar( 'changeView', 'list' );
+        } else {
+            $('#calendar').fullCalendar( 'changeView', 'agendaWeek' );
+        }
+      },
       windowResize: function(view) {
         if ($(window).width() < 514){
-            $('#calendar').fullCalendar( 'changeView', 'basicDay' );
+            $('#calendar').fullCalendar( 'changeView', 'list' );
         } else {
-            $('#calendar').fullCalendar( 'changeView', 'month' );
+            $('#calendar').fullCalendar( 'changeView', 'agendaWeek' );
         }
-}
+      }
     })
 
 });
 </script>
 
-<div class="page-header">
-    <div class="pg-pull-left">
-      <h1>My Planner <small>werk it</small></h1>
-    </div>
-</div>
+
 
 <div class="content-wrapper accountgrid">
   <div class="pure-g">
