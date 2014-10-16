@@ -175,7 +175,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                                 <td data-title="Type">'.progtype($prog['type']) .'</td>
                                 <td data-title="Trainer">'.$prog['id'].'</td>
                                 <td data-title="Attendees">'.$prog['count'].' (Max '.$prog['maxpax'].')</td>
-                                <td data-title="Options"><a href="#" class="pure-button"><i class="fa fa-pencil"></i></a> <a href="#" class="pure-button"><i class="fa fa-trash"></i></a></td>
+                                <td data-title="Options"><button class="pure-button" onclick="progusrmodal('.$prog['id'].')"><i class="fa fa-users"></i></button> <a href="#" class="pure-button"><i class="fa fa-pencil"></i></a> <a href="#" class="pure-button"><i class="fa fa-trash"></i></a></td>
                                 </tr>';
                               }
                             }
@@ -686,6 +686,12 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
               }
             }
             ?>
+
+            <div class="remodal" data-remodal-id="modal">
+              <p>Loading content....</p>
+
+              <a class="remodal-cancel" href="#">Cancel</a>
+            </div>
         </div>
   </div>
 </div>

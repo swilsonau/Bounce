@@ -324,3 +324,23 @@ function progviewmodal(progid) {
 
   ).error(function() { alert('Sorry. There was an error completing that.'); });
 }
+
+function progusrmodal(progid) {
+  $.post(
+    "<?php echo $siteurl; ?>org/progusrmodal_ajax.php",
+    { progid: progid },
+    function(data) {
+      var parsedata = JSON.parse(data);
+
+      if(parsedata.error == 1) {
+        alert(parsedata.errortext);
+      } else {
+        $('[data-remodal-id=modal]').html(parsedata.html);
+
+        var inst = $.remodal.lookup[$('[data-remodal-id=modal]').data('remodal')];
+        inst.open();
+      }
+    }
+
+  ).error(function() { alert('Sorry. There was an error completing that.'); });
+}
