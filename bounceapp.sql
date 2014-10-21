@@ -31,7 +31,7 @@ CREATE TABLE `assign_request` (
   `timerequested` varchar(250) NOT NULL,
   `expiry` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -203,7 +203,7 @@ CREATE TABLE `organise_assign` (
   `date_unassigned` varchar(250) NOT NULL,
   `perms` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +212,7 @@ CREATE TABLE `organise_assign` (
 
 LOCK TABLES `organise_assign` WRITE;
 /*!40000 ALTER TABLE `organise_assign` DISABLE KEYS */;
-INSERT INTO `organise_assign` VALUES (1,5,1,'1407843007','',1),(3,6,2,'1407843007','',2),(7,6,3,'','',3),(9,5,2,'1409118057','',1),(12,10,3,'1409544419','',1),(13,11,3,'1409544810','',2),(14,11,4,'1409544810','',3),(15,10,4,'1412592340','',1);
+INSERT INTO `organise_assign` VALUES (1,5,1,'1407843007','',1),(3,6,2,'1407843007','',2),(7,6,3,'','',3),(9,5,2,'1409118057','',1),(12,10,3,'1409544419','',1),(13,11,3,'1409544810','',2),(14,11,4,'1409544810','',3),(15,10,4,'1412592340','',1),(16,13,3,'1413854549','',2);
 /*!40000 ALTER TABLE `organise_assign` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,7 +260,7 @@ CREATE TABLE `program_assign` (
   `dateassigned` varchar(250) NOT NULL,
   `istrainer` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -269,7 +269,7 @@ CREATE TABLE `program_assign` (
 
 LOCK TABLES `program_assign` WRITE;
 /*!40000 ALTER TABLE `program_assign` DISABLE KEYS */;
-INSERT INTO `program_assign` VALUES (31,10,7,'1413420470',0),(33,10,5,'1413422604',0),(34,10,6,'1413422605',0),(35,11,1,'1413427393',1),(36,11,7,'1413427393',1),(39,10,2,'1413435273',0),(40,10,9,'1413435282',0),(41,10,8,'1413435316',0),(42,10,1,'1413449099',0);
+INSERT INTO `program_assign` VALUES (31,10,7,'1413420470',0),(33,10,5,'1413422604',0),(34,10,6,'1413422605',0),(35,11,1,'1413427393',1),(36,11,7,'1413427393',1),(39,10,2,'1413435273',0),(40,10,9,'1413435282',0),(41,10,8,'1413435316',0),(42,10,1,'1413449099',0),(43,13,2,'1413854560',0),(45,13,1,'1413854562',0),(46,13,7,'1413854565',0);
 /*!40000 ALTER TABLE `program_assign` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,7 +339,7 @@ CREATE TABLE `users` (
   `fb_fullname` varchar(250) NOT NULL,
   `fb_profileimageurl` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -348,7 +348,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Stewart','Wilson','stewartwilson@outlook.com','$2y$10$82VB/JJWvGTKqXK7oQq5BuPCvVURPSjQGxuH3tdQRcjpN09qYJQvS','0433971992',2519,'0','',1,1,'','','0','','',''),(4,'Stewart','W','sw730@uowmail.edu.au','$2y$10$o8xRW5d4XCsAyfCSrH7mQ.j2CaXW0/E2erOVdtk0/YX/KJQ8uAqV6','0411111111',2519,'0','',0,1,'','86312f1882fc284272d416d19a105856878c30ad95233bb8ead09ff3d0e1d14a','0','','',''),(5,'Stewart','Trainer','trainer@stewartwilson.id.au','$2y$10$UpXJ5SSgHf6DVZ1XIPw.IOqCxgDqx/xJykPBNt4qBpxpLnW8cYni6','0400000000',2519,'0','',1,2,'127.0.0.1','','0','','',''),(6,'Stewart 2','Trainer 2','trainer2@stewartwilson.id.au','$2y$10$DWA.020gpFYVWmWme8PI0ehwRf0Lw.gSbMND51mPeBE6QWDJe2GbO','0400000001',2519,'0','',1,0,'127.0.0.1','','10152614563742969','CAAD7yZCW0VZBMBAAvPkMAEysbnO6FCyFZBYK2by6kVsxrWqpSHXHYmeJ2CEH3dx1EQECk4invqlD9LItvZChQN3vTTPOx29lF8A0PduQsphnFZANJk95NZCZAEDKO8ZCQF4ZB3H2WZBicSJygBCAqFCmXXGzvd0LrZAVgVgLRtGuSZCPUp4BNQuRUjHtXMI2SwsO4VVqyzenawH3kmLeLoSKQA0w','Stewart Wilson','https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p74x74/10500499_10152521874937969_8601961230157440385_n.jpg?oh=b98d0bf579b1dcfaa7b43af3f07e7244&oe=546FDC39&__gda__=1417265631_00e968429e837d455adc2d6b6e6704fe'),(7,'James','W','jw192@uowmail.edu.au','$2y$10$adkV0EA/d1v/gnhmslJe3.bDSySJMkHhcw4m6X4kDm8E9.2rwaDXy','0430017348',2519,'0','',1,0,'10.64.20.182','','10203441127966472','CAAD7yZCW0VZBMBAMLK4ofPZCnS3GDrppJaZA0qUDHus2MzZCZASc6loUlbDsPSQZAJHLeZAki58h3wcBoqFFcdxyHh0e5saPIDzIkrZCIgyHUNQH4fq5XA4ZCtHh5ZBRTR4jZBqGIBSZCO11ttIra6Xg2ehCn7sp5RNZANgak58gBdQ8DGfLqEqZAhKDBkpLbNny2VKkmKplRpbpgMvyZBmbmgCbc3Kj','',''),(10,'Stewart','Wilson','client_test@stewartwilson.id.au','$2y$10$JxFges8YsyNtz3tuAZxaYu9X9yC7.6Vpbya66fsxPjHWknXFpZR.O','0400000002',2519,'-34.4054039','150.8784300',1,0,'127.0.0.1','','','','',''),(11,'Trainer','Trainer','trainer_test@stewartwilson.id.au','$2y$10$C31FAhRALgVGgJzsPSuDeeLbkk7rMjGYEi8/d0DZuL04voJ1R0GTe','0400000003',2519,'-34.4054039','150.8784300',1,0,'127.0.0.1','','','','','');
+INSERT INTO `users` VALUES (1,'Stewart','Wilson','stewartwilson@outlook.com','$2y$10$82VB/JJWvGTKqXK7oQq5BuPCvVURPSjQGxuH3tdQRcjpN09qYJQvS','0433971992',2519,'0','',1,1,'','','0','','',''),(4,'Stewart','W','sw730@uowmail.edu.au','$2y$10$o8xRW5d4XCsAyfCSrH7mQ.j2CaXW0/E2erOVdtk0/YX/KJQ8uAqV6','0411111111',2519,'0','',0,1,'','86312f1882fc284272d416d19a105856878c30ad95233bb8ead09ff3d0e1d14a','0','','',''),(5,'Stewart','Trainer','trainer@stewartwilson.id.au','$2y$10$UpXJ5SSgHf6DVZ1XIPw.IOqCxgDqx/xJykPBNt4qBpxpLnW8cYni6','0400000000',2519,'0','',1,2,'127.0.0.1','','0','','',''),(6,'Stewart 2','Trainer 2','trainer2@stewartwilson.id.au','$2y$10$DWA.020gpFYVWmWme8PI0ehwRf0Lw.gSbMND51mPeBE6QWDJe2GbO','0400000001',2519,'0','',1,0,'127.0.0.1','','10152614563742969','CAAD7yZCW0VZBMBAAvPkMAEysbnO6FCyFZBYK2by6kVsxrWqpSHXHYmeJ2CEH3dx1EQECk4invqlD9LItvZChQN3vTTPOx29lF8A0PduQsphnFZANJk95NZCZAEDKO8ZCQF4ZB3H2WZBicSJygBCAqFCmXXGzvd0LrZAVgVgLRtGuSZCPUp4BNQuRUjHtXMI2SwsO4VVqyzenawH3kmLeLoSKQA0w','Stewart Wilson','https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p74x74/10500499_10152521874937969_8601961230157440385_n.jpg?oh=b98d0bf579b1dcfaa7b43af3f07e7244&oe=546FDC39&__gda__=1417265631_00e968429e837d455adc2d6b6e6704fe'),(7,'James','W','jw192@uowmail.edu.au','$2y$10$adkV0EA/d1v/gnhmslJe3.bDSySJMkHhcw4m6X4kDm8E9.2rwaDXy','0430017348',2519,'0','',1,0,'10.64.20.182','','10203441127966472','CAAD7yZCW0VZBMBAMLK4ofPZCnS3GDrppJaZA0qUDHus2MzZCZASc6loUlbDsPSQZAJHLeZAki58h3wcBoqFFcdxyHh0e5saPIDzIkrZCIgyHUNQH4fq5XA4ZCtHh5ZBRTR4jZBqGIBSZCO11ttIra6Xg2ehCn7sp5RNZANgak58gBdQ8DGfLqEqZAhKDBkpLbNny2VKkmKplRpbpgMvyZBmbmgCbc3Kj','',''),(10,'Stewart','Wilson','client_test@stewartwilson.id.au','$2y$10$JxFges8YsyNtz3tuAZxaYu9X9yC7.6Vpbya66fsxPjHWknXFpZR.O','0400000002',2519,'-34.4054039','150.8784300',1,0,'127.0.0.1','','','','',''),(11,'Trainer','Trainer','trainer_test@stewartwilson.id.au','$2y$10$C31FAhRALgVGgJzsPSuDeeLbkk7rMjGYEi8/d0DZuL04voJ1R0GTe','0400000003',2519,'-34.4054039','150.8784300',1,0,'127.0.0.1','','','','',''),(12,'Test','1','signuptest+1@stewartwilson.id.au','$2y$10$efNStUuJw/8dPjfBJWRAF.ws.rA5LhkBsk7YK0JppAKKSI925rVkm','0400000006',0,'','',0,0,'','','','','',''),(13,'Stewart','Foley','a.a.r.o.n.s.foley@gmail.com','$2y$10$nIhRFbVmVKfoGQxAATTNiezePt8Bba7jwB/sWyBxTcnF/wB60Jqo.','0400000099',0,'-34.4054039','150.8784300',1,0,'130.130.37.12','','10152368773735718','CAAD7yZCW0VZBMBADSwuqm15sPozQA2XZBBT7Oeg4pGHnWyE0eCFZADCFbTzi50805GUveQfZA9G2vb7PjABnDZCQat2BibsiWLMnR6nK0xZA4ZBZCTimNXAtdFmfyIPPudm095RyZBoOyIG23jfkpOLAlO0YSzLGwYlRhw2ZBgb77AJmGEbGAp8m85Dsz1GRCXc7inhDWp8rdVm0lgTd19bGK86','Aaron Foley','private, no-cache, no-store, must-revalidate');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -361,4 +361,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-17  5:04:36
+-- Dump completed on 2014-10-21 22:02:28

@@ -226,7 +226,7 @@ class Temboo_Session
         }
 
         curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlHandle, CURLOPT_PROXY, 'socks5://127.0.0.1:8080');
+        //curl_setopt($curlHandle, CURLOPT_PROXY, 'socks5://127.0.0.1:8080');
         //curl_setopt($curlHandle, CURLOPT_PROXYUSERPWD, 'sw730:'.$proxypassword);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, 1) ;
         curl_setopt($curlHandle, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);

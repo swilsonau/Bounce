@@ -26,7 +26,9 @@ if(!isset($_SESSION['bouncenewid'])) {
 
 <div class="content-wrapper accountgrid">
   <div class="pure-g">
-    <h1>What kind of user are you?</h1>
+    <div class="pure-u-1 pure-u-md-1-1">
+      <h1>What kind of user are you?</h1>
+    </div>
   </div>
 
   <?php
@@ -84,8 +86,8 @@ if(!isset($_SESSION['bouncenewid'])) {
       </div>
 
       <div class="pure-u-1 pure-u-md-1-2">
-        <h2>I'm a PT</h2>
-        <p>I want to use <?php echo $sitename; ?> to communcate with my own clients</p>
+        <h2>I'm a Personal Trainer or Gym</h2>
+        <p>I want to use <?php echo $sitename; ?> to communcate with my own clients!</p>
 
         <form action="<?php echo $siteurl; ?>signup/part2/process" method="post">
           <input type="hidden" name="type" value="2">

@@ -32,8 +32,13 @@ switch(gethostname()) {
   break;
 
   case "proj-is06":
-    $siteurl = "http://bouncelocal.net/";
-    $sitename = "Bounce Dev";
+    if($_SERVER['SERVER_ADDR'] == "130.130.174.89") {
+      $siteurl = "http://".$_SERVER['SERVER_ADDR']."/";
+      $sitename = "Bounce Dev";
+    } else {
+      $siteurl = "http://bouncelocal.net/";
+      $sitename = "Bounce Dev";
+    }
     $alias = "proj-is06-dev";
   break;
 }
