@@ -200,7 +200,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
                 }
 
                 // Now update the database
-                $accchsql = mysqli_query($sql, "UPDATE `users` SET `firstname` = '$firstname', `lastname` = '$lastname', `emailaddress` = '$email', `phonenumber` = '$mobile'$updatepass WHERE `id` = '$userid'");
+                $accchsql = mysqli_query($sql, "UPDATE `users` SET `firstname` = '$firstname', `lastname` = '$lastname', `emailaddress` = '$email', `phonenumber` = '$mobile', `postcode` = '$postcode'$updatepass WHERE `id` = '$userid'");
 
                 if(!$accchsql) {
                   echo "There was an error changing your details. Please try again.";
@@ -257,7 +257,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
                 <div class="pure-control-group">
                     <label for="postcode">Postcode</label>
-                    <input name="postcode" type="text" placeholder="2500" size="5" value="">
+                    <input name="postcode" type="text" placeholder="2500" size="5" value="<?php echo $userdetails['postcode']; ?>">
                 </div>
 
               </fieldset>

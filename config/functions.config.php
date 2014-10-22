@@ -102,30 +102,30 @@ function dashnav($selected, $userdetails) {
 
   <div class="pure-menu pure-menu-open sidemenu">
     <ul>
-        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-home"></i> Dashboard Home</a></li>
-        <li'; if($selected == 'myplanner') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/myplanner"><i class="fa fa-calendar"></i> My Planner</a></li>
-        <li'; if($selected == 'myprogress') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-bar-chart-o"></i> My Progress</a></li>
-        <li'; if($selected == 'mytrainer') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-child"></i> My Trainers</a></li>
-        <li'; if($selected == 'myprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/myprograms"><i class="fa fa-rss"></i> My Programs</a></li>';
+        <li'; if($selected == '') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-home fa-fw"></i> Dashboard Home</a></li>
+        <li'; if($selected == 'myplanner') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/myplanner"><i class="fa fa-calendar fa-fw"></i> My Planner</a></li>
+        <li'; if($selected == 'myprogress') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-bar-chart-o fa-fw"></i> My Progress</a></li>
+        <li'; if($selected == 'mytrainer') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/"><i class="fa fa-child fa-fw"></i> My Trainers</a></li>
+        <li'; if($selected == 'myprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/myprograms"><i class="fa fa-rss fa-fw"></i> My Programs</a></li>';
         if(isset($isorg)) {
           $nav .= '<li class="pure-menu-heading">Organisation Settings</li>
-          <li'; if($selected == 'oprofile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/oprofile"><i class="fa fa-sitemap"></i> Organisation Profile</a></li>
-          <li'; if($selected == 'ousers') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/ousers"><i class="fa fa-users"></i> Organisation Users</a></li>
-          <li'; if($selected == 'oprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/oprograms"><i class="fa fa-location-arrow"></i> Organisation Programs</a></li>
+          <li'; if($selected == 'oprofile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/oprofile"><i class="fa fa-sitemap fa-fw"></i> Organisation Profile</a></li>
+          <li'; if($selected == 'ousers') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/ousers"><i class="fa fa-users fa-fw"></i> Organisation Users</a></li>
+          <li'; if($selected == 'oprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'org/oprograms"><i class="fa fa-location-arrow fa-fw"></i> Organisation Programs</a></li>
           ';
         } else {
           $nav .='<li class="pure-menu-heading">Find Trainers</li>
-          <li'; if($selected == 'findtrainers') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/findtrainers"><i class="fa fa-search"></i> Find Trainers</a></li>
-          <li'; if($selected == 'findprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/findprograms"><i class="fa fa-search"></i> Find Programs</a></li>';
+          <li'; if($selected == 'findtrainers') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/findtrainers"><i class="fa fa-search fa-fw"></i> Find Trainers</a></li>
+          <li'; if($selected == 'findprograms') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/findprograms"><i class="fa fa-search fa-fw"></i> Find Programs</a></li>';
       }
         $nav .= '
         <li class="pure-menu-heading">Messages</li>
-        <li'; if($selected == 'inbox') { $nav .= $select; } $nav .='><a href="'.$siteurl.'messaging/new"><i class="fa fa-plus-circle"></i> New</a></li>
-        <li'; if($selected == 'inbox') { $nav .= $select; } $nav .='><a href="'.$siteurl.'messaging/inbox"><i class="fa fa-envelope-o"></i> Inbox</a></li>
+        <li'; if($selected == 'inbox') { $nav .= $select; } $nav .='><a href="'.$siteurl.'messaging/new"><i class="fa fa-plus-circle fa-fw"></i> New</a></li>
+        <li'; if($selected == 'inbox') { $nav .= $select; } $nav .='><a href="'.$siteurl.'messaging/inbox"><i class="fa fa-envelope-o fa-fw"></i> Inbox</a></li>
         <li class="pure-menu-heading">Settings</li>
-        <li'; if($selected == 'profile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/profile"><i class="fa fa-user"></i> My Profile</a></li>
-        <li'; if($selected == 'apps') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/apps"><i class="fa fa-exchange"></i> Connected Apps</a></li>
-        <li'; if($selected == 'logout') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+        <li'; if($selected == 'profile') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/profile"><i class="fa fa-user fa-fw"></i> My Profile</a></li>
+        <li'; if($selected == 'apps') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/apps"><i class="fa fa-exchange fa-fw"></i> Connected Apps</a></li>
+        <li'; if($selected == 'logout') { $nav .= $select; } $nav .='><a href="'.$siteurl.'account/logout"><i class="fa fa-power-off fa-fw"></i> Logout</a></li>
     </ul>
   </div>';
 

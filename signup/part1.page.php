@@ -88,6 +88,11 @@ if(isset($_SESSION['forcedsignup'])) {
             $errorarray[] = "Your passwords do not match.";
           }
 
+          if(!empty($pass) && ($pass == $passconfirm) && !valid_pass($pass)) {
+            $errors++;
+            $errorarray[] = "Your new password does not meet password complexity requirements. Your password must be at least 8 characters long, contain one lowercase letter, one uppercase letter and one number.";
+          }
+
           if($firstname == '') {
             $errors++;
             $errorarray[] = "First Name is a required field.";
@@ -160,9 +165,29 @@ if(isset($_SESSION['forcedsignup'])) {
           } else {
             // All is well, start entering the user into the DB and save the user ID into a session
 
+            try {
+              $session = new Temboo_Session('bounceapp', 'Bounce', 'b3fa425a34b14b1898f8415aa083bedf');
+
+              $geocodeByAddress = new Google_Geocoding_GeocodeByAddress($session);
+              $geocodeByAddressInputs = $geocodeByAddress->newInputs();
+              $geocodeByAddressInputs->setAddress("$postcode Australia");
+              $geocodeByAddressResults = $geocodeByAddress->execute($geocodeByAddressInputs)->getResults();
+              //echo $geocodeByAddressResults->getResponse();
+              $geoxml = new SimpleXMLElement($geocodeByAddressResults->getResponse());
+
+              $geo = $geoxml->xpath('/GeocodeResponse/result/geometry');
+
+              $lat = (string) $geo[0]->location->lat;
+              $lng = (string) $geo[0]->location->lng;
+            } catch (Exception $e) {
+                // That didn't work, give them defaults
+                $lat = "-34.4331";
+                $lng = "150.8831";
+            }
+
             $hashpwd = password_hash($pass, PASSWORD_DEFAULT);
 
-            $addusersql = mysqli_query($sql, "INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `password`, `phonenumber`, `status`)VALUES('$firstname', '$lastname', '$email', '$hashpwd', '$mobile', '0')");
+            $addusersql = mysqli_query($sql, "INSERT INTO `users`(`firstname`, `lastname`, `emailaddress`, `password`, `phonenumber`, `status`, `postcode`, `pc_lat`, `pc_lng`)VALUES('$firstname', '$lastname', '$email', '$hashpwd', '$mobile', '0', '$postcode', '$lat', '$lng')");
 
             if(!$addusersql) {
               echo 'Sorry. There was an issue with creating your account. Please try again later or <a href="">contact us</a> for more information.';
