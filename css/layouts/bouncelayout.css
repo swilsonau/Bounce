@@ -458,6 +458,24 @@ aside {
     background: #111;
 }
 
+.footer-right ul {
+  list-style: none;
+}
+
+.footer-right li {
+  float: right;
+  background: #7f8c8d;
+  text-align: center;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.footer-right i {
+  margin: 20px;
+  font-size: 30px;
+  color: #FFF;
+}
+
 .accountgrid {
   width: 80%;
   margin-left: auto;

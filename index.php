@@ -142,11 +142,27 @@ if(!isset($_GET['page'])) {
 
 ?>
 
-    <div class="footer l-box is-center">
-        <img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="80px" /><br />
-        &copy; 2014 <?php echo $sitename; ?>. All Rights Reserved.<br />
-        <strong>Connected to:</strong> <?php echo $alias." (".gethostname().")"; ?><br />
-        <strong>Version:</strong> <?php echo $siteversion; ?>
+    <div class="footer l-box">
+        <div class="pure-g">
+            <div class="pure-u-1 pure-u-md-1-2 footer-left">
+              <img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="80px" /><br />
+              &copy; 2014 <?php echo $sitename; ?>. All Rights Reserved.<br />
+              <strong>Connected to:</strong> <?php echo $alias." (".gethostname().")"; ?><br />
+              <strong>Version:</strong> <?php echo $siteversion; ?>
+            </div>
+
+            <div class="pure-u-1 pure-u-md-1-2 footer-right">
+                <ul>
+                  <li><i class="fa fa-twitter fa-fw"></i></li>
+
+                  <li><i class="fa fa-facebook fa-fw"></i></li>
+
+                  <li><i class="fa fa-instagram fa-fw"></i></li>
+
+                  <li><i class="fa fa-envelope fa-fw"></i></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
 </div>
