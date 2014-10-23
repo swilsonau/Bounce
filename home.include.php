@@ -1,45 +1,18 @@
 <div class="splash-container">
-    <div class="splash pure-g">
-        <div class="pure-u-1 pure-u-md-1-2">
-          <h1 class="splash-head">New Users</h1>
-          <p class="splash-subhead">
-              Connect with your personal trainer better than ever before.
-          </p>
-          <p>
-              <a href="<?php echo $siteurl; ?>signup/part1" class="pure-button pure-button-primary">Sign Up</a>
-          </p>
-          <p>
-            <small>* Note, we are only trailing Bounce in Wollongong, NSW.</small>
-          </p>
-      </div>
-      <div class="pure-u-1 pure-u-md-1-2">
-        <h1 class="splash-head">Existing</h1>
+    <div class="splash">
+      <h1 class="splash-head">personal training<br />reinvented</h1>
         <p class="splash-subhead">
-            Login to your account to connect with your trainer now.
+            <?php echo $sitename; ?> aims to make your life easier by providing an easy to use, intuitive and functional website available anywhere, anytime.
         </p>
-          <form class="pure-form pure-form-stacked splash-form" action="<?php echo $siteurl; ?>account/login" method="post">
-            <fieldset>
-                <label for="email">Email</label>
-                <input name="email" type="email" placeholder="Email" required>
-
-                <label for="password">Password</label>
-                <input name="password" type="password" placeholder="Password" required>
-
-                <label for="remember" class="pure-checkbox">
-                    <input id="remember" type="checkbox" disabled="disabled"> Remember me
-                </label>
-
-                <button type="submit" class="pure-button pure-button-primary">Sign in</button>
-            </fieldset>
-          </form>
-      </div>
+        <p>
+            <a href="<?php echo $siteurl; ?>account" class="pure-button pure-button-primary">Get Started Now <i class="fa fa-arrow-circle-right"></i></a>
+        </p>
     </div>
-    <div style="clear: both;"></div>
 </div>
 
 <div class="content-wrapper">
     <div class="content">
-        <h2 class="content-head is-center">Personal Training - reinvented.</h2>
+        <h2 class="content-head is-center">Trainer or client - we're here to make your life easier</h2>
 
         <div class="pure-g">
             <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
@@ -86,13 +59,13 @@
         <div class="gmap-view">
           <div class="home-gmap">
             <script type="text/javascript">
-              function gmaps_ini_home(lat, lng, drag) {
+              function gmaps_ini_home() {
                 drag = (typeof drag === "undefined") ? true : drag;
-                var local = new google.maps.LatLng('-37', '150');
+                var local = new google.maps.LatLng('-34.4331', '150.8831');
 
                 var mapOptions = {
                   center: local,
-                  zoom: 16
+                  zoom: 14
                 };
 
                 var current = {
@@ -168,7 +141,7 @@
     </div>
 
     <div class="content">
-        <h2 class="content-head is-center">Dolore magna aliqua. Uis aute irure.</h2>
+        <h2 class="content-head is-center">personal trainer or gym - we want to talk to you</h2>
 
         <div class="pure-g">
             <div class="l-box-lrg pure-u-1 pure-u-md-2-5">
@@ -176,27 +149,31 @@
                     <fieldset>
 
                         <label for="name">Your Name</label>
-                        <input id="name" type="text" placeholder="Your Name">
+                        <input id="name" type="text" placeholder="Your Name" style="width: 100%;">
 
 
                         <label for="email">Your Email</label>
-                        <input id="email" type="email" placeholder="Your Email">
+                        <input id="email" type="email" placeholder="Your Email" style="width: 100%;">
 
-                        <label for="password">Your Password</label>
-                        <input id="password" type="password" placeholder="Your Password">
-
-                        <button type="submit" class="pure-button">Sign Up</button>
+                        <label for="business">Your Business</label>
+                        <input id="business" type="text" placeholder="Your Business" style="width: 100%;">
+                        <br />
+                        <button type="submit" class="pure-button" style="width: 100%;">Submit</button>
                     </fieldset>
                 </form>
             </div>
 
             <div class="l-box-lrg pure-u-1 pure-u-md-3-5">
-                <h4>Contact Us</h4>
+                <h4>Improve Communication</h4>
+                <p>
+                    Instanteous communication with your clients, imagine that. <?php echo $sitename; ?> can
+                    instantly notify your clients of important messages you send and even notify you when they read it.
+                </p>
+
+                <h4>More Information</h4>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat.
+                    tempor incididunt ut labore et dolore magna aliqua.
                 </p>
 
                 <h4>More Information</h4>

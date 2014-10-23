@@ -38,7 +38,7 @@ if(isset($_SESSION['forcedsignup'])) {
 
 <div class="content-wrapper account-grid">
   <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-1-2" style="padding: 5px">
+      <div class="pure-u-1 pure-u-md-1-2 signup-left" style="padding: 5px">
         <?php
           if(isset($_SESSION['forcedsignup'])) {
               echo '<aside class="warning">
@@ -47,6 +47,24 @@ if(isset($_SESSION['forcedsignup'])) {
               </aside>';
           }
         ?>
+
+        <ul>
+          <li>
+            <img src="" />
+          </li>
+
+          <li>
+            <img src="" />
+          </li>
+
+          <li>
+            <img src="" />
+          </li>
+
+          <li>
+            <img src="" />
+          </li>
+        </ul>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-2 signup-div">
