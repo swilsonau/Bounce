@@ -175,7 +175,7 @@ CREATE TABLE `organisation` (
   `address_state` varchar(10) NOT NULL,
   `address_postcode` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `organisation` (
 
 LOCK TABLES `organisation` WRITE;
 /*!40000 ALTER TABLE `organisation` DISABLE KEYS */;
-INSERT INTO `organisation` VALUES (1,'Wollongong Runners Association','sw730@uowmail.edu.au','-34.4103220','150.8994663','','','','','',''),(2,'Savvy Fitness Fairy Meadow','sw730@uowmail.edu.au','-34.40369098158406','150.89029823925216','notarealemail@savvy.com.au','0242841100','Unit 5/135-143 Princes Hwy','Fairy Meadow','NSW','2519'),(3,'Internetrix','internetrix+org@stewartwilson.id.au','-34.42181922124878','150.89200373379902','notarealemail@internetrix.com.au','0242286464','4/85-87 Smith St','Wollongong','NSW','2500'),(4,'Anytime Fitness Shellharbour','anytime-shellharbour@stewartwilson.id.au','-34.57938896991103','150.86789762645867','anytime-shellharbour@stewartwilson.id.au','0242315603','Shop 6 & 7, Suite 15 - 17 2 Memorial Drive','Shellharbour','NSW','2529'),(5,'Anytime Fitness Caringbah','anytimefitnesscaringbah@stewartwilson.id.au','-34.042403','151.122795','anytimefitnesscaringbah@stewartwilson.id.au','','329 Kingsway','Caringbah','NSW','2229');
+INSERT INTO `organisation` VALUES (1,'Wollongong Runners Association','sw730@uowmail.edu.au','-34.4103220','150.8994663','','','','','',''),(2,'Savvy Fitness Fairy Meadow','sw730@uowmail.edu.au','-34.40369098158406','150.89029823925216','notarealemail@savvy.com.au','0242841100','Unit 5/135-143 Princes Hwy','Fairy Meadow','NSW','2519'),(3,'Internetrix','internetrix+org@stewartwilson.id.au','-34.42181922124878','150.89200373379902','notarealemail@internetrix.com.au','0242286464','4/85-87 Smith St','Wollongong','NSW','2500'),(4,'Anytime Fitness Shellharbour','anytime-shellharbour@stewartwilson.id.au','-34.57938896991103','150.86789762645867','anytime-shellharbour@stewartwilson.id.au','0242315603','Shop 6 & 7, Suite 15 - 17 2 Memorial Drive','Shellharbour','NSW','2529'),(5,'Anytime Fitness Caringbah','anytimefitnesscaringbah@stewartwilson.id.au','-34.042403','151.122795','anytimefitnesscaringbah@stewartwilson.id.au','','329 Kingsway','Caringbah','NSW','2229'),(6,'Anytime Fitness Corrimal','anytimeadmin@stewartwilson.id.au','-34.38131394587494','150.8958139607132','anytimeadmin@stewartwilson.id.au','0242859883','417 Princes Hwy','Corrimal','NSW','2518'),(7,'Anytime Fitness Woonona','anytimeadmin@stewartwilson.id.au','-34.341037723086934','150.9065545386925','anytimeadmin@stewartwilson.id.au','0242836955','378 Princes Hwy','Woonona','NSW','2517'),(8,'Definition Fitness Wollongong','anytimeadmin@stewartwilson.id.au','-34.434995334213376','150.8873624024468','anytimeadmin@stewartwilson.id.au','0242269143','108 Auburn St','Wollongong','NSW','2500');
 /*!40000 ALTER TABLE `organisation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,7 +203,7 @@ CREATE TABLE `organise_assign` (
   `date_unassigned` varchar(250) NOT NULL,
   `perms` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +212,7 @@ CREATE TABLE `organise_assign` (
 
 LOCK TABLES `organise_assign` WRITE;
 /*!40000 ALTER TABLE `organise_assign` DISABLE KEYS */;
-INSERT INTO `organise_assign` VALUES (1,5,1,'1407843007','',1),(3,6,2,'1407843007','',2),(7,6,3,'','',3),(9,5,2,'1409118057','',1),(12,10,3,'1409544419','',1),(13,11,3,'1409544810','',2),(14,11,4,'1409544810','',3),(15,10,4,'1412592340','',1),(16,13,3,'1413854549','',2),(18,16,5,'1413957719','',2),(19,17,5,'1413957861','',1);
+INSERT INTO `organise_assign` VALUES (1,5,1,'1407843007','',1),(3,6,2,'1407843007','',2),(7,6,3,'','',3),(9,5,2,'1409118057','',1),(12,10,3,'1409544419','',1),(13,11,3,'1409544810','',2),(14,11,4,'1409544810','',3),(15,10,4,'1412592340','',1),(16,13,3,'1413854549','',2),(18,16,5,'1413957719','',2),(19,17,5,'1413957861','',1),(20,11,6,'1414121242','',3),(21,11,7,'1414121242','',3),(22,11,8,'1414121242','',3),(23,16,6,'1414121242','',3),(24,16,7,'1414121242','',3),(25,16,8,'1414121242','',3);
 /*!40000 ALTER TABLE `organise_assign` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -362,4 +362,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-23 19:38:35
+-- Dump completed on 2014-10-24 15:10:33

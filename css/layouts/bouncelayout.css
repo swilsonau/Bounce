@@ -124,7 +124,6 @@ a.pure-button-primary {
     color: #AECFE5;
 }
 
-
 /*
  * -- SPLASH STYLES --
  * This is the blue top section that appears on the page.
@@ -458,6 +457,18 @@ aside {
     background: #111;
 }
 
+.footer-left img {
+  float: left;
+  width: 200px;
+  display: block;
+  margin-right: 20px;
+}
+
+.footer-left p {
+  font-size: 13px;
+  line-height: 1.2em;
+}
+
 .footer-right ul {
   list-style: none;
 }
@@ -474,6 +485,11 @@ aside {
   margin: 20px;
   font-size: 30px;
   color: #FFF;
+}
+
+.footer-right a {
+  display: block;
+  text-decoration: none;
 }
 
 .accountgrid {
@@ -756,6 +772,40 @@ aside {
 
     .splash a {
       padding: 10px;
+    }
+
+    /* Footer for mobile */
+    .footer-left {
+      text-align: center;
+    }
+
+    .footer-left img {
+      width: 100px;
+      float: none;
+      display: inline;
+    }
+
+    .footer-left p {
+      font-size: 13px;
+      line-height: 1.2em;
+    }
+
+    .footer-right ul {
+      list-style: none;
+    }
+
+    .footer-right li {
+      float: left;
+      background: #7f8c8d;
+      text-align: center;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+
+    .footer-right i {
+      margin: 10px;
+      font-size: 20px;
+      color: #FFF;
     }
  }
 

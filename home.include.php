@@ -60,12 +60,10 @@
           <div class="home-gmap">
             <script type="text/javascript">
               function gmaps_ini_home() {
-                drag = (typeof drag === "undefined") ? true : drag;
-                var local = new google.maps.LatLng('-34.4331', '150.8831');
-
                 var mapOptions = {
-                  center: local,
-                  zoom: 14
+                  center: new google.maps.LatLng('-34.4082794', '150.883658'),
+                  zoom: 10,
+                  disableDefaultUI: true
                 };
 
                 var current = {
@@ -88,15 +86,31 @@
                   anchor: new google.maps.Point(17, 32)
                 };
 
-                var map = new google.maps.Map(document.getElementById("map-canvas"),
-                    mapOptions);
+                var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+                <?php
+                $orgsql = mysqli_query($sql, "SELECT `id`, `cord_lat`, `cord_long` FROM `organisation`");
+
+                if(!$orgsql) {
+                  // There was an error
+                } else {
+                  while($org = mysqli_fetch_array($orgsql)) {
+                    $id = $org['id'];
+                    $cord_lat = $org['cord_lat'];
+                    $cord_long = $org['cord_long'];
+
+                    echo "var pos$id = new google.maps.LatLng('$cord_lat', '$cord_long');
 
                     var marker = new google.maps.Marker({
-                        position: local,
+                        position: pos$id,
                         map: map,
-                        icon: image,
-                        draggable:drag
+                        icon: image
                     });
+                    ";
+                  }
+                }
+
+                ?>
 
                     if(!!navigator.geolocation) {
                       navigator.geolocation.getCurrentPosition(function(position) {
@@ -111,17 +125,6 @@
                           });
                     });
                   }
-
-                    google.maps.event.addListener(marker, 'dragend', function() {
-                      // When the user moves the marker, enable the save location button
-                      $('.bounce-savelocal').removeClass('pure-button-disabled');
-
-                      // Store these vars in hidden inputs....
-                      var change = marker.getPosition();
-
-                      $('#latchng').val(change.lat());
-                      $('#lngchng').val(change.lng());
-                    });
               }
 
 

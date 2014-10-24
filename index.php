@@ -145,21 +145,21 @@ if(!isset($_GET['page'])) {
     <div class="footer l-box">
         <div class="pure-g">
             <div class="pure-u-1 pure-u-md-1-2 footer-left">
-              <img src="<?php echo $siteurl; ?>img/bounce-logo-white.png" width="80px" /><br />
-              &copy; 2014 <?php echo $sitename; ?>. All Rights Reserved.<br />
+              <img src="<?php echo $siteurl; ?>img/bounce-logo-footer.png" />
+              <p>&copy; 2014 <?php echo $sitename; ?>. All Rights Reserved.<br />
               <strong>Connected to:</strong> <?php echo $alias." (".gethostname().")"; ?><br />
-              <strong>Version:</strong> <?php echo $siteversion; ?>
+              <strong>Version:</strong> <?php echo $siteversion; ?></p>
             </div>
 
             <div class="pure-u-1 pure-u-md-1-2 footer-right">
                 <ul>
-                  <li><i class="fa fa-twitter fa-fw"></i></li>
+                  <li><a href="#" target="_blank"><i class="fa fa-twitter fa-fw"></i></a></li>
 
-                  <li><i class="fa fa-facebook fa-fw"></i></li>
+                  <li><a href="#" target="_blank"><i class="fa fa-facebook fa-fw"></i></a></li>
 
-                  <li><i class="fa fa-instagram fa-fw"></i></li>
+                  <li><a href="#" target="_blank"><i class="fa fa-instagram fa-fw"></i></a></li>
 
-                  <li><i class="fa fa-envelope fa-fw"></i></li>
+                  <li><a href="#" target="_blank"><i class="fa fa-envelope fa-fw"></i></a></li>
                 </ul>
             </div>
         </div>
