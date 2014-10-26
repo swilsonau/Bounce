@@ -153,13 +153,13 @@ if(!isset($_GET['page'])) {
 
             <div class="pure-u-1 pure-u-md-1-2 footer-right">
                 <ul>
-                  <li><a href="#" target="_blank"><i class="fa fa-twitter fa-fw"></i></a></li>
+                  <li><a href="https://twitter.com/xpthebounce" target="_blank"><i class="fa fa-twitter fa-fw"></i></a></li>
 
-                  <li><a href="#" target="_blank"><i class="fa fa-facebook fa-fw"></i></a></li>
+                  <li><a href="https://www.facebook.com/xpthebounce" target="_blank"><i class="fa fa-facebook fa-fw"></i></a></li>
 
                   <li><a href="#" target="_blank"><i class="fa fa-instagram fa-fw"></i></a></li>
 
-                  <li><a href="#" target="_blank"><i class="fa fa-envelope fa-fw"></i></a></li>
+                  <li><a href="mailto:bounceissues@351project.com" target="_blank"><i class="fa fa-envelope fa-fw"></i></a></li>
                 </ul>
             </div>
         </div>
