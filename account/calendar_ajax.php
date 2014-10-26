@@ -54,7 +54,7 @@ if(!$checkpermssql) {
           for($i = 0; $i < $numofdays; $i++) {
               $timestart = strtotime($result. " ".$prog['timestart']. " + $i week");
               $timeend = strtotime($result. " ".$prog['timeend']. " + $i week");
-              $array[] = array("id" => $prog['pid'], "title" => $prog['programname'], "start" => date('Y-m-d\TH:i', $timestart), "end" => date('Y-m-d\TH:i', $timeend), "color" => $color, "backgroundColor" => $color);
+              $array[] = array("id" => $prog['pid'], "title" => $prog['programname'], "start" => date('Y-m-d\TH:i', $timestart), "hstart" => date('d/m/Y h:i A', $timestart), "end" => date('Y-m-d\TH:i', $timeend), "location" => $prog['street'].' '.$prog['suburb'], "color" => $color, "backgroundColor" => $color);
           }
         } else {
           // One off
@@ -69,5 +69,29 @@ if(!$checkpermssql) {
 
 }
 
-echo json_encode($array);
+if(isset($_GET['next'])) {
+  $nextcount = $_GET['next'];
+
+  function sortFunction( $a, $b ) {
+      return strtotime($a["start"]) - strtotime($b["start"]);
+  }
+
+  //usort($array, "sortFunction");
+
+  foreach($array as $day)
+    {
+      $interval[] = abs(time() - strtotime($day['start']));
+    }
+
+    asort($interval);
+
+    // Generate new array
+    foreach($interval as $key => $arr) {
+      $newarray[] = $array[$key];
+    }
+
+    echo json_encode(array_slice($newarray, 0, $nextcount));
+} else {
+  echo json_encode($array);
+}
 ?>

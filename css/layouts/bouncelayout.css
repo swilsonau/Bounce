@@ -268,6 +268,14 @@ a.pure-button-primary {
   padding: 20px;
 }
 
+.register input, .login input {
+  width: 100%;
+}
+
+.register label, .login label {
+  color: white;
+}
+
 .register h2 {
   color: white;
   text-transform: uppercase;
@@ -616,11 +624,20 @@ aside {
    margin-left: 5px;
    margin-bottom: 5px;
    height: 200px;
-   background: #ea2828;
+   background: #701E08;
+   padding: 10px;
  }
 
  .tile:hover {
    background: #c10404;
+ }
+
+ .tile h2 {
+   color: white;
+ }
+
+ .tile p {
+   color: white;
  }
 
 /*

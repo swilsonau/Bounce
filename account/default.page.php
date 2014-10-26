@@ -3,6 +3,16 @@ if(checklogin()) {
 $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 ?>
 
+<script>
+$.get("<?php echo $siteurl; ?>account/calendar_ajax.php?next=1", function( data ) {
+  rsp = JSON.parse(data);
+
+  $( ".remindertile" ).html(
+    "<h2>Your next session</h2><p>" + rsp[0].title + "<br />Starts: " + rsp[0].hstart + "<br />At: " + rsp[0].location + "</p>"
+  );
+});
+</script>
+
 <div class="page-header">
   <div class="content">
     <h1>Hi <?php echo $userdetails['firstname']; ?>!</h1>
@@ -22,15 +32,8 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
       </div>
       <div class="pure-u-1 pure-u-md-3-4 tile-grid">
         <div class="pure-g tile-row">
-          <div class="pure-u-1 pure-u-md-2-5 tile">
-            <h2>Next Session Reminder</h2>
-            <p>
-              Your next session is booked for:<br />
-              Date: MON 20th August<br />
-              Time: 6:00am<br />
-              Location: North Wollongong Beach<br />
-              Trainer: Daniel Chapman<br />
-            </p>
+          <div class="pure-u-1 pure-u-md-2-5 tile remindertile">
+
           </div>
 
           <div class="pure-u-1 pure-u-md-4-24 tile">
@@ -94,11 +97,7 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
 
               <label for="password">Password</label>
               <input name="password" type="password" placeholder="Password" required>
-
-              <label for="remember" class="pure-checkbox">
-                  <input id="remember" type="checkbox" disabled="disabled"> Remember me
-              </label>
-
+              <br />
               <button type="submit" class="pure-button pure-button-primary">Sign in</button>
           </fieldset>
         </form>
@@ -107,27 +106,12 @@ $userdetails = fetchuserdetail($_SESSION['bounceuser']);
       <div class="pure-u-1 pure-u-md-1-2 register">
         <h2>Not a user?</h2>
         <p class="text-subhead">Discover how easy it is to use Bounce. Connect with your new Personal Trainer in an instant.</p>
-        <form class="pure-form pure-form-stacked" action="<?php echo $siteurl; ?>account/register" method="post">
-          <fieldset>
-              <label for="firstname">First Name</label>
-              <input id="firstname" type="text" placeholder="First Name" required>
 
-              <label for="lastname">Last Name</label>
-              <input id="lastname" type="text" placeholder="Last Name" required>
-
-              <label for="email">Email</label>
-              <input id="email" type="email" placeholder="Email" required>
-
-              <label for="password">Password</label>
-              <input id="password" type="password" placeholder="Password" required>
-
-              <label for="remember" class="pure-checkbox">
-                  <input id="remember" type="checkbox" disabled="disabled"> Remember me
-              </label>
-
-              <button type="submit" class="pure-button pure-button-primary">Sign in</button>
-          </fieldset>
-        </form>
+        <p>Quickly enrol into Programs</p>
+        <p>Communicate with your trainer in an instant</p>
+        <p>Check and share your progress</p>
+        <br />
+        <a href="<?php echo $siteurl; ?>signup/part1" class="pure-button pure-button-primary">Sign Up</a>
       </div>
     </div>
     <div class="pure-g">
